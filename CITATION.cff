@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use Archaeopteryx, please cite it as below. A dedicated publication is in preparation; until it appears, cite the software and, where possible, the archived release DOI."
+title: "Archaeopteryx"
+abstract: >-
+  Archaeopteryx is a desktop application for the visualization, annotation, and
+  analysis of phylogenetic trees, built for publication-quality figures. It
+  offers integrated taxonomy and sequence annotation, protein-domain
+  architectures, calendar and geologic time axes, and WYSIWYG vector export.
+type: software
+authors:
+  - family-names: "Zmasek"
+    given-names: "Christian M."
+    orcid: "https://orcid.org/0000-0000-0000-0000"   # TODO: replace with the real ORCID
+repository-code: "https://github.com/cmzmasek/Archaeopteryx"
+url: "https://cmzmasek.github.io/archaeopteryx"
+license: "GPL-3.0"
+keywords:
+  - phylogenetics
+  - phylogenetic tree
+  - tree visualization
+  - phyloXML
+  - bioinformatics
+# When a release is archived on Zenodo, add its DOI here so GitHub's "Cite this
+# repository" and the Zenodo record stay in sync:
+# doi: "10.5281/zenodo.XXXXXXX"
+#
+# When the paper is published, add it as the preferred citation:
+# preferred-citation:
+#   type: article
+#   authors:
+#     - family-names: "Zmasek"
+#       given-names: "Christian M."
+#   title: "..."
+#   journal: "..."
+#   year: 20XX
+#   doi: "..."
