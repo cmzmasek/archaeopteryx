@@ -1,0 +1,155 @@
+# Build the Archaeopteryx installers from the forester source tree and publish them
+# as a Release IN THIS repository — giving Archaeopteryx its own versioned, citable
+# release stream, decoupled from forester's own tag history.
+#
+# The source lives in cmzmasek/forester; this workflow checks it out at a pinned ref,
+# runs the SAME jpackage build the forester repo uses (forester/.github/workflows/
+# installers.yml is the canonical recipe — keep the two in sync), and attaches the
+# .dmg / .msi / .deb to a Release here.
+#
+# Trigger it manually (Actions -> Release Archaeopteryx -> Run workflow) and supply:
+#   forester_ref  the forester tag/branch/commit to build   (e.g. 0.11.73)
+#   release_tag   the Archaeopteryx release version to cut   (e.g. 0.11.73, later 1.0.0)
+#   prerelease    mark the GitHub Release as a prerelease    (true while pre-1.0)
+
+name: Release Archaeopteryx
+
+on:
+  workflow_dispatch:
+    inputs:
+      forester_ref:
+        description: "forester ref to build (tag / branch / commit)"
+        required: true
+        default: "master"
+      release_tag:
+        description: "Archaeopteryx release tag to publish here"
+        required: true
+      prerelease:
+        description: "Mark as prerelease"
+        type: boolean
+        default: true
+
+jobs:
+  build:
+    name: ${{ matrix.kind }} installer
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: macos-latest,   kind: mac }
+          - { os: windows-latest, kind: win }
+          - { os: ubuntu-latest,  kind: linux }
+    runs-on: ${{ matrix.os }}
+    steps:
+      # Check out the SOURCE from forester at the requested ref (not this repo).
+      - name: Check out forester
+        uses: actions/checkout@v4
+        with:
+          repository: cmzmasek/forester
+          ref: ${{ github.event.inputs.forester_ref }}
+
+      - name: Set up JDK 21 (Temurin — bundles jpackage)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Install Ant + fakeroot (Linux .deb)
+        if: matrix.kind == 'linux'
+        run: sudo apt-get update && sudo apt-get install -y ant fakeroot
+
+      - name: Ensure WiX 3 on PATH (Windows .msi)
+        if: matrix.kind == 'win'
+        shell: pwsh
+        run: |
+          $candle = Get-ChildItem 'C:\Program Files*\WiX Toolset*' -Recurse -Filter candle.exe -ErrorAction SilentlyContinue | Select-Object -First 1
+          if (-not $candle) {
+            choco install wixtoolset --no-progress -y
+            $candle = Get-ChildItem 'C:\Program Files*\WiX Toolset*' -Recurse -Filter candle.exe -ErrorAction SilentlyContinue | Select-Object -First 1
+          }
+          if (-not $candle) { throw 'WiX 3 (candle.exe) not found — jpackage needs it to build a .msi' }
+          Add-Content -Path $env:GITHUB_PATH -Value $candle.DirectoryName
+
+      # This block mirrors forester/.github/workflows/installers.yml exactly.
+      - name: Build & package
+        shell: bash
+        working-directory: forester/java
+        run: |
+          set -euxo pipefail
+          if [ "${{ matrix.kind }}" = "mac" ]; then
+            ant jpackage-dmg
+          else
+            ant all
+            VERSION=$(grep 'VERSION =' src/org/forester/archaeopteryx/AptxConstants.java | head -1 | sed -E 's/.*"([^"]+)".*/\1/')
+            mkdir -p dist/input
+            cp forester.jar dist/input/
+            COMMON=(--name Archaeopteryx
+                    --vendor "Christian M. Zmasek"
+                    --copyright "Copyright (C) 2026 Christian M. Zmasek"
+                    --input dist/input --main-jar forester.jar
+                    --main-class org.forester.archaeopteryx.Archaeopteryx
+                    --java-options -Xmx2g --dest dist)
+            if [ "${{ matrix.kind }}" = "win" ]; then
+              BUNDLE_VERSION=$(echo "$VERSION" | sed -E 's/^0\.//')
+              jpackage --type msi --app-version "$BUNDLE_VERSION" \
+                --icon ../../archaeopteryx_icon_assets/archaeopteryx-anime.ico \
+                --win-menu --win-shortcut --win-dir-chooser \
+                "${COMMON[@]}"
+              mv dist/*.msi "dist/Archaeopteryx-$VERSION.msi"
+            else
+              jpackage --type deb --app-version "$VERSION" \
+                --icon ../../archaeopteryx_icon_assets/archaeopteryx-badge-512.png \
+                --linux-shortcut \
+                "${COMMON[@]}"
+            fi
+          fi
+          ls -la dist
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: Archaeopteryx-${{ matrix.kind }}
+          path: |
+            forester/java/dist/*.dmg
+            forester/java/dist/*.msi
+            forester/java/dist/*.deb
+          if-no-files-found: error
+
+  # Publish the three installers as a Release in THIS repo (GITHUB_REPOSITORY = cmzmasek/Archaeopteryx).
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download installers
+        uses: actions/download-artifact@v4
+        with:
+          path: release
+          merge-multiple: true
+
+      - name: Create / update the GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.inputs.release_tag }}
+          PRERELEASE: ${{ github.event.inputs.prerelease }}
+          SOURCE_REF: ${{ github.event.inputs.forester_ref }}
+        run: |
+          set -euxo pipefail
+          PRE=""
+          [ "$PRERELEASE" = "true" ] && PRE="--prerelease"
+          cat > notes.md <<EOF
+          Archaeopteryx $TAG — self-contained installers with a bundled runtime (no Java required).
+
+          - macOS: \`.dmg\`  ·  Windows: \`.msi\`  ·  Linux: \`.deb\`
+
+          Built from forester @ \`$SOURCE_REF\`. The installers are ad-hoc signed;
+          on first launch macOS/Windows may warn about an unidentified developer.
+          EOF
+          # Tag this repo's default branch at the release point if the tag doesn't exist yet.
+          if gh release view "$TAG" -R "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release edit "$TAG" -R "$GITHUB_REPOSITORY" --notes-file notes.md $PRE
+          else
+            gh release create "$TAG" -R "$GITHUB_REPOSITORY" --title "Archaeopteryx $TAG" --notes-file notes.md $PRE --target main
+          fi
+          gh release upload "$TAG" -R "$GITHUB_REPOSITORY" release/* --clobber
