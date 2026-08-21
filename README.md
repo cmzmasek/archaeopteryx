@@ -9,7 +9,7 @@ architectures, calendar and geologic time axes, and WYSIWYG vector (PDF / SVG /
 EPS) export.
 
 **→ [cmzmasek.github.io/archaeopteryx](https://cmzmasek.github.io/archaeopteryx)** ·
-**[Download the latest release](https://github.com/cmzmasek/Archaeopteryx/releases/latest)**
+**[Download the latest release](https://github.com/cmzmasek/archaeopteryx/releases/latest)**
 
 Self-contained installers (macOS `.dmg`, Windows `.msi`, Linux `.deb`) bundle a
 runtime — there is no Java to install.

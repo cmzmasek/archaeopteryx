@@ -11,7 +11,7 @@ authors:
   - family-names: "Zmasek"
     given-names: "Christian M."
     orcid: "https://orcid.org/0000-0000-0000-0000"   # TODO: replace with the real ORCID
-repository-code: "https://github.com/cmzmasek/Archaeopteryx"
+repository-code: "https://github.com/cmzmasek/archaeopteryx"
 url: "https://cmzmasek.github.io/archaeopteryx"
 license: "GPL-3.0"
 keywords:

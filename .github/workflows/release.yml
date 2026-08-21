@@ -115,7 +115,7 @@ jobs:
             forester/java/dist/*.deb
           if-no-files-found: error
 
-  # Publish the three installers as a Release in THIS repo (GITHUB_REPOSITORY = cmzmasek/Archaeopteryx).
+  # Publish the three installers as a Release in THIS repo (GITHUB_REPOSITORY = cmzmasek/archaeopteryx).
   release:
     needs: build
     runs-on: ubuntu-latest
