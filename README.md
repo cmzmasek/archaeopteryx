@@ -509,6 +509,31 @@ so the problem is visible rather than silent.
 > `https://commons.wikimedia.org/wiki/Special:FilePath/<FileName>`, which redirects to
 > the image file itself.
 
+## Sequence alignment
+
+Show a multiple sequence alignment **beside the tree** — the classic tree + alignment
+figure. Load an aligned FASTA with **File → Load Alignment (FASTA)…**; each row is joined
+to the tip of the same name and drawn as a track of colored residue cells to the right of
+the labels. A tree saved as phyloXML **embeds the alignment** (it is written onto each
+tip's molecular sequence), so a re-opened tree shows its alignment automatically — and a
+tree that already carries aligned sequences turns the display on when you open it.
+
+- **Coloring** follows the residue: a Zappo-style scheme for amino acids and an A/C/G/T-U
+  scheme for nucleotides (auto-detected). At a wide enough column width the residue
+  **letter** is drawn in each cell; gap positions show a faint dash.
+- A **dedicated scrollbar** below the alignment pans the columns while the tree and its
+  labels stay in place, so a long alignment stays navigable.
+- **Faint boundary lines** mark the true start and end of the alignment, so a
+  scrolled-into window is distinguishable from the real edges.
+- A **column ruler** below the alignment shows absolute 1-based column numbers, so you can
+  read exactly which columns a scrolled window is showing.
+
+Turn the display on or off and set the per-residue column width in **Settings → Overlays**
+(**Sequence Alignment** + **Alignment column width**; the width is remembered between
+sessions). Loading an alignment is undoable, and the whole track renders in every export
+(PDF, SVG, EPS, PNG). This first version is drawn in the rectangular **root-on-left**
+layout. There is a ready-made example in **File → Demo Trees → Alignment next to Tree**.
+
 ## Broken (truncated) long branches
 
 One branch that is far longer than the rest — a distant outgroup, a fast-evolving
