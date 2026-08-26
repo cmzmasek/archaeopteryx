@@ -518,6 +518,13 @@ the labels. A tree saved as phyloXML **embeds the alignment** (it is written ont
 tip's molecular sequence), so a re-opened tree shows its alignment automatically — and a
 tree that already carries aligned sequences turns the display on when you open it.
 
+You can also open a **Nexus** file that bundles a tree and a sequence matrix in one file (a
+`CHARACTERS` or `DATA` block of protein/DNA/RNA, as produced by MrBayes, PAUP\*, and similar
+tools). Just open it with **File → Read Tree from File…**; the matrix rows are joined to the
+tips by taxon name and the alignment shows beside the tree automatically — no separate step.
+Interleaved matrices, `MATCHCHAR` (`.`) shorthand, `[ ]` comments, and taxon names that
+differ only in case or in `_`-vs-space between the tree and the matrix are all handled.
+
 - **Coloring** follows the residue: a Zappo-style scheme for amino acids and an A/C/G/T-U
   scheme for nucleotides (auto-detected). At a wide enough column width the residue
   **letter** is drawn in each cell; gap positions show a faint dash.
