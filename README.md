@@ -475,6 +475,40 @@ References:
   toolkit to classify genomes with the Genome Taxonomy Database", *Bioinformatics*
   36(6):1925–1927.
 
+## Tip images
+
+Show a picture at each tip — a species photo, a phylogenetic silhouette, a specimen
+image — drawn **right at the branch end**, so a figure carries its own visual key.
+Turn it on with **Settings → Overlays → Tip Images**, and set the size with the slider
+next to it (a fixed height in pixels; the aspect ratio is preserved).
+
+Each image comes from a **reference** attached to the tip. Two forms are auto-detected:
+
+- a **local file** — a relative path (resolved against the folder the tree was loaded
+  from) or an absolute path, e.g. `images/t_rex.png`;
+- an **http(s) URL** — fetched once, off the main thread, and kept in a small on-disk
+  cache (`~/.archaeopteryx/image-cache`), so re-opening a tree of web images is instant
+  and works offline afterwards.
+
+The reference is read from a node **property** (`image`, `img`, `photo`, `silhouette`,
+`picture`, `thumbnail`, `tip_image`, or `image_url`), from a taxonomy `<uri>` of type
+`image_url`, or from any property whose value ends in a raster-image extension
+(`.png`, `.jpg`, `.jpeg`, `.gif`, `.bmp` — SVG is not yet supported). The everyday way
+to attach it is the raw tree plus a spreadsheet: keep an image column in your CSV/TSV
+and load it with **File → Import Annotations**. A tree that already carries image
+references turns Tip Images on automatically when you open it.
+
+Tip images render in **all five display types** — rectangular (root left / top / bottom)
+and, drawn upright on the spoke, circular and unrooted — and appear in every export
+(PDF, SVG, EPS, PNG). A reference that cannot be loaded (a missing file, or a URL that
+points at a web *page* rather than the image itself) draws a faint broken-image marker
+so the problem is visible rather than silent.
+
+> **Wikimedia Commons tip:** a Commons *article* URL (`…/wiki/File:…`) returns a web
+> page, not an image. Use a direct-file URL such as
+> `https://commons.wikimedia.org/wiki/Special:FilePath/<FileName>`, which redirects to
+> the image file itself.
+
 ## Broken (truncated) long branches
 
 One branch that is far longer than the rest — a distant outgroup, a fast-evolving
