@@ -157,6 +157,59 @@ in the source repository for browsing on GitHub.)
 
 ---
 
+## Display controls
+
+The three things you change most often live at the top of the **control panel**
+on the left, as icon buttons rather than words — one click each, no dialog.
+
+**Theme.** A single **sun / moon** button switches between the light and dark
+themes. It always shows the theme it will switch *to*: a moon while you are in
+the light theme, a sun while you are in the dark one. The tree canvas follows
+the theme, and the choice is remembered between sessions.
+
+**Layout — the five display types.** One row of five buttons, one exclusive
+group, covering every way Archaeopteryx can draw a tree:
+
+| button | layout |
+| --- | --- |
+| tree pointing right | rectangular, **root at left** (the classic view) |
+| tree hanging down | rectangular, **root at top** |
+| tree growing up | rectangular, **root at bottom** |
+| open ring with spokes | **circular** |
+| free-form star | **unrooted** |
+
+Layout family and root position are one question, so they are one control: any
+layout is a single click from any other, and there is no hidden "which
+orientation do I come back to?" state. All five are first-class — annotation
+columns, clade bands, time axes, HPD and range bars, tip images and the vector
+exports all work in every one of them.
+
+**Phylogram / cladogram.** A row of three buttons, each drawn as a small tree
+*with its tip labels*, because the labels are where the difference actually
+shows:
+
+| button | what it draws |
+| --- | --- |
+| ragged branches, ragged labels | **phylogram** — branch lengths to scale, so the tips end ragged |
+| ragged branches, labels in a column | **aligned phylogram** — the same tree, with every tip label carried out to a common column |
+| flush branches, labels in a column | **cladogram** — topology only; branch lengths ignored, all tips flush |
+
+The aligned view needs somewhere to pin the labels — the common right-hand
+column in the rectangular layouts, the outer ring in circular — so it is
+unavailable (and greyed out) in the **unrooted** layout, which has neither. Your
+choice is remembered per tab and comes back when that tab leaves unrooted. All
+three are disabled for a tree without branch lengths, which can only be drawn as
+a cladogram.
+
+**Rectangular style.** How a branch *joint* is drawn is a separate, set-once
+choice under **Settings → Layout → Rectangular style**: **Square** (right-angle
+elbows, the default), **Euro Type** (a slanted corner), **Rounded** (a curved
+corner) or **Triangular** (clades drawn as triangles). You can set it at any
+time — picking a style while a circular or unrooted tree is on screen does not
+switch the layout; it takes effect the next time you choose a rectangular one.
+
+---
+
 ## Searching trees
 
 Two independent **search boxes** on the left control panel (**A** and **B**) find
@@ -244,9 +297,9 @@ it. So the whole toolkit composes on any dated tree, whatever its origin:
 Two things are worth knowing, because they are the rare places where the magic is
 conditional. A time axis is a property of a **phylogram** — it needs branch
 lengths that mean time — so a dated tree opens as a phylogram by default; if you
-switch it to a **cladogram** (the `C` button) the axis has no time scale to draw
-and steps aside. And a time axis **replaces** the plain numeric distance scale, so
-you see one or the other, not both.
+switch it to a **cladogram** (the third button of the phylogram/cladogram row) the
+axis has no time scale to draw and steps aside. And a time axis **replaces** the
+plain numeric distance scale, so you see one or the other, not both.
 
 Everything below is a piece of this one picture; in practice you rarely set any of
 it by hand.
@@ -558,8 +611,8 @@ outlier being detected, or by the many zero-length branches of a polytomy-heavy
 tree), so a well-behaved, near-clock tree shows no breaks at all. This is a
 graphical convention (as offered by interactive viewers such as iTOL's *cut long
 branches*), not an inference step. It applies in **all** phylogram layouts — the
-unaligned "P" and aligned "A" rectangular family (root-left / -top / -bottom and
-triangular), and the **circular** and **unrooted** radial views. In the aligned view
+unaligned and aligned phylogram views of the rectangular family (root-left / -top /
+-bottom and triangular), and the **circular** and **unrooted** radial views. In the aligned view
 the broken branch is capped and its tip still lines up at the common label column; in
 the radial views the outlier's spoke is shortened (the informative part fans out to
 reclaim the disc) with the break glyph rotated to ride the spoke. While it is on
