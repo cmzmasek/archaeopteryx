@@ -130,6 +130,9 @@ Just launch Archaeopteryx and pick a tree from **File → Demo Trees**:
   **Radial Labels** are on (auto-enabled when you show domains in a radial layout)
 - **Bat Phylogeny (Taxonomy by Rank)** — 34 bat species with common + scientific
   names + synonyms, every clade rank-annotated, colorized by family (all offline)
+- **Animal Tree of Life (Nested Clade Levels)** — 25 animals from sponges and comb
+  jellies to the mammals, with **three ranks annotated at once** (order inside class
+  inside phylum) as nested bars whose colours are shades of the phylum they sit in
 - **GTDB Taxonomy (Genome-based)** — Bacteria + Archaea genomes with the GTDB
   classification imported from a GTDB-Tk table and colored by phylum (all offline)
 - **Ancestral State Pies** — a discrete geographic trait as posterior pies
@@ -498,6 +501,80 @@ map, entropy, and frequencies panels. Reference:
   evolution", *Bioinformatics* 34(23):4121–4123.
 
 ---
+
+## Annotating clades by rank
+
+Nested rank brackets down the side of a tree — genus inside family inside order — are
+one of the most common things in a published phylogeny figure, and one of the most
+commonly drawn by hand in Illustrator. **Tools → Annotate Clades by Rank…** builds them
+from the tree's own taxonomy.
+
+Pick a rank and how to show it:
+
+| Mode | What you get |
+| --- | --- |
+| **Shaded boxes** | a translucent wash behind each clade, in the clade's colour |
+| **Bars + labels** | a solid colour bar per clade past the tip labels, with the taxon name |
+| **Brackets `]` + labels** | the same, drawn as a black-and-white bracket (no colour key) |
+
+### More than one rank at once
+
+**Bars** and **Brackets** can show **up to three ranks together**, as nested columns.
+Choose the main rank, then add up to two more under *Additional nested levels*. You do
+not have to put them in any particular order — Archaeopteryx sorts them, always drawing
+the **finest rank nearest the tips and the broadest outermost**, which is the only
+arrangement in which the nesting reads correctly.
+
+The colours are **hue-banded**: each clade at the broadest rank owns a slice of the
+colour wheel, and the finer clades inside it are shades of that slice. So in the animal
+demo, *Mammalia*, *Aves* and *Amphibia* all read as greens because they sit inside
+*Chordata*, while *Insecta* is a yellow inside olive *Arthropoda* — you can see which
+class belongs to which phylum without consulting the legend. Give a single rank and you
+get the plain distinct-colour palette instead, since there is no hierarchy to show.
+
+Containment is read from the **tree**, not from the names: a genus belongs to the family
+whose clade root is its ancestor. That keeps the colouring honest when the taxonomy is
+patchy — a clade whose broader rank could not be resolved has no parent hue to vary, and
+is drawn **desaturated** rather than being given a confident colour implying a parent it
+does not have.
+
+Two practical notes:
+
+- **Label angle is per level.** Each level has its own *Labels: Vertical / Diagonal /
+  Horizontal* setting. Vertical is the most compact and is usually right for a rank with
+  a few large clades; **Horizontal** is the one to use when a rank has many clades of one
+  or two tips each, because a vertical label needs far more height than a one-tip bar and
+  a column of them will overprint. Horizontal costs width instead — three horizontal
+  columns is what the animal demo uses.
+- **Skip single-member clades** (on by default) suppresses the bar for a taxon
+  represented by a single tip, which is usually just noise. Turn it **off** for a deep
+  backbone like the animal demo, where many classes and orders legitimately have one
+  representative and skipping them leaves the inner columns full of holes.
+
+The legend splits into a titled block per rank, so a family row is never mistaken for a
+genus row, and every rank keeps rows even when one of them has far more taxa than the
+others. Clicking a legend row recolours that taxon, at its own rank.
+
+### Where it works
+
+Clade annotation draws in the three **rectangular** orientations and in **circular**,
+where the bars become concentric rings around the tree. It is **not** drawn in the
+**unrooted** layout: unrooted tips sit at different radii, so there is no common edge to
+hang a bar or bracket on, and a clade's tips are not guaranteed to occupy one contiguous
+sector.
+
+Boxes stay **single-level** by design. The wash is translucent, so nesting one inside
+another would paint the inner clade as the product of two washes — darker than either,
+and no longer the colour its legend row claims.
+
+Everything works **offline** whenever the tree itself carries the ranks (as the bundled
+demos do); otherwise Archaeopteryx offers to resolve the unplaced tips online through
+NCBI and UniProt. You can also tick *Also write the clade taxa into the tree* to turn the
+annotation into real, saveable internal-node taxonomies (that part is undoable).
+
+Try it with **File → Demo Trees → Animal Tree of Life (Nested Clade Levels)**, which
+opens with all three ranks drawn, or **Bat Phylogeny (Taxonomy by Rank)** for the
+single-rank case inside one order.
 
 ## GTDB taxonomy
 
