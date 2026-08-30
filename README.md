@@ -162,8 +162,9 @@ in the source repository for browsing on GitHub.)
 
 ## Display controls
 
-The three things you change most often live at the top of the **control panel**
-on the left, as icon buttons rather than words — one click each, no dialog.
+Every button in the **control panel** on the left is a drawn icon rather than a
+word — one click each, no dialog, and the picture stays readable at any font
+size. The three things you change most often sit at the top.
 
 **Theme.** A single **sun / moon** button switches between the light and dark
 themes. It always shows the theme it will switch *to*: a moon while you are in
@@ -210,6 +211,43 @@ elbows, the default), **Euro Type** (a slanted corner), **Rounded** (a curved
 corner) or **Triangular** (clades drawn as triangles). You can set it at any
 time — picking a style while a circular or unrooted tree is on screen does not
 switch the layout; it takes effect the next time you choose a rectangular one.
+
+**Zoom, fit and navigate.** Below those sit the action buttons:
+
+| button | what it does |
+| --- | --- |
+| **Y+ / Y−** | zoom in / out vertically |
+| **X− / X+** | zoom in / out horizontally |
+| label rows pushed apart | **expand** the tree along the label axis until the labels stop overlapping at the current font size (`Alt+E`) |
+| square frame with arrows | **fit** the whole tree into the window (`Alt+C`, `Home` or `Esc`) |
+| landscape frame with arrows | **fit to the window width**, keeping the current vertical zoom (`Alt+W`) |
+| small ladderized tree | **ladderize** the whole tree; click again to flip the direction (`Alt+O`) |
+| arrow into a bar | back to the **complete tree** from a sub-tree (`Alt+Shift+R`) |
+| plain left arrow | **up one level** towards the complete tree (`Alt+R`) |
+| triangle with tip lines | **uncollapse all** collapsed clades (`Alt+U`) |
+
+Several of these change with the layout, so the picture always matches what the
+click will actually do:
+
+- **Root at top / bottom.** The fit-to-width frame turns portrait: it becomes
+  *fit to the window **height***, which is the same operation measured across
+  the tree's breadth. The expand glyph's label rows turn with it.
+- **Circular and unrooted.** The two zoom axes collapse into one, so **X− / X+**
+  are free and become **rotate counter-clockwise / clockwise** (the same as the
+  `A` and `S` keys, or `Shift`+mousewheel). The fit-to-width button becomes a
+  **node-label direction** toggle — labels riding the spoke, or lying flat —
+  and, like the theme button, it shows the state it will switch *to*. Expand is
+  greyed out, since spreading labels apart has no meaning in a fan.
+
+A button that cannot do anything right now fades rather than vanishing: the two
+sub-tree arrows stay dim until you are inside a sub-tree, and uncollapse-all
+until something is collapsed, so the row never changes shape under you.
+
+The expand button is the deliberate alternative to **Auto-hide Labels** (in
+*Display Data*, on by default), which drops labels when a tree is drawn too
+densely to show them all. Expanding the tree until they fit means nothing has to
+be hidden — worth doing before an export, since a figure exported while labels
+are being auto-hidden is missing them, and the export report says so.
 
 ---
 
