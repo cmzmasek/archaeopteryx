@@ -127,7 +127,10 @@ Just launch Archaeopteryx and pick a tree from **File → Demo Trees**:
   on the boxes or gather them into a draggable, E-value-aware legend
   (Settings → Layout → Domain labels). In **circular and unrooted** views the
   architectures ride each tip's spoke as a concentric ring — the iTOL look — whenever
-  **Radial Labels** are on (auto-enabled when you show domains in a radial layout)
+  **Radial Labels** are on (auto-enabled when you show domains in a radial layout).
+  A domain needs a positive length (its `to` greater than its `from`) and both
+  coordinates present; any that does not is skipped, and Archaeopteryx says how many
+  it ignored once the file is open, rather than refusing the tree over an annotation
 - **Bat Phylogeny (Taxonomy by Rank)** — 34 bat species with common + scientific
   names + synonyms, every clade rank-annotated, colorized by family (all offline)
 - **Animal Tree of Life (Nested Clade Levels)** — 25 animals from sponges and comb
@@ -248,6 +251,28 @@ The expand button is the deliberate alternative to **Auto-hide Labels** (in
 densely to show them all. Expanding the tree until they fit means nothing has to
 be hidden — worth doing before an export, since a figure exported while labels
 are being auto-hidden is missing them, and the export report says so.
+
+**Which node am I on?** Point at a node and a soft **glow** marks it. The cursor
+already tells you *that* something is clickable; the glow tells you *which* node
+— which is what you actually need on a dense tree, and most of all in the modes
+that reroot or delete. It appears in every **Click on Node to:** mode, including
+over a collapsed clade's triangle.
+
+There is only ever one circle on the node, and its colour says what a click will
+do:
+
+| glow | meaning |
+| --- | --- |
+| neutral accent | you are on this node (any mode that is not a selection mode) |
+| the found colour | in **Select Node(s)**, a click will **add** this node |
+| muted grey | in **Select Node(s)**, a click will **remove** it |
+
+Pointing at a *branch* in Select Node(s) glows its clade root and marks the tips
+the click would take, since one circle cannot stand for forty of them. Over a
+collapsed triangle the glow reflects the whole clade, because a click there
+takes the tips hidden inside it rather than the clade root.
+
+The glow is on-screen guidance only — it never appears in an exported figure.
 
 ---
 
