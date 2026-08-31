@@ -1099,6 +1099,32 @@ setting you most want to reach from a script.
 
 ---
 
+## When something goes wrong
+
+An installed Archaeopteryx has no console. The Windows launcher is a windowed
+one, a macOS `.app` hands its output to the system, and a Linux desktop entry
+sends it to the session journal — so if something failed, the details used to go
+nowhere you could reach, and the most you could report was "it stopped drawing".
+
+Archaeopteryx now writes unexpected errors to a log file:
+
+```
+~/.archaeopteryx/archaeopteryx.log
+```
+
+Open it from **Help → Show Error Log**. If something has gone wrong in the
+current session, a quiet **⚠ error logged** marker also appears in the menu bar —
+click it to open the log, or dismiss it. There is deliberately no pop-up: a
+failure inside the drawing code repeats on every redraw, and a dialog for each
+one would make the program unusable.
+
+**If you hit a bug, attach that file to your report.** It holds the stack trace,
+which is the part that makes a problem findable. Two details keep it useful
+rather than enormous: a failure that repeats is written once and then counted
+("… the same failure repeated 412 more times"), and the file restarts itself if
+it ever grows past a couple of megabytes, so a runaway error cannot fill your
+disk.
+
 ## This repository
 
 This is the **home** of Archaeopteryx: the website (`docs/`, served by GitHub
