@@ -819,6 +819,30 @@ differ only in case or in `_`-vs-space between the tree and the matrix are all h
   scrolled-into window is distinguishable from the real edges.
 - A **column ruler** below the alignment shows absolute 1-based column numbers, so you can
   read exactly which columns a scrolled window is showing.
+- **Hover a residue** for a readout of what is under the pointer (see below).
+
+### Hovering a residue
+
+Point at any residue and a small readout tells you what it is:
+
+| line | what it means |
+| --- | --- |
+| **Alignment column** | the 1-based column of the *alignment* — what the column ruler shows |
+| **Residue *n* of this sequence** | the residue's own 1-based number in that sequence with the gaps removed |
+| **`L` – Leucine** | the letter and its full name (for DNA/RNA, the base: `G` – Guanine) |
+| *aliphatic (hydrophobic)* | the physico-chemical class — **the same grouping the cell is coloured by**, so the words and the colour can never disagree |
+| **Hydropathy (Kyte–Doolittle)** | the residue's hydropathy index, +4.5 (isoleucine) to −4.5 (arginine) |
+
+The two positions are the point of it. The **column** is a property of the alignment and
+moves if you realign; the **residue number** is the coordinate that maps back onto the real
+protein or gene, which is what you need when comparing against a structure, a mutation list
+or a paper. Working that out by counting gaps down a row is exactly the tedium this removes.
+
+A gap says so and nothing more — no residue number, no name, no hydropathy. Nucleotides get
+the base name and purine/pyrimidine but **no hydropathy**, because the scale is defined for
+amino acids only; the same is true of the ambiguity codes `B`, `X` and `Z`, where the scale
+simply has no value and inventing one would be a fabrication. The hydropathy scale is
+Kyte & Doolittle (1982) — cited in full under **Help → References**.
 
 Turn the display on or off and set the per-residue column width in **Settings → Overlays**
 (**Sequence Alignment** + **Alignment column width**; the width is remembered between
