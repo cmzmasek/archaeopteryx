@@ -638,6 +638,14 @@ Pick a rank and how to show it:
 | **Bars + labels** | a solid colour bar per clade past the tip labels, with the taxon name |
 | **Brackets `]` + labels** | the same, drawn as a black-and-white bracket (no colour key) |
 
+To **take the marks off again**, reopen the dialog and pick the first entry in the rank
+list — *(none) — stop drawing the clade marks*. It is offered only while there is something
+to remove, and it is never the entry the dialog opens on, so pressing OK can never wipe
+your annotation by accident. It removes the **drawing** only: any internal-node taxonomies
+you wrote with *Also write the clade taxa into the tree* are real tree data and stay put
+(undo them with **⌘Z**). **Settings → Reset to Defaults** clears the marks too, along with
+everything else.
+
 ### More than one rank at once
 
 **Bars** and **Brackets** can show **up to three ranks together**, as nested columns.
