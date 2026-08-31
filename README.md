@@ -122,6 +122,9 @@ Just launch Archaeopteryx and pick a tree from **File → Demo Trees**:
   explicit "no"/absent value a hollow mark, and a missing value nothing (a binary
   presence/absence column); a categorical field becomes distinct colored marks. Pick the
   glyph (circle / square / diamond / triangle) per column
+- **Properties in Labels** — a tree whose tips each carry six properties: two stay in the
+  tip label, the other four become tip-aligned columns. One field, one role — which is
+  what keeps a heavily annotated tree readable
 - **Protein Domain Architectures** — multi-domain proteins drawn to scale as flat,
   rounded, distinctly-colored boxes (a soft shadow, an optional glow); label the domains
   on the boxes or gather them into a draggable, E-value-aware legend
@@ -276,6 +279,61 @@ The glow is on-screen guidance only — it never appears in an exported figure.
 
 ---
 
+## Annotation fields: columns or labels
+
+A tree's tips often carry a lot more than a name — a host, a country, a clade, a
+collection year, an accession, a passage history. Archaeopteryx reads all of it
+(from phyloXML `<property>` elements, from **File → Import Annotations**, from a
+BEAST or Auspice file) and gives you one place to decide how each field is shown:
+**Tools → Annotation Fields…**.
+
+The rule is simple: **each field gets exactly one role.** It is a tip-aligned
+column, or it is part of the node's label, or it is not drawn. That exclusivity is
+the whole point — the fields that carry the figure become columns, and only the one
+or two that belong next to the name stay in the label. Ten fields crammed into a
+label is unreadable; ten thin colour strips beside the tips is a figure.
+
+### The roles
+
+| "Show as" | what it draws |
+| --- | --- |
+| **Color strip** | a filled cell per tip, coloured by the value's category |
+| **Symbol** | a centred glyph — filled when the value is present, hollow when it is explicitly `no`/`absent`/`0`/`false`, nothing when it is missing. Pick circle / square / diamond / triangle per column |
+| **Heat map** | a filled cell coloured by the value's position in the numeric range |
+| **Heat map (matrix)** | as above, but every matrix column shares **one** colour scale and one legend, drawn as a contiguous grid — the clustergram look |
+| **Bar** | a horizontal bar whose length is the value's fraction of the range |
+| **Stacked bar** | set several numeric fields to this and they **merge** into one segmented bar per tip — absolute lengths by default, or normalized to 100% |
+| **Pie** | set several numeric fields to this and they merge into one pie per tip, each field a wedge |
+| **Text** | the raw value, drawn as a column of text |
+| **In tip label** | the value is appended to the node's own label |
+
+Which roles you are offered follows the data. A numeric field gets the heat map /
+bar / stacked bar / pie set; a categorical one gets colour strips and symbols. A
+field that cannot usefully be *coloured* — one with the same value on every tip, or
+a different value on every tip, such as an accession — is offered as text or as
+label content, but not as a colour. And a field that only exists on internal nodes
+can only go in the label, because a tip-aligned column would have nothing to draw.
+
+### In the label
+
+Label properties are drawn as **values only**, comma-joined, on one line — `EPI1731,
+E3`, not `data:accession: EPI1731 data:passage: E3`. The full `ref: value` list is
+always one hover away in the rollover popup, and in **Display Node Data**, so
+narrowing the label costs you nothing.
+
+The **↑ / ↓** buttons beside each field set the order — both the left-to-right order
+of the columns and the order the label reads in. Turning on any label field switches
+the **Properties** display checkbox on for you, so the choice takes effect
+immediately.
+
+By default, a field that is not shown as a column goes in the label, which is what
+the **Properties** checkbox has always shown. Open the chooser and narrow it down
+from there. **Settings → Reset to Defaults** puts it back.
+
+Everything here works in **all five display types**. In the circular layout the
+columns become concentric rings around the tree, and label properties ride each
+tip's spoke with the rest of its label.
+
 ## Searching trees
 
 Two independent **search boxes** on the left control panel (**A** and **B**) find
@@ -389,7 +447,7 @@ Each annotation is mapped onto the viewer's existing display features:
 | `posterior` | Branch support (confidence) | **Confidence Values**; support coloring / symbols |
 | node age `height` / `height_median` / `height_mean` + `height_95%_HPD={lo,hi}` (or `height_range`) | Node age with a 95% HPD interval | **Node Age Bars (HPD)** — auto-enabled on load for a dated tree with HPD intervals |
 | discrete / geographic traits (e.g. a phylogeographic `location`) with posterior state sets | **Ancestral-state pie charts** | the **"Ancestral pie:"** dropdown (appears automatically when the tree carries such a trait) |
-| any other field (`rate`, `length_*`, custom traits, …) | A node property `beast:<key>` | **Color by**, **Size by**, and **Annotation Columns** (numeric traits render as gradients / bars) |
+| any other field (`rate`, `length_*`, custom traits, …) | A node property `beast:<key>` | **Color by**, **Size by**, and **Annotation Fields** (numeric traits render as gradients / bars) |
 
 Nothing is discarded: recognized fields become native structures (support, node
 dates, pies), and every remaining field is preserved as a `beast:*` property you
