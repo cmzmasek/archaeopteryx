@@ -821,48 +821,165 @@ References:
 
 ## Rendering figures from the command line
 
-`aptx_render` produces a figure without opening Archaeopteryx — the **same
-renderer and the same exporters** the window uses, so a script gets what you
-would have got by hand.
+> **You can skip this section.** Everything Archaeopteryx does, it does in the
+> window — nothing here is needed to make a figure. This is for the narrower case
+> where you would rather *not* be at the keyboard: rendering many trees at once,
+> or regenerating a figure automatically whenever its data changes.
+
+`aptx_render` draws a tree to a file without opening Archaeopteryx. It is the
+**same renderer and the same exporters** the window uses, so a script produces
+the figure you would have produced by hand.
+
+### When it is worth it
+
+- **A folder of trees.** One figure each, identical settings, no clicking.
+- **A figure that keeps changing.** Re-run the same command after the alignment
+  is rebuilt and the figure updates itself — no re-doing the display settings.
+- **A methods section that others can reproduce.** The command *is* the record of
+  how the figure was made, and it produces the same figure on anyone's machine.
+
+If none of those describe you, the window is the better tool.
+
+### Running it
+
+`aptx_render` lives in `forester.jar` — the same self-contained jar described
+under [Run from the jar](#run-from-the-jar); download it once and you have the
+tool.
 
 ```
-java -cp forester.jar org.forester.application.aptx_render \
-     -size=170x120mm -dpi=300 -support  tree.xml  figure.pdf
+java -cp forester.jar org.forester.application.aptx_render  tree.xml  figure.pdf
 ```
 
-The output **format comes from the file extension**: `.pdf`, `.svg` and `.eps`
-for vector figures, `.png`, `.jpg` and `.tiff` for raster (PNG carries the true
-DPI, so it drops into a document at its intended print size).
+That is a complete command: with no options at all it writes a 180 × 130 mm
+figure at 300 dpi, drawn the way Archaeopteryx would draw that tree on opening
+it. Run it with `-help` for the option list. A shell alias makes the rest of this
+section easier to read:
 
-| option | |
+```
+alias aptx_render='java -cp /path/to/forester.jar org.forester.application.aptx_render'
+```
+
+### The output format is the file extension
+
+| you write | you get |
 | --- | --- |
-| `-size=<WxH><unit>` | figure size — `170x120mm`, `8x6in`, `1200x900px` |
-| `-dpi=<n>` | dots per inch for raster output (default 300) |
+| `figure.pdf` | vector PDF — the usual choice for a manuscript |
+| `figure.svg` | vector SVG — for editing in Illustrator or Inkscape |
+| `figure.eps` | vector EPS — where a journal still asks for it |
+| `figure.png` | raster PNG, with the true DPI recorded in the file |
+| `figure.jpg` | raster JPEG (lossy; PNG is better for line art) |
+| `figure.tiff` | raster TIFF |
+
+Vector text is drawn as outlines, so the file needs no fonts installed to look
+right anywhere. An extension it cannot write is refused outright rather than
+guessed at.
+
+### Options
+
+| option | what it does |
+| --- | --- |
+| `-size=<W>x<H><unit>` | figure size — `170x120mm`, `8x6in`, `1200x900px`. Default `180x130mm` |
+| `-dpi=<n>` | dots per inch, default `300` |
 | `-style=<s>` | `rectangular` (default), `circular` or `unrooted` |
-| `-phylogram` / `-cladogram` | branch lengths to scale, or ignored (default: a phylogram when the tree has them) |
+| `-phylogram` | draw branch lengths to scale |
+| `-cladogram` | ignore branch lengths |
 | `-support` | show confidence / support values |
 | `-bl` | show branch-length values |
 | `-color=<ref>` | colour tips by a property, e.g. `data:host` |
+| `-help` | the option list |
 
-**The same command gives the same figure.** The render starts from documented
-defaults plus the options you pass; it deliberately does *not* pick up whatever
-you last set in the Archaeopteryx window, because a pipeline that did would
-produce a different figure on a different machine. Your saved settings are
-neither read nor changed.
+With neither `-phylogram` nor `-cladogram`, the tree is drawn as a phylogram when
+it has branch lengths and a cladogram when it does not — the same choice
+Archaeopteryx makes on opening it.
 
-**It needs a display, even though no window appears.** Archaeopteryx's display
-settings live in its control panel, so rendering builds that panel; a window is
-created off-screen and never shown. On a desktop this just works. On a headless
-server, run it under a virtual display:
+`-color` takes a phyloXML property reference. Give it one the tree does not have
+and it stops and tells you which ones it does have, rather than quietly writing
+an uncoloured figure.
+
+### Size and DPI — worth two minutes
+
+Size is the one option that repays a little thought, because **the figure is laid
+out at its physical size, not at its pixel count**. Text is set in points, so a
+12-point label occupies the same fraction of a 170 mm page whether you render it
+at 150 or 600 dpi. That has one consequence worth knowing:
+
+> **Prefer a physical size (`mm` or `in`).** `-size=1000x1000px -dpi=300` is a
+> page only 3.3 inches across, on which the default font is enormous: labels
+> collide and, in circular layouts, get truncated — with the page apparently half
+> empty. The same tree at `-size=250x250mm` renders cleanly.
+
+So:
+
+- **`mm` / `in`** set the page; `-dpi` then decides how many pixels a raster
+  export puts on it. Vector output ignores `-dpi` entirely.
+- **`px`** sets the pixel count; `-dpi` then decides how large the page is
+  physically. Useful for a figure destined for a screen, but easy to make
+  accidentally tiny.
+
+Journal column widths are a good starting point: `-size=85x110mm` for a single
+column, `-size=170x120mm` for a double.
+
+If the tree is too dense for the size you asked for, Archaeopteryx hides labels
+rather than overlapping them — and `aptx_render` tells you it did, so a figure
+never loses labels silently:
+
+```
+Warning: some labels were hidden by "Auto-hide Labels" to avoid overlap at this size.
+```
+
+A larger `-size` is the fix.
+
+### Examples
+
+```
+# a double-column PDF with support values
+aptx_render -size=170x120mm -support  tree.xml  figure.pdf
+
+# a circular figure, coloured by a metadata property, as editable SVG
+aptx_render -style=circular -size=250x250mm -color=data:host  tree.xml  figure.svg
+
+# a single-column PNG at 600 dpi
+aptx_render -size=85x110mm -dpi=600  tree.xml  figure.png
+
+# every tree in a folder
+for t in trees/*.xml; do
+    aptx_render -size=170x120mm "$t" "figures/$(basename "${t%.xml}").pdf"
+done
+```
+
+### The same command gives the same figure
+
+The render starts from documented defaults plus the options you passed. It does
+**not** pick up whatever you last set in the Archaeopteryx window — if it did,
+the same command would produce different figures on different machines, which
+would defeat the purpose. Your saved settings are neither read nor changed by it.
+
+### It needs a display, even though no window appears
+
+Archaeopteryx's display settings live in its control panel, so drawing a tree
+means building that panel; the window is created off-screen and never shown. On a
+desktop machine this simply works. On a headless server — a cluster node, a CI
+runner — run it under a virtual display:
 
 ```
 xvfb-run -a java -cp forester.jar org.forester.application.aptx_render \
          tree.xml figure.pdf
 ```
 
-This is a first version, meant to find out whether people want it. It renders;
-it does not yet replay a figure you configured in the GUI. If that is what you
-need, say so on the [issue tracker](https://github.com/cmzmasek/forester/issues).
+(`xvfb-run` comes from the `xvfb` package on Debian / Ubuntu.)
+
+### What it does not do yet
+
+This is a first version, deliberately small, to find out whether people want it.
+It renders a tree from the options above; it does **not** yet reproduce a figure
+you composed in the window — annotation columns, clade bands, time axes, tip
+images and the rest are not reachable from the command line. Making them so means
+letting Archaeopteryx save a figure's full appearance into the tree file, which
+is a larger piece of work worth doing only if there is appetite for it.
+
+If this is useful to you, or nearly useful, say so on the
+[issue tracker](https://github.com/cmzmasek/forester/issues) — including which
+setting you most want to reach from a script.
 
 ---
 
