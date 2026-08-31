@@ -334,6 +334,32 @@ Everything here works in **all five display types**. In the circular layout the
 columns become concentric rings around the tree, and label properties ride each
 tip's spoke with the rest of its label.
 
+## Undo and redo
+
+**Edit → Undo** (⌘Z / Ctrl+Z) steps back through the tree edits of the **current tab**;
+**Edit → Redo** steps forward again. Both menu items name the operation they will reverse —
+*Undo Collapse Clade*, *Undo Edit Node Data* — so you can see what you are about to change
+before you commit to it. Each tab keeps its own history, 25 steps deep.
+
+Undo works by **snapshotting the whole tree** before each change rather than by knowing how
+to reverse each operation individually. That is why it covers everything uniformly:
+rerooting (including midpoint and MAD), ladderizing and ordering, swapping and deleting
+nodes or subtrees, cut and paste, node-data and tree-info edits, node styles and branch
+colours, collapsing and uncollapsing clades, and every data tool that writes into the tree —
+fetch, infer ancestor taxonomies, extract dates from labels, import annotations, import
+GTDB taxonomy, load alignment and write clade taxa. Gene-tree/species-tree reconciliation
+does not need it: it opens its results in a **new tab** and leaves your tree untouched.
+
+Two things are deliberately outside it:
+
+- **Display settings are not tree edits.** Which checkboxes are on, the layout, the colours
+  you pick in a legend, which annotation fields are shown — none of these change the tree,
+  so none of them consume an undo step. **Settings → Reset to Defaults** is what returns
+  those to their starting state.
+- **Looking at something is never an edit.** Opening a node in the editor and closing it
+  again leaves the history untouched; only a field you actually change creates a step, and
+  one visit to the editor is one step no matter how many fields you edit in it.
+
 ## Searching trees
 
 Two independent **search boxes** on the left control panel (**A** and **B**) find
