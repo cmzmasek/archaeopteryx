@@ -819,6 +819,53 @@ References:
 
 ---
 
+## Rendering figures from the command line
+
+`aptx_render` produces a figure without opening Archaeopteryx — the **same
+renderer and the same exporters** the window uses, so a script gets what you
+would have got by hand.
+
+```
+java -cp forester.jar org.forester.application.aptx_render \
+     -size=170x120mm -dpi=300 -support  tree.xml  figure.pdf
+```
+
+The output **format comes from the file extension**: `.pdf`, `.svg` and `.eps`
+for vector figures, `.png`, `.jpg` and `.tiff` for raster (PNG carries the true
+DPI, so it drops into a document at its intended print size).
+
+| option | |
+| --- | --- |
+| `-size=<WxH><unit>` | figure size — `170x120mm`, `8x6in`, `1200x900px` |
+| `-dpi=<n>` | dots per inch for raster output (default 300) |
+| `-style=<s>` | `rectangular` (default), `circular` or `unrooted` |
+| `-phylogram` / `-cladogram` | branch lengths to scale, or ignored (default: a phylogram when the tree has them) |
+| `-support` | show confidence / support values |
+| `-bl` | show branch-length values |
+| `-color=<ref>` | colour tips by a property, e.g. `data:host` |
+
+**The same command gives the same figure.** The render starts from documented
+defaults plus the options you pass; it deliberately does *not* pick up whatever
+you last set in the Archaeopteryx window, because a pipeline that did would
+produce a different figure on a different machine. Your saved settings are
+neither read nor changed.
+
+**It needs a display, even though no window appears.** Archaeopteryx's display
+settings live in its control panel, so rendering builds that panel; a window is
+created off-screen and never shown. On a desktop this just works. On a headless
+server, run it under a virtual display:
+
+```
+xvfb-run -a java -cp forester.jar org.forester.application.aptx_render \
+         tree.xml figure.pdf
+```
+
+This is a first version, meant to find out whether people want it. It renders;
+it does not yet replay a figure you configured in the GUI. If that is what you
+need, say so on the [issue tracker](https://github.com/cmzmasek/forester/issues).
+
+---
+
 ## This repository
 
 This is the **home** of Archaeopteryx: the website (`docs/`, served by GitHub
