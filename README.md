@@ -906,8 +906,9 @@ alignment; switch it off under **Settings → Overlays → Conservation track**.
 **It describes what you can see.** The profile is scored over the tips *currently
 displayed*, so entering a sub-tree or collapsing a clade re-scores it for the
 sequences that are left. That is usually what you want when you are working
-through a tree — but it does mean the numbers change as you navigate, so a figure
-caption should say which sequences it covers.
+through a tree, and it does mean the numbers change as you navigate — so the band
+labels itself with both the measure and the count, e.g. `Consensus identity
+(n = 6)`, and that label goes into every export.
 
 **Two measures**, chosen under **Settings → Overlays → Conservation measure**.
 Both run from 0 to 1, so the bar means the same thing either way, and both count
