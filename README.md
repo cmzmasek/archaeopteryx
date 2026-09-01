@@ -334,6 +334,52 @@ Everything here works in **all five display types**. In the circular layout the
 columns become concentric rings around the tree, and label properties ride each
 tip's spoke with the rest of its label.
 
+## Your figure is saved with the tree
+
+A tree usually takes a while to turn into a figure: you pick a layout, switch some
+labels on and others off, add an annotation column or two, mark the clades, colour
+the tips by a field. All of that used to be lost the moment you saved the file and
+opened it again — the tree came back, the figure did not.
+
+Now it comes back. When you save a tree as **phyloXML**, Archaeopteryx stores the
+figure alongside it and restores it when the file is reopened:
+
+- the **layout** — rectangular (root left, top or bottom), circular or unrooted —
+  and whether it is drawn as a phylogram, an aligned phylogram or a cladogram
+- **which labels are drawn**: every checkbox in the Display panel, so a figure that
+  shows only scientific names comes back showing only scientific names
+- the **annotation columns** you configured, with their types and symbol shapes
+- the **clade marks**, with their ranks and label angles
+- **colour by**, **size by**, the **ancestral-state pie** trait, and the property
+  fields you chose to show in the tip labels
+
+Each tab keeps its own figure, so several trees can be open at once with quite
+different figures, and saving them all preserves each one.
+
+Three things are worth knowing:
+
+**It only travels in phyloXML.** Newick and Nexus have nowhere to put it. If you
+want your figure to survive, save as phyloXML (`.xml`).
+
+**The theme is not part of it.** Fonts, colours and light/dark stay your own
+preferences, so a figure you send a colleague opens in *their* setup rather than
+overriding it.
+
+**A figure from a newer version still opens.** Anything an older Archaeopteryx
+cannot draw is skipped rather than refused, so the tree always opens.
+
+### Clearing every overlay at once
+
+Overlays are easy to add and, until now, tedious to remove: the clade marks in
+particular had no off switch once they were on. **Tools → Clear All Overlays**
+switches all of them off in one action — annotation columns, clade marks, colour
+by, size by, ancestral pies, and the properties shown in the labels.
+
+It clears the overlays and nothing else. The layout stays as it is and the labels
+stay as they are, so this is a way to strip a tree back to a clean drawing without
+undoing the rest of your work.
+
+
 ## Undo and redo
 
 **Edit → Undo** (⌘Z / Ctrl+Z) steps back through the tree edits of the **current tab**;
