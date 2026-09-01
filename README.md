@@ -896,6 +896,47 @@ sessions). Loading an alignment is undoable, and the whole track renders in ever
 (PDF, SVG, EPS, PNG). This first version is drawn in the rectangular **root-on-left**
 layout. There is a ready-made example in **File → Demo Trees → Alignment next to Tree**.
 
+### Conservation and consensus
+
+Under the alignment, a band shows how conserved each column is: a bar per column,
+with the column's **consensus residue** — its most common non-gap residue — drawn
+beneath it once the columns are wide enough to read one. It appears with the
+alignment; switch it off under **Settings → Overlays → Conservation track**.
+
+**It describes what you can see.** The profile is scored over the tips *currently
+displayed*, so entering a sub-tree or collapsing a clade re-scores it for the
+sequences that are left. That is usually what you want when you are working
+through a tree — but it does mean the numbers change as you navigate, so a figure
+caption should say which sequences it covers.
+
+**Two measures**, chosen under **Settings → Overlays → Conservation measure**.
+Both run from 0 to 1, so the bar means the same thing either way, and both count
+gaps against a column — a column that is half gaps cannot score above 0.5.
+
+- **Consensus identity** — the fraction of rows carrying the consensus residue.
+  Reads directly as "how much of this column agrees", and is the easier of the
+  two to state in a caption.
+- **Information content** — the sequence-logo measure: `(log2(K) − H) / log2(K)`,
+  where *H* is the Shannon entropy of the residues present and *K* is the alphabet
+  size (4 for nucleotide, 20 for amino acid), scaled by the non-gap fraction. Use
+  it when columns have no clear majority: it ranks a column split evenly between
+  two residues above one split four ways, though identity scores them the same.
+
+A few conventions worth knowing, because they change what a bar means:
+
+- Upper and lower case are the same residue, as they are for the colouring.
+- A row shorter than the alignment counts as gapped past its end.
+- A gappy column still names its consensus residue — the bar already carries the
+  gappiness. Ties go to the alphabetically first residue, so the same alignment
+  always gives the same figure.
+- Ambiguity codes (N, X, B, Z…) count as ordinary distinct residues, so a column
+  full of them scores *low* rather than being quietly treated as conserved.
+
+This is **not** the physico-chemical property score Jalview labels "Conservation"
+(Livingstone & Barton 1993), which is defined for amino acids only; the measures
+here work the same way on a nucleotide alignment. The full definitions and their
+citations are in **Help → References**.
+
 ## Broken (truncated) long branches
 
 One branch that is far longer than the rest — a distant outgroup, a fast-evolving
