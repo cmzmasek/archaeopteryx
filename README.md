@@ -279,6 +279,63 @@ The glow is on-screen guidance only — it never appears in an exported figure.
 
 ---
 
+## Coloring tips by their data ("Color by")
+
+The **Color by:** dropdown in the left control panel colors every tip by one of
+the tree's fields — the taxonomy fields (code, scientific name, common name),
+the sequence fields (name, symbol, gene name), or any node property the tips
+carry (`host`, `country`, `year`, …). A categorical field gets one color per
+value; a numeric field gets either individual colors or a color gradient (see
+below). The same rules, ids and labels are used by
+[Archaeopteryx.js](https://github.com/cmzmasek/archaeopteryx-js), so a shared
+tree colors identically in both viewers.
+
+**A tree opens already colored.** On open, Archaeopteryx picks the tree's most
+informative well-covered field and applies it — nothing to configure. The
+dropdown lists every usable field **best first** (how much of the tree a field
+covers, and how informatively it splits it); a sparse field — one covering only
+some of the tips — is offered at the end of the list but never chosen for you.
+A figure saved with the tree keeps its own coloring, and a field you chose
+yourself is never overridden. To open trees uncolored, switch off **Settings →
+Labels & Colors → Auto-color a newly opened tree**.
+
+**The legend** is a draggable card (double-click it to send it back to its
+corner). Each row shows the value's color and its tip count; `[by count]` /
+`[A-Z]` flips the order, and long legends show the top 20 with a *show all*
+control. When some tips carry **no value** for the field, a dashed-circle
+**"no value"** row — pinned last — counts them, so partial coverage is visible
+at a glance (those tips draw no color dot). Clicking a value row lets you
+assign that value your own color; *Use Automatic Color* returns it to the
+automatic one.
+
+**Numeric fields.** A field with up to ten distinct numbers is treated as codes
+(think H5N1 vs H5N2 subtype numbers) and gets individual colors; with more
+values it becomes a color **gradient** (years, rates). For fields with up to
+twenty distinct values a `[colors]` / `[gradient]` control in the legend lets
+you flip between the two readings.
+
+**Values are grouped for coloring** — spelling variants (`Human` / `human` /
+`homo_sapiens`), a `host` value's qualifiers after `;` and a `country` value's
+subdivision after `:` (`USA:CA` = `USA:IL`), and a short dictionary of
+unambiguous common-animal synonyms (`swine` / `porcine` / `Sus scrofa` all
+read **Pig**; `bovine` / `cattle` → **Cow**; `Homo sapiens` → **Human**; …)
+share one color and one legend row. This is display grouping only: the values
+stored in your tree are never modified, and search, exports and the node
+dialog always show them verbatim. Coloring by the taxonomy or sequence fields
+themselves uses the values exactly as written, with no grouping at all.
+
+**Colors are stable.** A value keeps its color while you dive into subtrees,
+collapse clades or delete nodes — the legend re-derives to what is on screen,
+but nothing recolors, so a subtree figure matches the whole-tree figure.
+(Gradients are the exception by design: a gradient always spans the visible
+range.) Switching the palette (**Settings → Labels & Colors**, Default or
+Colorblind-friendly) or **Reset to Defaults** re-assigns from scratch.
+
+**Size by** works alongside: it scales each tip symbol by a numeric field, so
+one symbol can encode a color (field A) and a size (field B) at once.
+
+---
+
 ## Annotation fields: columns or labels
 
 A tree's tips often carry a lot more than a name — a host, a country, a clade, a
