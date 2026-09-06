@@ -437,6 +437,50 @@ stay as they are, so this is a way to strip a tree back to a clean drawing witho
 undoing the rest of your work.
 
 
+## Viewing and editing node data
+
+Every node carries data beyond its name — taxonomy, sequences, branch support, a date, a
+distribution, a literature reference, properties — and two of the **Click on Node to:** modes
+open it in a window of its own. **Show Node Data** opens a read-only page; **Edit Node Data**
+opens the same page with every value live.
+
+The page is one scrolling list of sections — **Basic**, **Taxonomy**, **Sequences**, **Events**
+(internal nodes only), **Date**, **Distribution**, **Reference**, **Properties** — each of which
+folds with a click on its header. Sections that hold data start open, empty ones start
+folded, and the read-only page shows only what is actually there. The header names the node
+and says what it is: external or internal, how many children and tips it has, its depth and
+its distance from the root.
+
+A few things about editing are worth knowing:
+
+- **Nothing reaches the tree until you press Write to Tree** (⌘↩ / Ctrl+Enter, or just
+  Enter in any field). Type, change your mind, type again — the tree is untouched until then,
+  and the title shows a **•** while there are unwritten changes. **Close** with unwritten
+  changes asks whether to write them, discard them, or stay.
+- **Values are checked as you type.** A branch length that is not a number, a taxonomy code
+  that is not 3–5 capitals, a rank phyloXML does not know, a bad DOI or URL, a latitude
+  outside ±90 — the field is outlined and the status line at the bottom says what is wrong.
+  **Write to Tree** stays disabled until every field is valid, so a write is all-or-nothing.
+- **Only what you changed is written.** A branch length you never touched keeps every digit
+  it had; a sequence's annotations, a taxonomy's lineage, a distribution's polygons — data
+  the editor does not show — survive a round trip untouched.
+- **A node can carry several sequences** (a protein and its mRNA, say). Each is a card with
+  its own name, symbol, gene name, type, accession, location, molecular sequence and URIs;
+  **+ Add sequence** adds a card, **×** removes one. The molecular sequence box counts its
+  residues for you and cleans whatever you paste (line numbers, spaces) on write.
+- **Properties are a table** — reference, value, unit, datatype, applies-to — with
+  **+ Add property** and **− Remove property**. References and units need a namespace
+  prefix (`data:depth`, `METRIC:m`), and a value declared `xsd:decimal` has to be a number.
+  This is the same data the *Color by*, *Size by* and annotation-column features read, so a
+  property you add here is available to them at once.
+- **Emptying a section removes it.** Clear every taxonomy field and the node simply has no
+  taxonomy any more, rather than an empty one.
+- **One write is one undo step**, whatever you changed, and the tree's description records
+  that the node was edited by hand.
+
+Several node windows can be open at once. An undo or redo closes them, because the tree they
+were editing has been replaced.
+
 ## Undo and redo
 
 **Edit → Undo** (⌘Z / Ctrl+Z) steps back through the tree edits of the **current tab**;
@@ -460,8 +504,8 @@ Two things are deliberately outside it:
   so none of them consume an undo step. **Settings → Reset to Defaults** is what returns
   those to their starting state.
 - **Looking at something is never an edit.** Opening a node in the editor and closing it
-  again leaves the history untouched; only a field you actually change creates a step, and
-  one visit to the editor is one step no matter how many fields you edit in it.
+  again leaves the history untouched; only **Write to Tree** creates a step, and one write is
+  one step no matter how many fields you changed before pressing it.
 
 ## Searching trees
 
