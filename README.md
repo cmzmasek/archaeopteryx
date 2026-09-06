@@ -628,7 +628,7 @@ maximum-clade-credibility (MCC) summaries. Both output shapes are supported:
   blocks on nodes and branches.
 
 Just open the file — parsing of these tags is **on by default** (toggle under
-**Settings → File Reading → "Parse BEAST-style extended Newick/Nexus tags"**).
+**Settings → Files → "Parse BEAST-style extended Newick/Nexus tags"**).
 Each annotation is mapped onto the viewer's existing display features:
 
 | BEAST annotation | Becomes | Turn it on with |
