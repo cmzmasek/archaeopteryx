@@ -76,6 +76,14 @@ sudo apt install ./archaeopteryx_<version>_amd64.deb
 (or `sudo dpkg -i archaeopteryx_<version>_amd64.deb`). Launch it from your
 applications menu, or by running `archaeopteryx`.
 
+### Staying up to date
+
+A moment after it starts, Archaeopteryx quietly asks this page whether a newer release exists.
+If one does, the **Help** menu gains a first line, *Update available: Archaeopteryx x.y.z*, which
+opens the releases page; if not — or if there is no network, or the check fails for any reason —
+nothing happens and nothing is reported. The check sends one request and nothing else. Turn it
+off with **Settings → Application → Check for Updates at Launch**.
+
 ### Run from the jar
 
 If there is no installer for your platform (for example, an **Intel Mac**), or
@@ -480,6 +488,14 @@ A few things about editing are worth knowing:
 
 Several node windows can be open at once. An undo or redo closes them, because the tree they
 were editing has been replaced.
+
+**Hovering a node** shows a card with the essentials — name, distance to parent, date, depth,
+support values, taxonomy, each sequence's accession and symbol, events, properties, and for an
+internal node the number of tips below it — the same card, in the same order, as the online
+Archaeopteryx.js viewer. It follows the light or dark theme, keeps itself inside the window,
+and goes away the instant the pointer leaves the node. (It is drawn on the tree canvas itself,
+not as a separate window, so it can never be left behind on the desktop.) Switch it off with
+**Display Data → Rollover** in the control panel if you find it busy.
 
 ## Undo and redo
 
