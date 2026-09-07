@@ -15,6 +15,10 @@ calendar and geologic time axes, and WYSIWYG vector (PDF / SVG / EPS) export.
 Self-contained installers (macOS `.dmg`, Windows `.msi`, Linux `.deb`) bundle a
 runtime — there is no Java to install.
 
+> **Prefer the browser?** **[Archaeopteryx.js](https://cmzmasek.github.io/archaeopteryx-js/)**
+> is the online version: open a tree in any modern browser, nothing to install. It shares this
+> viewer's file formats, "Color by" rules and node-data card, so a tree looks the same in both.
+
 ---
 
 ## Highlights
@@ -267,7 +271,8 @@ are being auto-hidden is missing them, and the export report says so.
 already tells you *that* something is clickable; the glow tells you *which* node
 — which is what you actually need on a dense tree, and most of all in the modes
 that reroot or delete. It appears in every **Click on Node to:** mode, including
-over a collapsed clade's triangle.
+over a collapsed clade's triangle. Pausing there also brings up the
+[node card](#viewing-and-editing-node-data) with the node's data.
 
 There is only ever one circle on the node, and its colour says what a click will
 do:
@@ -382,9 +387,9 @@ can only go in the label, because a tip-aligned column would have nothing to dra
 ### In the label
 
 Label properties are drawn as **values only**, comma-joined, on one line — `EPI1731,
-E3`, not `data:accession: EPI1731 data:passage: E3`. The full `ref: value` list is
-always one hover away in the rollover popup, and in **Display Node Data**, so
-narrowing the label costs you nothing.
+E3`, not `data:accession: EPI1731 data:passage: E3`. The full list is always one
+hover away in the [node card](#viewing-and-editing-node-data), and in **Display Node
+Data**, so narrowing the label costs you nothing.
 
 The **↑ / ↓** buttons beside each field set the order — both the left-to-right order
 of the columns and the order the label reads in. Turning on any label field switches
@@ -449,7 +454,7 @@ undoing the rest of your work.
 
 Every node carries data beyond its name — taxonomy, sequences, branch support, a date, a
 distribution, a literature reference, properties — and two of the **Click on Node to:** modes
-open it in a window of its own. **Show Node Data** opens a read-only page; **Edit Node Data**
+open it in a window of its own. **Display Node Data** opens a read-only page; **Edit Node Data**
 opens the same page with every value live.
 
 The page is one scrolling list of sections — **Basic**, **Taxonomy**, **Sequences**, **Events**
@@ -753,7 +758,7 @@ Illustrator required.
 Like the Node Age Bars, it is **auto-enabled** on load when the tree has fossil tip
 ranges, and it renders in every rectangular orientation and as radial segments in
 the **circular** layout. The range is read from the tip's native phyloXML `<date>`
-(value/min/max — the same model shown in the node popup), so it works directly on a
+(value/min/max — the same model the node card and the node window show), so it works directly on a
 tree time-scaled by any of the usual tools. Reference:
 
 - Bell, M.A. & Lloyd, G.T. (2015): "strap: an R package for plotting phylogenies
@@ -1340,6 +1345,11 @@ project — an open-source Java library and command-line toolkit for phylogeneti
 of which Archaeopteryx is the interactive front end. The release workflow here
 builds the installers from a pinned `forester` tag and publishes them to this
 repository's Releases, so Archaeopteryx has its own versioned, citable identity.
+
+The **online version**, [Archaeopteryx.js](https://cmzmasek.github.io/archaeopteryx-js/),
+is a separate JavaScript implementation with its own repository,
+[`archaeopteryx-js`](https://github.com/cmzmasek/archaeopteryx-js). The two are kept in
+step on the things a shared tree depends on (formats, "Color by", node data).
 
 ## Citing
 
