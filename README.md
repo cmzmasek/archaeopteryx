@@ -82,11 +82,18 @@ applications menu, or by running `archaeopteryx`.
 
 ### Staying up to date
 
-A moment after it starts, Archaeopteryx quietly asks this page whether a newer release exists.
-If one does, the **Help** menu gains a first line, *Update available: Archaeopteryx x.y.z*, which
-opens the releases page; if not — or if there is no network, or the check fails for any reason —
-nothing happens and nothing is reported. The check sends one request and nothing else. Turn it
-off with **Settings → Application → Check for Updates at Launch**.
+**Archaeopteryx has no server, and never will.** It does not phone home and it collects nothing.
+
+If you would like to be told when a new version is out, switch on **Settings → Application →
+Check for Updates at Launch** (it is **off** unless you turn it on). With it on, Archaeopteryx
+reads the public GitHub releases page of its own repository once, a moment after it starts, and
+compares the version number with the one you are running. If yours is older, the **Help** menu
+gains a quiet first line, *New version available: x.y.z*, which opens the releases page. If not —
+or if there is no network, or the check fails for any reason — nothing happens and nothing is
+reported. Nothing about you, your trees or your machine is ever sent: the request is a plain read
+of <https://github.com/cmzmasek/archaeopteryx/releases>, the same page you could open yourself.
+
+Otherwise, just check the releases page now and then.
 
 ### Run from the jar
 
@@ -169,6 +176,8 @@ Just launch Archaeopteryx and pick a tree from **File → Demo Trees**:
   species, with host/country/year metadata and per-protein accessions
 - **Dinosaur Time Tree** — a dated archosaur tree (with *Archaeopteryx*!) on the
   geologic time scale
+- **Late Cretaceous Dinosaurs** — an all-extinct clade narrow enough that the geologic
+  axis drops a rank and bands the Late Cretaceous over its *stages*
 - **Lagomorph Time Tree** — the rabbits, hares and pikas (18 living species back to
   the Eocene) on the geologic time scale
 - **Ammonite Time Tree** — an all-extinct fossil clade with FAD/LAD range bars
@@ -283,9 +292,16 @@ do:
 
 | glow | meaning |
 | --- | --- |
-| neutral accent | you are on this node (any mode that is not a selection mode) |
+| the node's own colour, else a neutral accent | you are on this node (any mode that is not a selection mode) |
 | the found colour | in **Select Node(s)**, a click will **add** this node |
 | muted grey | in **Select Node(s)**, a click will **remove** it |
+
+Outside the selection modes the glow **takes the colour the node is already drawn
+in** — its *Color by* value, a node style you gave it, an event colour, a colorized
+clade — so the mark reads as belonging to *that* node instead of dropping an
+unrelated colour on top of it. A node with no colour of its own keeps the neutral
+accent. In **Select Node(s)** the colour means something (see the table), so there
+it stays as it is.
 
 Pointing at a *branch* in Select Node(s) glows its clade root and marks the tips
 the click would take, since one circle cannot stand for forty of them. Over a
@@ -540,8 +556,11 @@ have typed but not yet written are kept.
 format switcher at the top (all three items open the same window, on the format you asked
 for). The text is what *Save As* would write — Newick and Nexus honour the support-value
 setting under **Settings → Files** — with the markup muted so the names stand out: tags,
-brackets, commas, branch lengths and support values in grey, Nexus keywords in the accent
-colour, and the labels in the normal text colour. **Find** (⌘F / Ctrl+F) highlights every hit
+brackets, commas, branch lengths and support values in grey; the words that structure the
+document in the accent colour (`#NEXUS`, `Begin Taxa;`, `TaxLabels`, `Tree`, `End;`) with
+setting and attribute names such as `NTax=` or phyloXML's `branch_length=` in the same colour
+but lighter; and the labels themselves in the normal text colour. Only the document's own
+structure is tinted — a taxon that happens to be *called* `End` or `Matrix` stays plain data. **Find** (⌘F / Ctrl+F) highlights every hit
 and steps through them with ↩ and ⇧↩; **Wrap lines** is on for the one-line formats and off
 for phyloXML; **Copy** puts the whole text on the clipboard and **Save As…** writes it to a
 file. The window re-generates its text after the tree changes.
@@ -579,6 +598,14 @@ Two things are deliberately outside it:
 - **Looking at something is never an edit.** Opening a node in the editor and closing it
   again leaves the history untouched; only **Write to Tree** creates a step, and one write is
   one step no matter how many fields you changed before pressing it.
+
+**Open windows survive an undo.** A node-data or Tree Properties window that is open when
+you undo or redo stays open and simply re-reads its node from the restored tree. Anything
+you have typed but not yet written is kept, and is now measured against the restored
+values, so you can still press **Write to Tree**. If the undo removes the node itself (you
+undo the step that added it, or redo a deletion), the window stays open but says so in its
+status line and can no longer write; the next undo or redo that brings the node back
+re-attaches it, edits intact.
 
 ## Searching trees
 
@@ -762,11 +789,25 @@ years before present* (Ma), with tick marks and labels at round intervals that
 increase toward the root, so you can read any node's age directly off the axis.
 (In the circular layout the named, coloured annuli themselves are the age scale.)
 
-The two bands **adapt to the tree's depth** so both always fully cover its range:
-**System/Period** over **Series/Epoch** for a Phanerozoic tree, **Erathem/Era**
-over **System/Period** once the tree reaches into the Proterozoic, and
-**Eonothem/Eon** over **Erathem/Era** for a deep Archean tree — so even a
-billions-of-years "tree of life" is fully banded (the Precambrian is never blank).
+The two bands **adapt to the window the tree actually spans**, so they always
+fully cover it and always carry some detail:
+
+| The tree spans | Bands |
+| --- | --- |
+| one or two **Series** (e.g. an all-extinct Late Cretaceous clade) | **Series/Epoch** over **Stage/Age** |
+| the Phanerozoic | **System/Period** over **Series/Epoch** |
+| into the Proterozoic | **Erathem/Era** over **System/Period** |
+| into the Archean | **Eonothem/Eon** over **Erathem/Era** |
+
+So a billions-of-years "tree of life" is fully banded (the Precambrian is never
+blank), and — at the other end — a narrow window is not reduced to two enormous
+blocks: a tree that sits inside the Late Cretaceous is banded *Late Cretaceous*
+over *Cenomanian, Turonian, Coniacian, Santonian, Campanian, Maastrichtian*, which
+is the scale you actually want to read a Cretaceous tree against. Stages exist for
+the Phanerozoic only (the Precambrian has no ratified stages), which is exactly the
+range in which the axis can reach for them. The demo tree
+**late-cretaceous-stages.xml** (File → Demo Trees → *Late Cretaceous Dinosaurs*)
+shows it.
 
 The tree is anchored in time by its **root age**: Archaeopteryx uses the oldest
 `<date>` value in the tree, or you can set it explicitly with **"Set root age…"**
