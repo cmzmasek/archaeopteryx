@@ -156,6 +156,10 @@ Just launch Archaeopteryx and pick a tree from **File → Demo Trees**:
 - **Ancestral State Pies** — a discrete geographic trait as posterior pies
 - **Node Age Spindles** — divergence-time uncertainty (point age + 95% HPD) as
   tapered spindles
+- **Tree Properties** — a small gene family whose **Tree Properties** window (View menu,
+  ⌘I) has something in every section: editable name, description and metadata, then
+  structure, branch-length and support-value statistics with histograms, and a map of
+  which tips carry taxonomy, sequences, dates and properties
 - **Break Long Branches** — a fast-evolving outgroup on a huge branch drawn
   shortened with a break mark so the ingroup reclaims the width (with support values)
 - **SARS-CoV-2 Time Tree** — a tip-dated viral tree on a calendar-year axis
@@ -494,6 +498,54 @@ A few things about editing are worth knowing:
 Several node windows can be open at once. An undo or redo closes them, because the tree they
 were editing has been replaced.
 
+## Tree properties, statistics, and the tree as text
+
+**View → Tree Properties…** (⌘I / Ctrl+I, or double-click the tree's tab) opens the tree's
+own page in the same style as the node window. The top of it is editable: the tree's **name**
+(which is also its tab title), its **description** (free text — the tools append a sentence
+here whenever they change the tree), and the phyloXML metadata nothing else lets you set —
+an **identifier** with its provider, the tree **type** (gene tree, species tree, …) and the
+**branch-length unit**. The same rules as for node data apply: nothing reaches the tree until
+**Write to Tree**, a named tree cannot be renamed to nothing, a provider needs an identifier
+value, one write is one undo step, and closing with unwritten changes asks first.
+
+Below that, everything the tree can tell you about itself, computed on the spot and kept
+current while the window is open:
+
+- **File** — path, format (as sniffed from the file, not guessed from its suffix), size, when
+  it was last modified, and whether there are unsaved changes.
+- **Structure** — tips, internal nodes, branches, rooted or not, whether it is fully binary
+  or how many polytomies it has, its depth, its height (the longest root-to-tip path), and
+  how many clades are collapsed.
+- **Branch lengths** — how many branches have one, median, mean ± sd, minimum, maximum, the
+  total tree length, zero-length and negative branches, whether the tree is ultrametric —
+  and a small histogram of the distribution (hover a bar for its range and count).
+- **Support values** — one section per kind (bootstrap, posterior probability, …), each
+  with the same statistics and its own histogram.
+- **Annotation coverage** — the answer to "what is in this tree": how many tips carry a
+  taxonomy (and a taxonomy identifier), how many distinct taxonomies there are, how many
+  tips carry sequences, molecular sequences and domain architectures, dates, distributions,
+  references, how many internal nodes are named, the event totals (duplications,
+  speciations, gene losses), and every property name with the number of nodes that have it.
+  This is also a quick way to see which tools will work on the tree: *Color by* needs
+  properties, the taxonomy tools need taxonomies, and so on.
+- **Time axis** — when the tree has dates or a time axis: the axis type, how many nodes are
+  dated, the unit, and the root age or the most recent date.
+
+One window per tab; opening it again brings the existing one forward. The statistics
+re-read the tree shortly after every change — an edit, an undo, a redo — and any edits you
+have typed but not yet written are kept.
+
+**View → as phyloXML / as Newick / as Nexus** show the tree as text, in one window with a
+format switcher at the top (all three items open the same window, on the format you asked
+for). The text is what *Save As* would write — Newick and Nexus honour the support-value
+setting under **Settings → Files** — with the markup muted so the names stand out: tags,
+brackets, commas, branch lengths and support values in grey, Nexus keywords in the accent
+colour, and the labels in the normal text colour. **Find** (⌘F / Ctrl+F) highlights every hit
+and steps through them with ↩ and ⇧↩; **Wrap lines** is on for the one-line formats and off
+for phyloXML; **Copy** puts the whole text on the clipboard and **Save As…** writes it to a
+file. The window re-generates its text after the tree changes.
+
 **Hovering a node** shows a card with the essentials — name, distance to parent, date, depth,
 support values, taxonomy, each sequence's accession and symbol, events, properties, and for an
 internal node the number of tips below it — the same card, in the same order, as the online
@@ -512,7 +564,7 @@ before you commit to it. Each tab keeps its own history, 25 steps deep.
 Undo works by **snapshotting the whole tree** before each change rather than by knowing how
 to reverse each operation individually. That is why it covers everything uniformly:
 rerooting (including midpoint and MAD), ladderizing and ordering, swapping and deleting
-nodes or subtrees, cut and paste, node-data and tree-info edits, node styles and branch
+nodes or subtrees, cut and paste, node-data and tree-property edits, node styles and branch
 colours, collapsing and uncollapsing clades, and every data tool that writes into the tree —
 fetch, infer ancestor taxonomies, extract dates from labels, import annotations, import
 GTDB taxonomy, load alignment and write clade taxa. Gene-tree/species-tree reconciliation
