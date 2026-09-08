@@ -53,16 +53,18 @@ Download the installer for your platform from the latest release:
 > The apps are not code-signed or notarized yet, so each platform shows a
 > first-launch security prompt (steps below). Getting past it once is enough.
 
-### macOS (Apple Silicon)
+### macOS
 
-1. Download `Archaeopteryx-<version>.dmg` and open it.
+There are two macOS installers — take the one that matches your Mac. If you are
+not sure which you have, open the Apple menu → **About This Mac**: a **Chip**
+line (Apple M1 … M4) means Apple Silicon, a **Processor** line means Intel.
+
+1. Download `Archaeopteryx-<version>-apple-silicon.dmg` (Apple Silicon) or
+   `Archaeopteryx-<version>-intel.dmg` (Intel), and open it.
 2. Drag **Archaeopteryx** into **Applications**.
 3. On the first launch, **right-click** (or Control-click) the app and choose
    **Open**, then **Open** again — this clears macOS's "unidentified developer"
    warning. After that, launch it normally.
-
-> **Intel Macs:** the `.dmg` is Apple-Silicon (arm64) only. On an Intel Mac,
-> use the [jar](#run-from-the-jar) below.
 
 ### Windows
 
@@ -97,8 +99,8 @@ Otherwise, just check the releases page now and then.
 
 ### Run from the jar
 
-If there is no installer for your platform (for example, an **Intel Mac**), or
-you prefer a single self-contained file, run the jar with your own Java.
+If there is no installer for your platform, or you prefer a single
+self-contained file, run the jar with your own Java.
 
 **1. Install Java** — running the jar needs **Java 21 or newer** (a Java runtime
 is enough; a full JDK also works). Check what you already have with

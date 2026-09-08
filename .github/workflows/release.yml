@@ -36,10 +36,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { os: macos-latest,   kind: mac }
+          - { os: macos-latest,   kind: mac }         # Apple Silicon
+          - { os: macos-15-intel, kind: mac-intel }   # Intel Macs (still widely in use)
           - { os: windows-latest, kind: win }
           - { os: ubuntu-latest,  kind: linux }
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 60      # a wedged leg must never hold a release hostage
     steps:
       # Check out the SOURCE from forester at the requested ref (not this repo).
       - name: Check out forester
@@ -76,8 +78,16 @@ jobs:
         working-directory: forester/java
         run: |
           set -euxo pipefail
-          if [ "${{ matrix.kind }}" = "mac" ]; then
+          if [[ "${{ matrix.kind }}" == mac* ]]; then
             ant jpackage-dmg
+            VERSION=$(grep 'VERSION =' src/org/forester/archaeopteryx/AptxConstants.java | head -1 | sed -E 's/.*"([^"]+)".*/\1/')
+            # Two Macs, two dmgs: jpackage names both the same, so stamp the architecture into the
+            # file name -- an unlabeled dmg is how an Intel user ends up downloading an arm64 build.
+            if [ "${{ matrix.kind }}" = "mac-intel" ]; then ARCH_SUFFIX=intel; EXPECT=x86_64; else ARCH_SUFFIX=apple-silicon; EXPECT=arm64; fi
+            # Guard: the launcher must really be the architecture this leg advertises.
+            file dist/Archaeopteryx.app/Contents/MacOS/Archaeopteryx | grep -q "$EXPECT" \
+              || { echo "FATAL: $ARCH_SUFFIX leg produced a launcher that is not $EXPECT"; exit 1; }
+            mv "dist/Archaeopteryx-$VERSION.dmg" "dist/Archaeopteryx-$VERSION-$ARCH_SUFFIX.dmg"
           else
             ant all
             VERSION=$(grep 'VERSION =' src/org/forester/archaeopteryx/AptxConstants.java | head -1 | sed -E 's/.*"([^"]+)".*/\1/')
@@ -115,7 +125,7 @@ jobs:
             forester/java/dist/*.deb
           if-no-files-found: error
 
-  # Publish the three installers as a Release in THIS repo (GITHUB_REPOSITORY = cmzmasek/archaeopteryx).
+  # Publish the installers as a Release in THIS repo (GITHUB_REPOSITORY = cmzmasek/archaeopteryx).
   release:
     needs: build
     runs-on: ubuntu-latest
@@ -141,7 +151,9 @@ jobs:
           cat > notes.md <<EOF
           Archaeopteryx $TAG — self-contained installers with a bundled runtime (no Java required).
 
-          - macOS: \`.dmg\`  ·  Windows: \`.msi\`  ·  Linux: \`.deb\`
+          - macOS (Apple Silicon, M1-M4): \`Archaeopteryx-$TAG-apple-silicon.dmg\`
+          - macOS (Intel): \`Archaeopteryx-$TAG-intel.dmg\`
+          - Windows: \`.msi\`  ·  Linux: \`.deb\`
 
           Built from forester @ \`$SOURCE_REF\`. The installers are ad-hoc signed;
           on first launch macOS/Windows may warn about an unidentified developer.
