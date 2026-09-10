@@ -312,6 +312,64 @@ takes the tips hidden inside it rather than the clade root.
 
 The glow is on-screen guidance only — it never appears in an exported figure.
 
+### Long tip labels ("Shorten Labels")
+
+Trees exported from a database often give every tip the same long preamble —
+`Influenza A virus (A/mallard/Sweden/1/2010)`, or a whole FASTA header. **Shorten
+Labels** (in *Display Data*, on by default when a tree has long names) makes those
+readable without touching the data underneath.
+
+It does two things, in order. First it drops the **boring prefix every tip shares**
+— with `Influenza A virus (A/` on all of them, those characters tell you nothing
+about which tip you are looking at. Then, if what remains is still long, it keeps
+the **first and last eight characters** joined by `..`:
+
+```
+Influenza A virus (A/mallard/Sweden/1/2010)   ->   mallard/../1/2010)
+```
+
+Both ends are kept on purpose: a strain name usually differs from its neighbours
+at the start *and* at the end, so a cut that kept only the beginning would give
+several tips the same label.
+
+This is display only — the node keeps its full name, so searching, exporting and
+accession parsing all still see the whole thing. Archaeopteryx.js shortens labels
+by exactly the same method, so a tree looks the same in both.
+
+> A shared prefix is only dropped when **every** tip has it. A handful of
+> differently-named tips in an otherwise uniform tree will leave the prefix in
+> place, and the labels keep their common opening.
+
+---
+
+## Support values in Newick and Nexus files
+
+Newick and Nexus files usually carry branch support as a bare internal label —
+`)100:0.05` — with nothing to say whether `100` is a bootstrap percentage or the
+name of a clade. Archaeopteryx works it out for you: **when every internal label
+in a tree looks like a support value** — bootstrap percentages, posterior
+probabilities, or a 0–1000 scale — they are read as confidence values rather than
+node names, and shown. Everything that works on support then works: colouring by
+it, support symbols, collapsing weakly-supported branches.
+
+A tree whose internal labels are real clade names is left untouched, and so is a
+tree that mixes the two — it is all-or-nothing, so a genuine name is never turned
+into a number.
+
+To change it, use **Settings → Files → "Treat internal labels as confidence
+values"**:
+
+| | |
+| --- | --- |
+| **Auto** | the default — only when they *all* look like support |
+| **Always** | every numeric label, whatever its value; the only choice that helps a tree mixing names and numbers |
+| **Never** | leave them as names |
+
+> Earlier versions asked, with a dialog, the first time such a tree was opened.
+> They are now recognised without interrupting you. If you used to tick
+> **"Internal Node Names are Confidence Values"**, that checkbox is gone and its
+> equivalent is **Always** — not *Auto*.
+
 ---
 
 ## Coloring tips by their data ("Color by")
