@@ -463,6 +463,15 @@ collection year, an accession, a passage history. Archaeopteryx reads all of it
 BEAST or Auspice file) and gives you one place to decide how each field is shown:
 **Tools → Annotation Fields…**.
 
+A table joined with **Import Annotations** follows one convention in both viewers,
+so the same file gives the same tree here and in Archaeopteryx.js: a column
+becomes a `meta:` property named after its header, with spaces written as `_`
+(the menus show "Collection Date" again); a header already written as `ns:name`
+is kept as it is; a column whose every filled cell is a number is stored as a
+number; a cell already on the tip is replaced by the table's; an empty cell
+changes nothing. The table may be tab-, comma- or semicolon-separated, fields
+may be double-quoted, and lines starting with `#` are skipped.
+
 The rule is simple: **each field gets exactly one role.** It is a tip-aligned
 column, or it is part of the node's label, or it is not drawn. That exclusivity is
 the whole point — the fields that carry the figure become columns, and only the one
