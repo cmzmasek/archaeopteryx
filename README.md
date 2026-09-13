@@ -336,9 +336,9 @@ This is display only — the node keeps its full name, so searching, exporting a
 accession parsing all still see the whole thing. Archaeopteryx.js shortens labels
 by exactly the same method, so a tree looks the same in both.
 
-> A shared prefix is only dropped when **every** tip has it. A handful of
-> differently-named tips in an otherwise uniform tree will leave the prefix in
-> place, and the labels keep their common opening.
+> A prefix counts as shared when **at least 95% of the tips** carry it. A handful
+> of differently-named tips therefore no longer blocks it: they simply keep their
+> full names while the rest drop the common opening.
 
 ---
 
@@ -383,14 +383,31 @@ below). The same rules, ids and labels are used by
 [Archaeopteryx.js](https://github.com/cmzmasek/archaeopteryx-js), so a shared
 tree colors identically in both viewers.
 
-**A tree opens already colored.** On open, Archaeopteryx picks the tree's most
-informative well-covered field and applies it — nothing to configure. The
-dropdown lists every usable field **best first** (how much of the tree a field
-covers, and how informatively it splits it); a sparse field — one covering only
-some of the tips — is offered at the end of the list but never chosen for you.
-A figure saved with the tree keeps its own coloring, and a field you chose
-yourself is never overridden. To open trees uncolored, switch off **Settings →
-Labels & Colors → Auto-color a newly opened tree**.
+**Which fields are offered.** The dropdown lists every usable field **best first**:
+
+- clean categories first;
+- then numeric fields;
+- then very wide categories (more than 20 values);
+- then *In-Group* / *Out-Group* fields;
+- then sparse fields (on fewer than two thirds of the tips);
+- and at the very bottom, categories whose values barely repeat.
+
+Within each group, fields that cover more tips and split them more evenly come
+first. Some fields are never offered, because a colour spent on them says nothing
+about the tree:
+
+- a field with a single value;
+- a text field with as many values as the tree has tips (an identifier);
+- a field some tip carries **twice** (a node cannot be two colours);
+- fields that describe the *record* rather than the organism — ids, accessions,
+  identifiers, taxon ids, authors, sets, data-use terms and embargo
+  (*restricted until*) dates.
+
+**A tree opens already colored**, with the first field in that list that is not
+a very wide category — nothing to configure. A figure saved with the tree keeps
+its own coloring, and a field you chose yourself is never overridden. To open
+trees uncolored, switch off **Settings → Labels & Colors → Auto-color a newly
+opened tree**.
 
 **The legend** is a draggable card (double-click it to send it back to its
 corner). Each row shows the value's color and its tip count; `[by count]` /
@@ -401,7 +418,10 @@ at a glance (those tips draw no color dot). Clicking a value row lets you
 assign that value your own color; *Use Automatic Color* returns it to the
 automatic one.
 
-**Numeric fields.** A field with up to ten distinct numbers is treated as codes
+**Numeric fields.** A field is numeric only when **every** value is a plain decimal
+number (`12`, `-0.5`, `1e3`), so a field containing `0x1A` or `Infinity` is a
+category. Spellings of one number (`1`, `1.0`, `+1`) are one value, with one colour
+and one legend row. A field with up to ten distinct numbers is treated as codes
 (think H5N1 vs H5N2 subtype numbers) and gets individual colors; with more
 values it becomes a color **gradient** (years, rates). For fields with up to
 twenty distinct values a `[colors]` / `[gradient]` control in the legend lets
@@ -412,14 +432,20 @@ you flip between the two readings.
 subdivision after `:` (`USA:CA` = `USA:IL`), and a short dictionary of
 unambiguous common-animal synonyms (`swine` / `porcine` / `Sus scrofa` all
 read **Pig**; `bovine` / `cattle` → **Cow**; `Homo sapiens` → **Human**; …)
-share one color and one legend row. This is display grouping only: the values
+share one color and one legend row. A value that is nothing but underscores, or
+only a `host` / `country` qualifier, counts as no value. This is display grouping only: the values
 stored in your tree are never modified, and search, exports and the node
 dialog always show them verbatim. Coloring by the taxonomy or sequence fields
 themselves uses the values exactly as written, with no grouping at all.
 
 **Colors are stable.** A value keeps its color while you dive into subtrees,
 collapse clades or delete nodes — the legend re-derives to what is on screen,
-but nothing recolors, so a subtree figure matches the whole-tree figure.
+but nothing recolors, so a subtree figure matches the whole-tree figure. Diving
+into a subtree never changes what the dropdown offers or which field is chosen:
+a clade where every tip shares one value is simply coloured that value, and a
+field no tip in view carries keeps a legend of just its **no value** row.
+Deleting nodes, undoing, or editing node data keeps the field you chose for as
+long as any tip still carries it, even if it would no longer be offered.
 (Gradients are the exception by design: a gradient always spans the visible
 range.) Switching the palette (**Settings → Labels & Colors**, Default or
 Colorblind-friendly) or **Reset to Defaults** re-assigns from scratch.
@@ -741,7 +767,7 @@ it. So the whole toolkit composes on any dated tree, whatever its origin:
 
 - Archaeopteryx **auto-detects** the dated tree, marks it with a **"Time tree"**
   badge, and — because the axis is chosen **per tree from its own `<date>`
-  values** (their unit and magnitude) — draws the **right axis automatically**: a
+  values** (their unit) — draws the **right axis automatically**: a
   **Geologic (ICS)** axis for a tree dated in millions of years, a
   **Calendar-year** axis for a tip-dated molecular-epidemiology tree. A Dinosaur
   tree and a SARS-CoV-2 tree open in two tabs show the correct axis *at the same
@@ -787,10 +813,13 @@ dates, pies), and every remaining field is preserved as a `beast:*` property you
 can color, size, or tabulate. A malformed field is skipped rather than aborting
 the load, so real-world TreeAnnotator files open cleanly.
 
-A dated MCC tree opens as a **phylogram** with **Node Age Bars (HPD)** already on,
-and — reading the dates' unit — draws the matching **time axis** on its own (a
-**Calendar** or **Geologic** axis; see *Time trees & chronograms* above). There is
-normally nothing to set by hand.
+A dated MCC tree opens as a **phylogram** with **Node Age Bars (HPD)** already on.
+BEAST writes node ages as plain heights **with no unit**, so Archaeopteryx does not
+guess a time axis for them: pick **Calendar** or **Geologic** under **Settings →
+Overlays → Time Axis** (see *Time trees & chronograms* above), and a saved tree keeps
+that choice. When the tree carries a per-branch **`rate`**, the **Time | Div** toggle
+(left panel, under the P/A/C layout buttons) also offers a **divergence** layout,
+derived as rate × time; its tooltip says the divergence is derived, not recorded.
 
 The node-age overlay has two shapes (**Settings → Overlays → Data Overlays → Node
 age shape**): a flat **Bar** across the 95% HPD interval (the FigTree convention),
@@ -830,9 +859,11 @@ time axis reads directly against the named geologic intervals (Cretaceous,
 Jurassic, Triassic, …).
 
 The Time Axis is **per tree**: Archaeopteryx reads the appropriate axis from each
-tree's own `<date>` values (their unit and magnitude), so a geologic Dinosaur tree
+tree's own `<date>` values (their unit), so a geologic Dinosaur tree
 in one tab and a calendar-dated SARS-CoV-2 tree in another each show the right axis
-at the same time — no global switch to flip. The Settings dropdown lets you
+at the same time — no global switch to flip. Dates that carry **no unit** get no
+time axis, only the plain distance scale: Archaeopteryx does not guess a unit from
+how big the numbers are. The Settings dropdown lets you
 override the axis for the current tab (or turn it off), and when you **save** the
 tree, a deliberate choice travels with it (restored on reload).
 
@@ -951,8 +982,8 @@ your Nextstrain tree lights up on open:
   node's **`num_date.confidence`** (the divergence-time interval) becomes a
   **Node Age spindle**. It is also exposed as a numeric **`nextstrain:num_date`**
   property, so you can **Color by** the sampling date (a date gradient).
-- **`div`** (cumulative divergence) drives a **"Branch lengths: Time / Divergence"**
-  control (left panel, shown only for a tree that carries both) — flip the whole tree
+- **`div`** (cumulative divergence) drives the **Time | Div** toggle (left panel,
+  under the P/A/C layout buttons, shown only for a tree that carries both) — flip the whole tree
   between the **time** layout (`num_date`, with the calendar axis) and the
   **divergence** layout (`div`, in substitutions/site) at any time. It's a reversible
   display mode: both metrics stay on the tree, so nothing is edited or lost.
