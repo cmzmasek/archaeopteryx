@@ -760,7 +760,14 @@ query field:
 When you search a specific text field, the query box **suggests the values that
 field actually has in the tree**, filtered as you type — pick one to match it exactly.
 This makes categorical fields (**Node Type**, **Taxonomy Code**, an annotation column
-like `data:host`) point-and-click, and saves you from mistyping a value.
+like `data:host`) point-and-click, and saves you from mistyping a value. The list
+matches the way your search will: by prefix for *starts with*, by suffix for *ends
+with*, anywhere otherwise, and with or without case as **Match Case** says. The part
+you typed is marked in bold. It shows at most ten values; if more match, a last line
+tells you how many and to keep typing. Only the term you are typing is completed, so
+after `kinase, pho` it offers values for `pho` and keeps `kinase,` in front of your
+pick. Use **↓ / ↑** to move through the list, **Enter** to pick and search, and
+**Esc** to close it. Archaeopteryx.js suggests the same way.
 
 Two shared options sit above the boxes: **Match Case** and **Inverse** (select the
 nodes that do *not* match). Within a text query, `,` is a logical **OR** and `+` a
