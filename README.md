@@ -276,6 +276,22 @@ A button that cannot do anything right now fades rather than vanishing: the two
 sub-tree arrows stay dim until you are inside a sub-tree, and uncollapse-all
 until something is collapsed, so the row never changes shape under you.
 
+**Collapsed clades.** A collapsed clade is drawn as a **wedge** from its node:
+one edge reaches the clade's nearest tip and the other its farthest, so the
+shape still shows how uneven the clade's branch lengths are (in a cladogram the
+wedge is one step deep). It takes a little more room than a tip — more for a
+bigger clade, never more than two and a half rows — and is filled in the colour
+most of its tips wear under **Color by**. Its label stands where a tip label
+would, on the aligned column or the outer ring included, and names the clade:
+the node's own name if it has one; else the Color-by value at least 95% of its
+tips share, so a clade reads "Cow · 12 tips" while you look at hosts; else the
+tips' shared name prefix; always with the tip count. While a search hits inside
+it, the wedge is outlined in the search colour and the label adds
+`[found/total]`; when every tip is a hit the wedge is filled in the search
+colour and its label turns bold. A clade holding a hit stays bright while
+**Dim Non-Matches** fades the rest — also when every hit is inside collapsed
+clades. Collapsed clades are drawn the same way in Archaeopteryx.js.
+
 The expand button is the deliberate alternative to **Auto-hide Labels** (in
 *Display Data*, on by default), which drops labels when a tree is drawn too
 densely to show them all. Expanding the tree until they fit means nothing has to
@@ -286,7 +302,7 @@ are being auto-hidden is missing them, and the export report says so.
 already tells you *that* something is clickable; the glow tells you *which* node
 — which is what you actually need on a dense tree, and most of all in the modes
 that reroot or delete. It appears in every **Click on Node to:** mode, including
-over a collapsed clade's triangle. Pausing there also brings up the
+over a collapsed clade's wedge. Pausing there also brings up the
 [node card](#viewing-and-editing-node-data) with the node's data.
 
 There is only ever one circle on the node, and its colour says what a click will
@@ -307,7 +323,7 @@ it stays as it is.
 
 Pointing at a *branch* in Select Node(s) glows its clade root and marks the tips
 the click would take, since one circle cannot stand for forty of them. Over a
-collapsed triangle the glow reflects the whole clade, because a click there
+collapsed wedge the glow reflects the whole clade, because a click there
 takes the tips hidden inside it rather than the clade root.
 
 The glow is on-screen guidance only — it never appears in an exported figure.
