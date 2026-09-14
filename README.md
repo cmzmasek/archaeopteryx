@@ -386,6 +386,16 @@ values"**:
 > **"Internal Node Names are Confidence Values"**, that checkbox is gone and its
 > equivalent is **Always** — not *Auto*.
 
+**MAD values are not support.** **Tools → MAD-Root** (Tria, Landan & Dagan 2017)
+gives every internal branch its minimal ancestor deviation — how far from a clock
+the tree would be if it were rooted on that branch, so *lower is better*. The
+**MAD Confidence Values** display option shows them in front of any support value
+(`0.12/90`); phyloXML keeps them (`type="MAD"`), and rerooting the tree any other
+way removes them. They are never read as support: support symbols, coloring
+branches by support, collapsing weakly-supported branches, the Support /
+Confidence search and the Tree Properties support statistics all ignore them, and
+a Newick or Nexus file writes the branch's real support value, not its MAD value.
+
 ---
 
 ## Coloring tips by their data ("Color by")
