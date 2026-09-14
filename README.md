@@ -694,6 +694,41 @@ and goes away the instant the pointer leaves the node. (It is drawn on the tree 
 not as a separate window, so it can never be left behind on the desktop.) Switch it off with
 **Display Data → Rollover** in the control panel if you find it busy.
 
+## Re-rooting
+
+A tree is re-rooted by clicking a node with **Click on Node to: Root/Reroot**, by **Tools →
+Midpoint-Root**, or by **Tools → MAD-Root** (**Analysis → GSDIR** chooses a new root too). Each
+one is undoable and adds a sentence to the tree's description.
+
+**Trees that cannot be re-rooted.** Two kinds of tree refuse, and the controls above are greyed
+out for them, with the reason as their tooltip:
+
+- a tree its phyloXML file marks `rerootable="false"` (a reconciled gene tree, for example);
+- a **time tree** — most of its internal nodes carry a date (a chronogram, a BEAST MCC tree, a
+  Nextstrain tree). Its branch lengths are times measured from its root, so a new root would
+  contradict them. A tree whose *tips* alone are dated — sampling dates on a divergence tree —
+  can still be re-rooted: that is exactly what a root-to-tip regression does.
+
+**A warning when internal nodes carry data.** A name, taxonomy, events, a date or properties on
+an internal node describe its clade, and re-rooting changes the clade of the nodes between the
+old and the new root. So before a re-root that affects any of them, Archaeopteryx says how many —
+*"This tree has data on 12 internal nodes. Re-rooting changes the clade of 4 of them, so their
+data may no longer describe them."* — and you choose **Re-root** or **Cancel**. Branch lengths,
+support values and colours do not count, and a re-root that changes no annotated clade asks
+nothing.
+
+**Unrooted trees.** When a tree's file declares it unrooted (phyloXML `rooted="false"`, Nexus
+`[&U]`) *and* it is shown in the **unrooted** layout, the values that only mean something relative
+to a root are left out. Hovering an internal node lists the **tips around** it — one count per
+side, e.g. `2 · 3 · 5` — instead of its distance to parent, depth and tips below; a tip shows its
+**branch length** but no depth; the node data window does not offer an internal node's branch
+length; the Depth, Distance from Root and Clade Size search fields are not offered; and Tree
+Properties leaves out Depth and Height. A plain Newick tree declares nothing, so it is not treated
+as unrooted. Try [`unrooted-node-data.xml`](https://github.com/cmzmasek/forester/blob/master/forester/demo/unrooted-node-data.xml)
+and [`not-rerootable.xml`](https://github.com/cmzmasek/forester/blob/master/forester/demo/not-rerootable.xml).
+
+The same rules apply in the online Archaeopteryx.js viewer.
+
 ## Undo and redo
 
 **Edit → Undo** (⌘Z / Ctrl+Z) steps back through the tree edits of the **current tab**;
