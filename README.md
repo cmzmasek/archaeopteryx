@@ -5,7 +5,8 @@
 Archaeopteryx is a mature, offline application for visualizing, annotating, and
 analyzing phylogenetic trees — built for publication-quality figures. It reads
 phyloXML, Newick / New Hampshire (NH/NHX), and Nexus trees — including annotated
-[**BEAST / BEAST X** output](#beast-and-beast-x-output) — and brings together
+[**BEAST / BEAST X** output](#beast-and-beast-x-output) and the trees written by
+[**MrBayes, TreeTime and Nextstrain**](#mrbayes-treetime-and-nextstrain-nexus) — and brings together
 integrated taxonomy and sequence annotation, protein-domain architectures,
 calendar and geologic time axes, and WYSIWYG vector (PDF / SVG / EPS) export.
 
@@ -34,7 +35,8 @@ runtime — there is no Java to install.
 - **Large trees, five layouts** — rectangular (three orientations), circular,
   and unrooted, with tip-aligned annotation columns that ride into circular rings.
 - **Reads what you have** — Newick, NHX, Nexus, phyloXML, plus Nextstrain /
-  Auspice JSON, tip-dated labels, and BEAST intervals.
+  Auspice JSON and Nexus, tip-dated labels, and BEAST, MrBayes and TreeTime
+  annotations.
 
 See **`File → Demo Trees`** in the app for pre-configured examples of each feature.
 
@@ -874,8 +876,10 @@ maximum-clade-credibility (MCC) summaries. Both output shapes are supported:
 - annotated **Newick / NHX** with FigTree-style `[&key=value, ...]` comment
   blocks on nodes and branches.
 
-Just open the file — parsing of these tags is **on by default** (toggle under
-**Settings → Files → "Parse BEAST-style extended Newick/Nexus tags"**).
+Just open the file — reading these annotations is **on by default** (toggle under
+**Settings → Files → "Read [&...] Annotations (BEAST, MrBayes, FigTree, TreeTime,
+Nextstrain)"**; off, an annotation is kept as a plain comment). The same goes for
+the command line: `aptx_render` reads a file exactly as the window does.
 Each annotation is mapped onto the viewer's existing display features:
 
 | BEAST annotation | Becomes | Turn it on with |
@@ -883,12 +887,17 @@ Each annotation is mapped onto the viewer's existing display features:
 | `posterior` | Branch support (confidence) | **Confidence Values**; support coloring / symbols |
 | node age `height` / `height_median` / `height_mean` + `height_95%_HPD={lo,hi}` (or `height_range`) | Node age with a 95% HPD interval | **Node Age Bars (HPD)** — auto-enabled on load for a dated tree with HPD intervals |
 | discrete / geographic traits (e.g. a phylogeographic `location`) with posterior state sets | **Ancestral-state pie charts** | the **"Ancestral pie:"** dropdown (appears automatically when the tree carries such a trait) |
+| FigTree's `!color` — written as `#RRGGBB` or, as FigTree really writes it, as a signed integer (`!color=#-8381639`) | In the tree: the **branch color**. In the Nexus `taxlabels` block (`'NewYork_454'[&!color=#-8381639]`, where FigTree puts a colored *taxon*): the tip's **label color** | **Use Visual Styles** |
 | any other field (`rate`, `length_*`, custom traits, …) | A node property `beast:<key>` | **Color by**, **Size by**, and **Annotation Fields** (numeric traits render as gradients / bars) |
 
 Nothing is discarded: recognized fields become native structures (support, node
 dates, pies), and every remaining field is preserved as a `beast:*` property you
 can color, size, or tabulate. A malformed field is skipped rather than aborting
-the load, so real-world TreeAnnotator files open cleanly.
+the load, so real-world TreeAnnotator files open cleanly. It does not matter what
+an annotation starts with (a FigTree-colored BEAST tree leads with `!color` and
+still has its posterior, ages and rates read), and a node may carry several
+`[&...]` groups — all are read. (`beast:` means "came from a bracket annotation",
+whoever wrote the file.)
 
 A dated MCC tree opens as a **phylogram** with **Node Age Bars (HPD)** already on.
 BEAST writes node ages as plain heights **with no unit**, so Archaeopteryx does not
@@ -905,6 +914,49 @@ the HPD bounds, so you can see *where* the estimate sits within its interval. Th
 spindle is a schematic of the *summarized* uncertainty (the point estimate + 95%
 HPD), not the raw posterior density — a summary (MCC) tree doesn't carry the
 per-node posterior sample.
+
+## MrBayes, TreeTime and Nextstrain (Nexus)
+
+The same `[&key=value, ...]` annotations are what **MrBayes**, **TreeTime** and
+**Nextstrain / Auspice** write into their Nexus and Newick trees. Open the file;
+each is read for what it is. Only `.nex`, `.nexus`, `.nx` and `.nxs` are taken as
+Nexus by name; for anything else (`.tre`, `.trees`, `.con.tre`, `.t`, …) the first
+line decides, because tools disagree about those names.
+
+**MrBayes consensus trees** (`sumt`, `.con.tre`). MrBayes writes *two* annotation
+groups per node with the branch length between them. `prob` (with `prob_stddev`)
+becomes the branch's **posterior probability**; the **branch length is the one the
+file states**; `length_mean`, `length_median`, `length_95%HPD`, `prob_range` and the
+rest are kept as node data you can **Color by**, search, and see in the node window.
+
+**TreeTime.** TreeTime writes the *same* `date=2003.84` on every node of both
+trees it produces — `timetree.nexus` (branch lengths in years) and
+`divergence_tree.nexus` (substitutions per site) — and nothing in either file says
+which it is. Archaeopteryx asks the tree: a `date=` becomes the node's date in
+calendar years only where the parent-to-child date differences actually reproduce
+the branch lengths. So the time tree opens as a **time tree with the Calendar axis**,
+and the divergence tree — identical dates — does not (its dates stay descriptions,
+and it can still be re-rooted). `mutations="A54G,T92C"` is read whole, and
+TreeTime's own annotations are filed as `treetime:<key>` (a tree with mutations and
+no node ages is TreeTime's). TreeTime's **Newick** glues an internal node's name to
+its confidence — `NODE_00000161.00` is node `NODE_0000016` with confidence `1.00`;
+they are separated on open, whatever the *internal labels* setting says. TreeTime's
+`auspice_tree.json` (its only output with full-precision dates) opens as an
+[Auspice JSON](#auspice--nextstrain-json).
+
+**Nextstrain "download Nexus".** An Auspice Nexus export opens like the same
+build's JSON: `num_date` is every node's date in calendar years (**Calendar axis**,
+time tree), `num_date_CI` its date interval (**Node Age Bars** — see below), and
+`div` the `nextstrain:div` behind the **Time | Div** toggle. Values are
+read as written — `country=Democratic Republic of the Congo`, `country=Côte d'Ivoire`.
+Auspice writes `num_date` on its **divergence** export too (`…_tree.nexus`, branch
+lengths in substitutions); there the dates do not match the branch lengths, so they
+are kept as plain data (`nextstrain:num_date`, `nextstrain:num_date_CI`) and the tree
+is — correctly — not a time tree.
+
+Demo files for all of these (`nextstrain-nexus.nex`, `treetime-nexus.nex` +
+`treetime-divergence.nex`, `treetime-tree.nwk`, `mrbayes-consensus.con.tre`) are in
+the [demo folder](https://github.com/cmzmasek/forester/tree/master/forester/demo).
 
 ## Dates in tip labels
 
@@ -1018,7 +1070,10 @@ Illustrator required.
 
 Like the Node Age Bars, it is **auto-enabled** on load when the tree has fossil tip
 ranges, and it renders in every rectangular orientation and as radial segments in
-the **circular** layout. The range is read from the tip's native phyloXML `<date>`
+the **circular** layout. A tip range needs a width (a `{0,0}` interval is no range),
+and on a tree dated in **calendar years** a tip's interval is not a fossil range at
+all but the uncertainty of a sampling date — a virus sampled "sometime in 2015" —
+so there the **Node Age Bars** draw it and the fossil bars never do. The range is read from the tip's native phyloXML `<date>`
 (value/min/max — the same model the node card and the node window show), so it works directly on a
 tree time-scaled by any of the usual tools. Reference:
 
@@ -1046,7 +1101,8 @@ faint reference lines across the tree at each labelled year tick.
 
 ## Auspice / Nextstrain JSON
 
-Archaeopteryx reads **Auspice / Nextstrain v2** datasets — the `dataset.json`
+Archaeopteryx reads **Auspice / Nextstrain v2** datasets (including TreeTime's
+`auspice_tree.json`, which states no version) — the `dataset.json`
 format behind [nextstrain.org](https://nextstrain.org) and the Auspice viewer,
 the de-facto interchange format for dated, annotated pathogen phylogenies. Just
 open a `.json` file with **File → Read Tree from File…** (or try **File → Demo
@@ -1055,10 +1111,13 @@ Trees → Phylodynamics (Nextstrain JSON)**).
 The point is that it maps straight onto features Archaeopteryx already has, so
 your Nextstrain tree lights up on open:
 
-- **`num_date`** → the tree is placed on the **Calendar axis**, and each internal
-  node's **`num_date.confidence`** (the divergence-time interval) becomes a
-  **Node Age spindle**. It is also exposed as a numeric **`nextstrain:num_date`**
-  property, so you can **Color by** the sampling date (a date gradient).
+- **`num_date`** → the tree is placed on the **Calendar axis**, and each node's
+  **`num_date.confidence`** becomes a **Node Age bar / spindle**: on an internal
+  node the divergence-time interval, on a **tip** the *sampling-date uncertainty*
+  of a sample dated only to the month or the year (an exactly dated sample draws
+  nothing). On calendar time a tip's interval is never drawn as a fossil range.
+  It is also exposed as a numeric **`nextstrain:num_date`** property, so you can
+  **Color by** the sampling date (a date gradient).
 - **`div`** (cumulative divergence) drives the **Time | Div** toggle (left panel,
   under the P/A/C layout buttons, shown only for a tree that carries both) — flip the whole tree
   between the **time** layout (`num_date`, with the calendar axis) and the
@@ -1479,9 +1538,12 @@ With neither `-phylogram` nor `-cladogram`, the tree is drawn as a phylogram whe
 it has branch lengths and a cladogram when it does not — the same choice
 Archaeopteryx makes on opening it.
 
-`-color` takes a phyloXML property reference. Give it one the tree does not have
-and it stops and tells you which ones it does have, rather than quietly writing
-an uncoloured figure.
+`-color` takes a property reference (`data:host`, or — for an annotated BEAST,
+MrBayes, TreeTime or Nextstrain tree — `beast:rate`, `beast:region`, …). Give it
+one the tree does not have and it stops and tells you which ones it does have,
+rather than quietly writing an uncoloured figure. In a rectangular figure the
+legend gets a **column of its own** at the right, so it never sits on the tips
+(in the window you would drag it clear; in a rendered figure nobody can).
 
 ### Size and DPI — worth two minutes
 
