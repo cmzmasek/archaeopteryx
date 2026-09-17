@@ -900,12 +900,33 @@ still has its posterior, ages and rates read), and a node may carry several
 whoever wrote the file.)
 
 A dated MCC tree opens as a **phylogram** with **Node Age Bars (HPD)** already on.
-BEAST writes node ages as plain heights **with no unit**, so Archaeopteryx does not
-guess a time axis for them: pick **Calendar** or **Geologic** under **Settings →
-Overlays → Time Axis** (see *Time trees & chronograms* above), and a saved tree keeps
-that choice. When the tree carries a per-branch **`rate`**, the **Time | Div** toggle
-(left panel, under the P/A/C layout buttons) also offers a **divergence** layout,
-derived as rate × time; its tooltip says the divergence is derived, not recorded.
+
+BEAST writes node ages as plain **heights** — time before the youngest tip, **with no
+unit** — and a height on its own cannot say whether it counts years, months or days.
+But a tip-dated analysis nearly always carries the **sampling date in the tip name**
+(`A_duck_Guangdong_12_2000`, `EBOV|KR817226|2014-06-10`), and that settles it: if the
+heights are years, then every tip's label date plus its height is the *same* calendar
+date — the date of the youngest tip. Archaeopteryx checks that when the file opens,
+and where the labels agree it **converts the heights into calendar dates**. The tree
+then opens on the **Calendar axis**, with each node's 95% HPD interval drawn in
+calendar years, and a sentence recording the conversion — including which calendar
+date height 0 is — is added to the tree's description (**View → Tree Properties…**).
+
+This is evidence from the file, not a guess about the size of the numbers. At least
+19 in 20 of the tips carrying both a height and a dated label must agree, and they
+must have been sampled at **different times** (tips all from one year would fit
+heights in any unit, so they prove nothing). A tree that fails either test — labels
+without dates, a strain number that is not a year, heights in months — keeps its
+plain heights and gets no axis; pick **Calendar** or **Geologic** under **Settings →
+Overlays → Time Axis** yourself (see *Time trees & chronograms* above), and a saved
+tree keeps that choice. A tree whose dates already carry a unit is never overridden.
+
+Samples dated only to a month or a year, whose exact dates BEAST sampled, keep their
+interval: on calendar time that is a **sampling-date uncertainty**, drawn by the Node
+Age Bars, never a fossil range. When the tree carries a per-branch **`rate`**, the
+**Time | Div** toggle (left panel, under the P/A/C layout buttons) also offers a
+**divergence** layout, derived as rate × time; its tooltip says the divergence is
+derived, not recorded.
 
 The node-age overlay has two shapes (**Settings → Overlays → Data Overlays → Node
 age shape**): a flat **Bar** across the 95% HPD interval (the FigTree convention),
@@ -955,8 +976,9 @@ are kept as plain data (`nextstrain:num_date`, `nextstrain:num_date_CI`) and the
 is — correctly — not a time tree.
 
 Demo files for all of these (`nextstrain-nexus.nex`, `treetime-nexus.nex` +
-`treetime-divergence.nex`, `treetime-tree.nwk`, `mrbayes-consensus.con.tre`) are in
-the [demo folder](https://github.com/cmzmasek/forester/tree/master/forester/demo).
+`treetime-divergence.nex`, `treetime-tree.nwk`, `mrbayes-consensus.con.tre`), and for
+a TreeAnnotator tree dated from its tip labels (`beast-tip-dates.nex`), are in the
+[demo folder](https://github.com/cmzmasek/forester/tree/master/forester/demo).
 
 ## Dates in tip labels
 
@@ -992,7 +1014,9 @@ tree's own `<date>` values (their unit), so a geologic Dinosaur tree
 in one tab and a calendar-dated SARS-CoV-2 tree in another each show the right axis
 at the same time — no global switch to flip. Dates that carry **no unit** get no
 time axis, only the plain distance scale: Archaeopteryx does not guess a unit from
-how big the numbers are. The Settings dropdown lets you
+how big the numbers are — the one exception being a BEAST tree whose **tip labels**
+carry sampling dates that agree with its heights (see *BEAST and BEAST X output*
+above), which is evidence in the file rather than a guess. The Settings dropdown lets you
 override the axis for the current tab (or turn it off), and when you **save** the
 tree, a deliberate choice travels with it (restored on reload).
 
@@ -1070,7 +1094,10 @@ Illustrator required.
 
 Like the Node Age Bars, it is **auto-enabled** on load when the tree has fossil tip
 ranges, and it renders in every rectangular orientation and as radial segments in
-the **circular** layout. A tip range needs a width (a `{0,0}` interval is no range),
+the **circular** layout. A tip range needs a **width**: `{0,0}` is no range, and neither is an interval whose
+two ends differ only in the last decimal or two of floating-point arithmetic —
+TreeAnnotator writes an exactly dated tip as `{9.0, 9.000000000000004}`, which states
+a date, not a duration. Nothing draws, switches on, or reports a range from one.
 and on a tree dated in **calendar years** a tip's interval is not a fossil range at
 all but the uncertainty of a sampling date — a virus sampled "sometime in 2015" —
 so there the **Node Age Bars** draw it and the fossil bars never do. The range is read from the tip's native phyloXML `<date>`
