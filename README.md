@@ -998,6 +998,30 @@ An incomplete date maps to the midpoint of its interval (`2021` → mid-2021); a
 ambiguous numeric date (e.g. `05/03` — is that 5 March or 3 May?) is read
 **day-first** by default, with a toggle in the preview. The write is undoable.
 
+## Newick time trees (no dates in the file)
+
+TreeTime and Nextstrain also export a time tree as a plain **Newick**: the branch
+lengths are **years**, but nothing in the file says so — and the same programs write
+*divergence* trees, in substitutions per site, in exactly the same shape. The Nexus
+exports of those runs carry dates and land on the Calendar axis; their `.nwk`
+siblings used to open as a bare distance tree.
+
+The tip labels settle it, the same way they do for [BEAST heights](#beast-and-beast-x-output):
+if the branch lengths are years, then every tip's sampling date **minus its distance
+from the root** is the same calendar date — the root's. Where the labels agree,
+Archaeopteryx **dates every node** on open (root date + its distance from the root),
+so the tree opens on the **Calendar time axis**; **View → Tree Properties…** shows a
+sentence recording the root date, from which every node's date follows. Because the
+internal nodes are then dated the tree is a **time tree**, so **re-rooting is
+refused** — a new root would contradict the dates its own branch lengths imply.
+
+A divergence tree cannot pass: its tips sit ~0.001 substitutions from the root while
+their labels span years, so nothing agrees. The same guards apply as for BEAST
+heights — at least 19 in 20 of the dated labels must agree, the samples must differ
+in time, and a tree that already carries dates of its own is never touched. Compare
+the demo pair `newick-time-tree.nwk` and `newick-divergence-tree.nwk`: same topology,
+same tip labels, and only the first becomes a time tree.
+
 ## Geologic time axis
 
 For a dated, time-calibrated tree — where the branch lengths are geologic time
