@@ -148,6 +148,13 @@ Just launch Archaeopteryx and pick a tree from **File → Demo Trees**:
 - **Properties in Labels** — a tree whose tips each carry six properties: two stay in the
   tip label, the other four become tip-aligned columns. One field, one role — which is
   what keeps a heavily annotated tree readable
+- **Stacked Bar Columns** — ten microbiome samples (gut, oral, skin, soil, water), each
+  with three read counts — *Firmicutes*, *Bacteroidetes*, *Proteobacteria* — merged into
+  one segmented bar per tip: the bar's length is the sample's total, its segments the
+  composition. Tick **Normalize stacked bars to 100%** in **Tools → Annotation Fields…**
+  to compare the composition alone
+- **Pie Columns** — the same ten samples with their three read counts drawn as one pie
+  per tip, a wedge per phylum: the pie-chart view of a normalized stacked bar
 - **Pangenome Presence/Absence (Clustergram)** — 100 strains × 40 genes: a plain tree
   plus a table of gene-presence certainty (0–4, a blank cell *not assessed*), imported
   and shown as a clustergram. The columns come out clustered; switch **View → Order
@@ -163,6 +170,10 @@ Just launch Archaeopteryx and pick a tree from **File → Demo Trees**:
   A domain needs a positive length (its `to` greater than its `from`) and both
   coordinates present; any that does not is skipped, and Archaeopteryx says how many
   it ignored once the file is open, rather than refusing the tree over an annotation
+- **Alignment next to Tree** — a protein alignment of six vertebrates, human to frog,
+  drawn beside the tree as coloured residue cells, one row per tip, switched on as the
+  tree opens; hover a residue to read its column, its position and its properties (see
+  [Sequence alignment](#sequence-alignment))
 - **Bat Phylogeny (Taxonomy by Rank)** — 34 bat species with common + scientific
   names + synonyms, every clade rank-annotated, colorized by family (all offline)
 - **Animal Tree of Life (Nested Clade Levels)** — 25 animals from sponges and comb
