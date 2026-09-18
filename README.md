@@ -148,6 +148,12 @@ Just launch Archaeopteryx and pick a tree from **File → Demo Trees**:
 - **Properties in Labels** — a tree whose tips each carry six properties: two stay in the
   tip label, the other four become tip-aligned columns. One field, one role — which is
   what keeps a heavily annotated tree readable
+- **Pangenome Presence/Absence (Clustergram)** — 100 strains × 40 genes: a plain tree
+  plus a table of gene-presence certainty (0–4, a blank cell *not assessed*), imported
+  and shown as a clustergram. The columns come out clustered; switch **View → Order
+  Matrix Columns** to **Same as Table** and the gene classes — core, clade-specific,
+  mobile, rare, ambiguous — read as bands (see
+  [A heat-map matrix and its column order](#a-heat-map-matrix-and-its-column-order))
 - **Protein Domain Architectures** — multi-domain proteins drawn to scale as flat,
   rounded, distinctly-colored boxes (a soft shadow, an optional glow); label the domains
   on the boxes or gather them into a draggable, E-value-aware legend
@@ -535,13 +541,69 @@ hover away in the [node card](#viewing-and-editing-node-data), and in **Display 
 Data**, so narrowing the label costs you nothing.
 
 The **↑ / ↓** buttons beside each field set the order — both the left-to-right order
-of the columns and the order the label reads in. Turning on any label field switches
+of the columns and the order the label reads in. (A heat-map matrix can also order
+its columns for you — see [below](#a-heat-map-matrix-and-its-column-order).) Turning on any label field switches
 the **Properties** display checkbox on for you, so the choice takes effect
 immediately.
 
 By default, a field that is not shown as a column goes in the label, which is what
 the **Properties** checkbox has always shown. Open the chooser and narrow it down
 from there. **Settings → Reset to Defaults** puts it back.
+
+### A heat-map matrix and its column order
+
+A table of numbers per tip — gene presence/absence, abundance across samples,
+expression — reads best as one grid beside the tree. **View → Clustergram** builds it
+in one click: the numeric fields become **Heat map (matrix)** columns on one shared
+colour scale, categorical fields become colour strips (a field with the same value on
+every tip has nothing to show and is left out), and the tree turns root-at-top
+with its tips aligned and their labels below the grid. The matrix is drawn in the
+rectangular layouts (root left, top or bottom) and, as rings, in the circular one.
+
+In a matrix the **order of the columns** decides what the eye can see. **View → Order
+Matrix Columns** picks it for the current tab; each tab keeps its own:
+
+| Order | the columns are placed … |
+| --- | --- |
+| **Clustered (co-occurrence)** — the default | so that columns whose values agree across the tips sit together |
+| **Same as Table** | in the order the file, or the imported table, lists them |
+| **Alphabetical** | by name, ignoring case |
+| **Frequency** | highest mean value first, over the tips that have a value — on 0/1 data, the fraction of tips carrying it |
+| **Manual** | where you put them; nothing re-sorts them |
+
+Only the matrix columns move, and only among the places matrix columns already hold:
+colour strips, symbols and bars stay where they are. A blank cell — *not assessed* —
+never counts as 0 in any of these orders.
+
+**Clustered** is complete-linkage hierarchical clustering on Euclidean distance: the
+clustered heat map, and the default of R's `pheatmap`, `heatmap.2` and
+`ComplexHeatmap`. Where either of two columns has no value at a tip, that tip is left
+out of the pair and the rest is scaled up to make up for it (R's `dist()` rule), and
+the result is the same column order R's `hclust(dist(t(m)), method = "complete")`
+gives — so a figure made here can be checked against one made in R. Two columns that
+share no assessed tip at all cannot be compared, and join last (R refuses such input).
+
+One thing to know about clustering presence/absence data: Euclidean distance counts two
+genes that are both *absent* from the same strains as alike. Rare genes, and genes that
+each sit on a different clade, are absent almost everywhere, so they can end up side by
+side while sharing no strains at all. If your table already groups its columns in a
+meaningful way — core genes, then resistance genes, then mobile elements — **Same as
+Table** shows that grouping as bands.
+
+To arrange the columns yourself, use the **↑ / ↓** buttons in **Tools → Annotation
+Fields…**: moving a matrix column to a new place switches the tab to **Manual**, so the
+order you set is never re-sorted behind your back. Moving a row and back again, or
+moving only a colour strip, leaves the tab's order as it was. A figure saved in the file
+reopens with its columns exactly as saved, in **Manual**. **Settings → Reset to
+Defaults** puts every tab back to **Clustered**.
+
+- Complete linkage: Sørensen T (1948): "A method of establishing groups of equal
+  amplitude in plant sociology based on similarity of species content and its
+  application to analyses of the vegetation on Danish commons", *Biologiske Skrifter*
+  5(4):1–34.
+- The clustered heat map: Eisen MB, Spellman PT, Brown PO, Botstein D (1998): "Cluster
+  analysis and display of genome-wide expression patterns", *PNAS* 95(25):14863–14868,
+  doi:10.1073/pnas.95.25.14863.
 
 Everything here works in **all five display types**. In the circular layout the
 columns become concentric rings around the tree, and label properties ride each
