@@ -552,8 +552,9 @@ hover away in the [node card](#viewing-and-editing-node-data), and in **Display 
 Data**, so narrowing the label costs you nothing.
 
 The **↑ / ↓** buttons beside each field set the order — both the left-to-right order
-of the columns and the order the label reads in. (A heat-map matrix can also order
-its columns for you — see [below](#a-heat-map-matrix-and-its-column-order).) Turning on any label field switches
+of the columns and the order the label reads in. You can also move a column by
+dragging its header on the tree itself. (A heat-map matrix can also order its columns
+for you — see [below](#a-heat-map-matrix-and-its-column-order).) Turning on any label field switches
 the **Properties** display checkbox on for you, so the choice takes effect
 immediately.
 
@@ -567,9 +568,10 @@ A table of numbers per tip — gene presence/absence, abundance across samples,
 expression — reads best as one grid beside the tree. **View → Clustergram** builds it
 in one click: the numeric fields become **Heat map (matrix)** columns on one shared
 colour scale, categorical fields become colour strips (a field with the same value on
-every tip has nothing to show and is left out), and the tree turns root-at-top
-with its tips aligned and their labels below the grid. The matrix is drawn in the
-rectangular layouts (root left, top or bottom) and, as rings, in the circular one.
+every tip has nothing to show and is left out), and the tree is laid out root on the
+left with its tips aligned: the dendrogram, its tip labels, then the matrix, with each
+column's name across the top. The matrix is drawn in the rectangular layouts (root left,
+top or bottom) and, as rings, in the circular one.
 
 In a matrix the **order of the columns** decides what the eye can see. **View → Order
 Matrix Columns** picks it for the current tab; each tab keeps its own:
@@ -601,9 +603,12 @@ side while sharing no strains at all. If your table already groups its columns i
 meaningful way — core genes, then resistance genes, then mobile elements — **Same as
 Table** shows that grouping as bands.
 
-To arrange the columns yourself, use the **↑ / ↓** buttons in **Tools → Annotation
-Fields…**: moving a matrix column to a new place switches the tab to **Manual**, so the
-order you set is never re-sorted behind your back. Moving a row and back again, or
+To arrange the columns yourself, **drag a column's header** — in the circular layout,
+its ring — to where you want it; a marker shows where it will land, and a plain click on
+the header still shows that column's legend. The **↑ / ↓** buttons in **Tools →
+Annotation Fields…** do the same one place at a time. Moving a matrix column to a new
+place switches the tab to **Manual**, so the order you set is never re-sorted behind
+your back. Moving a row and back again, or
 moving only a colour strip, leaves the tab's order as it was. A figure saved in the file
 reopens with its columns exactly as saved, in **Manual**. **Settings → Reset to
 Defaults** puts every tab back to **Clustered**.
