@@ -161,11 +161,18 @@ Just launch Archaeopteryx and pick a tree from **File → Demo Trees**:
   Matrix Columns** to **Same as Table** and the gene classes — core, clade-specific,
   mobile, rare, ambiguous — read as bands (see
   [A heat-map matrix and its column order](#a-heat-map-matrix-and-its-column-order))
+- **Sparse Accessory Genome (Two Clustered Orders)** — 50 strains × 18 genes whose eight
+  rare genes share no strain at all. It opens in the default **Clustered
+  (co-occurrence)**, where all eight clump into one block because Euclidean distance
+  counts the strains they are jointly *absent* from as agreement; switch **View → Order
+  Matrix Columns** to **Clustered (ignoring shared absence)** and the block breaks up,
+  each prophage moving beside its own lineage's capsule locus. The same matrix, the same
+  clustering, two different questions
 - **Protein Domain Architectures** — multi-domain proteins drawn to scale as flat,
   rounded, distinctly-colored boxes (a soft shadow, an optional glow); label the domains
   on the boxes or gather them into a draggable, E-value-aware legend
   (Settings → Layout → Domain labels). In **circular and unrooted** views the
-  architectures ride each tip's spoke as a concentric ring — the iTOL look — whenever
+  architectures ride each tip's spoke as a concentric ring whenever
   **Radial Labels** are on (auto-enabled when you show domains in a radial layout).
   A domain needs a positive length (its `to` greater than its `from`) and both
   coordinates present; any that does not is skipped, and Archaeopteryx says how many
@@ -463,6 +470,16 @@ at a glance (those tips draw no color dot). Clicking a value row lets you
 assign that value your own color; *Use Automatic Color* returns it to the
 automatic one.
 
+**The legend gets a column of its own.** Its home corner — top right — is exactly
+where a root-left tree puts its top tips, and where a matrix puts its column
+headers, so by default Archaeopteryx reserves a strip at the right for it and lays
+the tree out in what is left: the legend never sits on your data, and the window
+shows what **Save/Export as PDF** and `aptx_render` have always drawn. Drag the
+legend anywhere and it gives the column straight back (it is only claimed by a
+legend still at its default corner), and the column is never taken when it would
+cost more than 40% of the width. Switch it off — and let the legend float over the
+tree, as it used to — with **Settings → Layout → Legend in Its Own Column**.
+
 **Numeric fields.** A field is numeric only when **every** value is a plain decimal
 number (`12`, `-0.5`, `1e3`), so a field containing `0x1A` or `Infinity` is a
 category. Spellings of one number (`1`, `1.0`, `+1`) are one value, with one colour
@@ -588,6 +605,9 @@ Matrix Columns** picks it for the current tab; each tab keeps its own:
 Only the matrix columns move, and only among the places matrix columns already hold:
 colour strips, symbols and bars stay where they are. A blank cell — *not assessed* —
 never counts as 0 in any of these orders.
+
+To read a cell's actual **value**, hover it: the rollover names the tip, the gene and the
+number behind the colour (see [Hovering a cell](#viewing-and-editing-node-data)).
 
 **Clustered** is complete-linkage hierarchical clustering on Euclidean distance: the
 clustered heat map, and the default of R's `pheatmap`, `heatmap.2` and
@@ -805,6 +825,13 @@ Archaeopteryx.js viewer. It follows the light or dark theme, keeps itself inside
 and goes away the instant the pointer leaves the node. (It is drawn on the tree canvas itself,
 not as a separate window, so it can never be left behind on the desktop.) Switch it off with
 **Display Data → Rollover** in the control panel if you find it busy.
+
+**Hovering a cell** of an annotation column shows the same card, for what that cell holds:
+which tip's row it is, the field and its value, and — for a heat map — the scale the colour
+was taken from, so a shade can be read back to a number. A cell that was never filled in reads
+*not assessed* rather than 0, and a merged stacked-bar or pie column lists every series with
+its own value. It works wherever cells are drawn: the three rectangular orientations and, on
+the rings, the circular layout. The same **Rollover** checkbox switches both off.
 
 ## Re-rooting
 
@@ -1157,7 +1184,7 @@ tree, a deliberate choice travels with it (restored on reload).
 The axis follows the layout: it runs along the bottom in the **root-left**
 orientation, down the breadth side in the **root-on-top / root-on-bottom**
 orientations, and becomes concentric coloured **rings** (period bands from the
-centre outward) in the **circular** layout — the iTOL-style geologic disc. (It is
+centre outward) in the **circular** layout — a geologic disc. (It is
 not shown in the unrooted layout, which has no single time axis to band.) In the
 rectangular orientations the axis stays pinned to the edge as you zoom and scroll,
 so it is always in view.
@@ -1556,8 +1583,7 @@ A branch is treated as *long* when its length exceeds **8× the median** of the
 tree's strictly-positive branch lengths — a robust threshold (unaffected by the one
 outlier being detected, or by the many zero-length branches of a polytomy-heavy
 tree), so a well-behaved, near-clock tree shows no breaks at all. This is a
-graphical convention (as offered by interactive viewers such as iTOL's *cut long
-branches*), not an inference step. It applies in **all** phylogram layouts — the
+graphical convention, not an inference step. It applies in **all** phylogram layouts — the
 unaligned and aligned phylogram views of the rectangular family (root-left / -top /
 -bottom and triangular), and the **circular** and **unrooted** radial views. In the aligned view
 the broken branch is capped and its tip still lines up at the common label column; in
@@ -1703,8 +1729,9 @@ Archaeopteryx makes on opening it.
 MrBayes, TreeTime or Nextstrain tree — `beast:rate`, `beast:region`, …). Give it
 one the tree does not have and it stops and tells you which ones it does have,
 rather than quietly writing an uncoloured figure. In a rectangular figure the
-legend gets a **column of its own** at the right, so it never sits on the tips
-(in the window you would drag it clear; in a rendered figure nobody can).
+legend gets a **column of its own** at the right, so it never sits on the tips —
+here always, whatever **Settings → Layout → Legend in Its Own Column** says in the
+window, since nobody can drag a legend in a rendered figure.
 
 ### Size and DPI — worth two minutes
 

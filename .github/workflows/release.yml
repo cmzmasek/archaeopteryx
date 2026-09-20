@@ -153,7 +153,8 @@ jobs:
 
           - macOS (Apple Silicon, M1-M4): \`Archaeopteryx-$TAG-apple-silicon.dmg\`
           - macOS (Intel): \`Archaeopteryx-$TAG-intel.dmg\`
-          - Windows: \`.msi\`  ·  Linux: \`.deb\`
+          - Windows: \`Archaeopteryx-$TAG.msi\`
+          - Linux (Debian/Ubuntu): \`archaeopteryx_${TAG}_amd64.deb\`
 
           Built from forester @ \`$SOURCE_REF\`. The installers are ad-hoc signed;
           on first launch macOS/Windows may warn about an unidentified developer.
