@@ -579,6 +579,7 @@ Matrix Columns** picks it for the current tab; each tab keeps its own:
 | Order | the columns are placed … |
 | --- | --- |
 | **Clustered (co-occurrence)** — the default | so that columns whose values agree across the tips sit together |
+| **Clustered (ignoring shared absence)** | the same clustering, but a tip where *both* columns are 0 is left out — so columns sit together because they are found in the same tips, not because they are missing from the same tips |
 | **Same as Table** | in the order the file, or the imported table, lists them |
 | **Alphabetical** | by name, ignoring case |
 | **Frequency** | highest mean value first, over the tips that have a value — on 0/1 data, the fraction of tips carrying it |
@@ -597,11 +598,32 @@ gives — so a figure made here can be checked against one made in R. Two column
 share no assessed tip at all cannot be compared, and join last (R refuses such input).
 
 One thing to know about clustering presence/absence data: Euclidean distance counts two
-genes that are both *absent* from the same strains as alike. Rare genes, and genes that
-each sit on a different clade, are absent almost everywhere, so they can end up side by
-side while sharing no strains at all. If your table already groups its columns in a
-meaningful way — core genes, then resistance genes, then mobile elements — **Same as
-Table** shows that grouping as bands.
+genes that are both *absent* from the same strains as alike — the **double-zero problem**.
+Rare genes, and genes that each sit on a different clade, are absent almost everywhere, so
+they can end up side by side while sharing no strains at all.
+
+**Clustered (ignoring shared absence)** is the answer to exactly that. It is the same
+complete-linkage clustering, read from the **Bray–Curtis dissimilarity** —
+`sum|x − y| / sum(x + y)` over the tips where both columns have a value, the default of
+R's `vegan::vegdist()`. A tip where both columns are 0 adds nothing to either sum, so it
+simply drops out: two genes that are each rare and never in the same strain come out
+*maximally* distant (1) instead of nearly identical, and each rare gene lands beside the
+genes it actually occurs with. On plain 0/1 data it is exactly the **Sørensen–Dice**
+dissimilarity. It is meant for values that are 0 or more — counts, abundances, the 0–4
+certainty scale — and it is a dissimilarity rather than a distance (it does not obey the
+triangle inequality, which complete linkage does not need). Missing cells are dropped
+pairwise, as above; because it is a ratio it needs no scaling to make up for them.
+
+Which to use: **co-occurrence** when a 0 is a real, informative measurement and you want
+the arrangement R's heat maps would give; **ignoring shared absence** when the matrix is
+sparse — a pan-genome, a presence/absence table, anything where most cells are 0 and
+being absent together says nothing. Try both on
+[`sparse-accessory-genome.xml`](https://github.com/cmzmasek/forester/blob/master/forester/demo/sparse-accessory-genome.xml)
+and its table: eight rare genes that share no strain at all clump into one block under
+the first and scatter to their own lineages under the second.
+
+If your table already groups its columns in a meaningful way — core genes, then
+resistance genes, then mobile elements — **Same as Table** shows that grouping as bands.
 
 To arrange the columns yourself, **drag a column's header** — in the circular layout,
 its ring — to where you want it; a marker shows where it will land, and a plain click on
@@ -620,10 +642,20 @@ Defaults** puts every tab back to **Clustered**.
 - The clustered heat map: Eisen MB, Spellman PT, Brown PO, Botstein D (1998): "Cluster
   analysis and display of genome-wide expression patterns", *PNAS* 95(25):14863–14868,
   doi:10.1073/pnas.95.25.14863.
+- The Bray–Curtis dissimilarity: Bray JR, Curtis JT (1957): "An ordination of the upland
+  forest communities of southern Wisconsin", *Ecological Monographs* 27(4):325–349,
+  doi:10.2307/1942268.
 
-Everything here works in **all five display types**. In the circular layout the
-columns become concentric rings around the tree, and label properties ride each
-tip's spoke with the rest of its label.
+**Where it works.** Annotation **columns** are drawn in the three **rectangular**
+orientations and in **circular**, where they become concentric rings around the tree
+and the shared colour legend rides along. They are **not** drawn in the **unrooted**
+layout, for the same reason clade bars are not: unrooted tips sit at different radii
+and in no fixed order, so there is no common edge to line a column of cells up
+against. Nothing is lost by switching to it — the tab keeps its columns and their
+order, and draws them again the moment you switch back.
+
+Fields shown **in the tip label** do work in all five, unrooted included: they ride
+each tip's spoke with the rest of the label.
 
 ## Your figure is saved with the tree
 
