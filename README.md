@@ -609,6 +609,18 @@ never counts as 0 in any of these orders.
 To read a cell's actual **value**, hover it: the rollover names the tip, the gene and the
 number behind the colour (see [Hovering a cell](#viewing-and-editing-node-data)).
 
+**In the two clustered orders you also get the tree behind them.** A compressed
+dendrogram is drawn above the column names: the clustering that decided the order, with
+each merge at the height the two clusters were apart. It is worth reading, because
+*columns sitting side by side are not necessarily related* — two neighbours can belong
+to different clusters that happen to be adjacent, and the dendrogram is the only thing
+that tells them apart. Bar heights are to scale, so a block that joins low really is
+tighter than one that joins high. It appears only in **Clustered (co-occurrence)** and
+**Clustered (ignoring shared absence)** — the other orders did not come from a
+clustering, so there is no tree to draw — and it disappears the moment you move a column
+by hand, because the order on screen is then no longer the one the tree describes. Not
+drawn in the circular layout, where the columns are rings.
+
 **Clustered** is complete-linkage hierarchical clustering on Euclidean distance: the
 clustered heat map, and the default of R's `pheatmap`, `heatmap.2` and
 `ComplexHeatmap`. Where either of two columns has no value at a tip, that tip is left
