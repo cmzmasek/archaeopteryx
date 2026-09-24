@@ -422,6 +422,34 @@ branches by support, collapsing weakly-supported branches, the Support /
 Confidence search and the Tree Properties support statistics all ignore them, and
 a Newick or Nexus file writes the branch's real support value, not its MAD value.
 
+### What gets written back out
+
+**Support values are saved by default.** Newick and Nexus have no field for a
+support value, so Archaeopteryx writes it in square brackets — `)0.3[95]` — and
+reads it back the same way. Until 0.11.157 that was off unless you turned it on,
+so a plain *Save As* quietly dropped every support value in the tree. It is now
+the default. **Settings → Files → Newick / Nexus Saving** still offers the
+alternatives: write them as **internal node names** instead (what some other
+programs expect), or untick both to leave them out.
+
+**Nexus files carry their sequences.** When the tree's tips have molecular
+sequences — from phyloXML, from an imported alignment, or read out of another
+Nexus file — *Save As Nexus* writes them as a `Characters` block beside the tree,
+and opening that file brings them back. Two cases are deliberately left alone: if
+the sequences are of unequal length they are not an alignment, and if two tips
+share a name a matrix cannot say which row belongs to which, so in both cases no
+matrix is written and a comment in the file says why rather than leaving you to
+wonder. A tip that has no sequence gets a row of `?` — missing, which is not the
+same as a gap.
+
+**A tip with nothing to name it gets `node1`.** A tip with no name, no taxonomy
+and no sequence used to be written as an empty label — `(HUMAN,);` — which is not
+a tree any reader can open, and in Nexus it left the taxon list shorter than the
+taxon count and silently lost that tip's sequence. Such a tip is now written as
+`node1`, `node2`, … by its position. Nothing else changes: a tip named by its
+taxonomy or its sequence still uses that name, and an internal node with no label
+is normal and is left unlabelled.
+
 ---
 
 ## Coloring tips by their data ("Color by")
@@ -785,8 +813,10 @@ were editing has been replaced.
 own page in the same style as the node window. The top of it is editable: the tree's **name**
 (which is also its tab title), its **description** (free text — the tools append a sentence
 here whenever they change the tree), and the phyloXML metadata nothing else lets you set —
-an **identifier** with its provider, the tree **type** (gene tree, species tree, …) and the
-**branch-length unit**. The same rules as for node data apply: nothing reaches the tree until
+an **identifier** with its provider, the tree **type** (gene tree, species tree, …), the
+**branch-length unit**, and whether the tree is **re-rootable** — untick it and the rooting
+tools grey out, tick it on a curated tree that arrived marked `rerootable="false"` and they
+come back. The same rules as for node data apply: nothing reaches the tree until
 **Write to Tree**, a named tree cannot be renamed to nothing, a provider needs an identifier
 value, one write is one undo step, and closing with unwritten changes asks first.
 
