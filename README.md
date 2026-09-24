@@ -890,6 +890,15 @@ E-value threshold is not drawn and is not reported, and neither are the tips who
 **Auto-hide Labels** dropped to keep a dense tree legible. The same **Rollover** checkbox
 switches it off with the others.
 
+**Exporting does not disturb the figure on screen.** Saving a circular or unrooted tree as
+a PDF, SVG, EPS or PNG lays the ring out for the *page*, which is a different shape from
+the window — so for the moment between writing the file and redrawing the window, the tree
+on the panel is positioned for the page rather than for the screen. Archaeopteryx redraws
+it immediately, and while it has not, hovering and clicking answer nothing at all rather
+than answering about the page: no rollover, no node under the pointer, no column to drag.
+Nothing is lost, the view comes back exactly as it was, and the same applies to an export
+made at a fixed size in any layout.
+
 ## Re-rooting
 
 A tree is re-rooted by clicking a node with **Click on Node to: Root/Reroot**, by **Tools →
