@@ -875,6 +875,21 @@ was taken from, so a shade can be read back to a number. A cell that was never f
 its own value. It works wherever cells are drawn: the three rectangular orientations and, on
 the rings, the circular layout. The same **Rollover** checkbox switches both off.
 
+**Hovering a protein domain** names what is under the pointer: the domain, its E-value, the
+residues it covers (`185–445 (261 aa)`) and the length of the whole protein, the tip it
+belongs to, and its accession if the file carries one. Domain architectures line up in a
+column of their own, so a box out there says nothing on its own about which protein it is
+on or how good the hit is — the card supplies both. A **left click** opens the domain at
+InterPro: straight to the **Pfam entry** when the domain carries a Pfam accession
+(`PF00069`), and otherwise to a **search for its name**, which is the weaker promise and is
+labelled as one — most files record only the name. Nothing is ever fetched; it is only ever
+a link. The rollover works wherever the boxes are drawn: all four rectangular display types
+in each of the three orientations, and the circular and unrooted rings when **Radial
+Labels** are on. It answers only for boxes that are really on screen — a domain above the
+E-value threshold is not drawn and is not reported, and neither are the tips whose tracks
+**Auto-hide Labels** dropped to keep a dense tree legible. The same **Rollover** checkbox
+switches it off with the others.
+
 ## Re-rooting
 
 A tree is re-rooted by clicking a node with **Click on Node to: Root/Reroot**, by **Tools →
