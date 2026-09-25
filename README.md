@@ -237,6 +237,14 @@ Every button in the **control panel** on the left is a drawn icon rather than a
 word — one click each, no dialog, and the picture stays readable at any font
 size. The three things you change most often sit at the top.
 
+If an icon is not obvious, **Help → Control Panel Cheat Sheet** lists every
+control that is currently on screen, each beside the very icon it draws and the
+description it carries as its tooltip. The sheet is built from the panel itself
+rather than written out separately, so it cannot fall out of step with it, and
+it shows only the controls your tree actually has — the Display Data rows appear
+for the kinds of data present in *this* tree. **Save as PNG…** writes out exactly
+what the window shows, which prints as a one-page reference.
+
 **Theme.** A single **sun / moon** button switches between the light and dark
 themes. It always shows the theme it will switch *to*: a moon while you are in
 the light theme, a sun while you are in the dark one. The tree canvas follows
@@ -268,18 +276,32 @@ squeezed to a line. The **Tree share** slider (under *Node size*) re-divides it,
 from 25% to 80%, 40% by default; the setting is remembered between sessions.
 
 The alignment is the elastic track and gives way first — it scrolls, so a
-narrower window simply shows fewer columns. The tip labels, the clade bands and
-the legend column are never shaved: half a legend still covers the very tracks
-the legend column exists to keep it clear of. The domain zoom (**d-** / **d+**)
+narrower window simply shows fewer columns. The clade bands and the legend
+column are never shaved: half a legend still covers the very tracks the legend
+column exists to keep it clear of. The domain zoom (**d-** / **d+**)
 trades against the alignment through the same budget, so shrinking the domains
 hands their width straight to it. Every display type divides something: the
 rectangular layouts the depth **width**, the circular one the tip-ring
 **radius**, the unrooted one its **fan spread**.
 
-The share is a target rather than an absolute floor — when the labels have
-already been shrunk as far as they can be read, the clade bands and the legend
-column are honoured first, and a very crowded figure can leave the tree a little
-under it. What can no longer happen is the tree being left nothing at all.
+The tip labels give way in two stages. First the font shrinks, which keeps every
+character. Only once it reaches the smallest readable size — and the labels still
+do not fit — are they **shortened with an ellipsis**, and then only while that
+actually buys the tree width: if shortening every label would widen the tree by
+less than one percent, which is the step the slider itself moves in, the labels
+keep their text instead. Nothing is shortened at the default share on any tree in
+the demo gallery.
+
+The share is a target rather than an absolute floor. The clade bands and the
+legend column are honoured first, and a very crowded figure can still leave the
+tree under its share — on a 527-tip tree carrying domains *and* an alignment, the
+tree reaches about 55% of the width when asked for 80%, because the side tracks
+have then given up everything they can. What can no longer happen is the tree
+being left nothing at all.
+
+When nothing at all is competing for the width — a tree with short labels and no
+tracks beside it — the slider greys out and says **(no effect)** rather than
+inviting you to drag a control that cannot change the figure.
 
 **Phylogram / cladogram.** A row of three buttons, each drawn as a small tree
 *with its tip labels*, because the labels are where the difference actually
@@ -778,7 +800,10 @@ figure alongside it and restores it when the file is reopened:
   fields you chose to show in the tip labels
 
 Each tab keeps its own figure, so several trees can be open at once with quite
-different figures, and saving them all preserves each one.
+different figures, and saving them all preserves each one. Close one with the
+**×** on its own tab, which asks before discarding unsaved changes exactly as
+**File → Close Tab** and the tab's right-click menu do — it is the same path, so
+a tree with edits in it cannot be lost to a stray click.
 
 Three things are worth knowing:
 
@@ -1651,9 +1676,10 @@ through a tree, and it does mean the numbers change as you navigate — so the b
 labels itself with both the measure and the count, e.g. `Consensus identity
 (n = 6)`, and that label goes into every export.
 
-**Two measures**, chosen under **Settings → Overlays → Conservation measure**.
-Both run from 0 to 1, so the bar means the same thing either way, and both count
-gaps against a column — a column that is half gaps cannot score above 0.5.
+**Three choices**, under **Settings → Overlays → Conservation measure**. The
+first two draw a bar and run from 0 to 1, so the bar means the same thing either
+way, and both count gaps against a column — a column that is half gaps cannot
+score above 0.5. The third draws the same information as letters.
 
 - **Consensus identity** — the fraction of rows carrying the consensus residue.
   Reads directly as "how much of this column agrees", and is the easier of the
@@ -1663,6 +1689,16 @@ gaps against a column — a column that is half gaps cannot score above 0.5.
   size (4 for nucleotide, 20 for amino acid), scaled by the non-gap fraction. Use
   it when columns have no clear majority: it ranks a column split evenly between
   two residues above one split four ways, though identity scores them the same.
+- **Sequence logo** — the information content drawn as a stack of letters instead
+  of a bar: one stack per column, each letter's height its share of that column's
+  information, the most frequent residue on top, coloured as the alignment cells
+  above it are. It answers "which residues, and in what proportion" where a bar
+  answers only "how much". A column that is conserved but half gapped is drawn at
+  *full* conservation and *half* height — gaps scale the stack rather than joining
+  it — and an all-gap column draws nothing at all, since nothing is known about
+  it. Letters that would come out under half a pixel are left out. The band is
+  taller than the bar's, and the consensus row beneath it is dropped: the letter
+  on top of each stack already is the consensus.
 
 A few conventions worth knowing, because they change what a bar means:
 
