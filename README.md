@@ -99,6 +99,18 @@ of <https://github.com/cmzmasek/archaeopteryx/releases>, the same page you could
 
 Otherwise, just check the releases page now and then.
 
+### If a tree feels slow to draw
+
+**Settings → Application → Diagnostics → Show paint-time / FPS counter** puts a
+small readout in the top-right corner: how long the last frames took to paint, and
+the rate that implies. It is off in a fresh install, and once you switch it on (or
+back off) that choice is remembered. It reports the cost of a *frame*, not how often
+the window happens to redraw — a still tree redraws not at all, which would say
+nothing. It is drawn on screen only and never appears in an exported figure, so a
+figure cannot ship with it. It is useful for telling a genuinely expensive tree from
+a slow machine: a very large tree with several tracks switched on costs tens of
+milliseconds a frame, and switching a track off shows immediately what it was worth.
+
 ### Run from the jar
 
 If there is no installer for your platform, or you prefer a single
@@ -247,6 +259,28 @@ orientation do I come back to?" state. All five are first-class — annotation
 columns, clade bands, time axes, HPD and range bars, tip images and the vector
 exports all work in every one of them.
 
+**Tree share — how much of the width the tree keeps.** Everything drawn beside
+the tree competes for the same width: the tip labels, the protein-domain track,
+the sequence alignment, the annotation columns and the legend column. The tree
+is allocated its share of that width **first**, and the tracks divide what is
+left — so a tree carrying all of them at once stays a tree instead of being
+squeezed to a line. The **Tree share** slider (under *Node size*) re-divides it,
+from 25% to 80%, 40% by default; the setting is remembered between sessions.
+
+The alignment is the elastic track and gives way first — it scrolls, so a
+narrower window simply shows fewer columns. The tip labels, the clade bands and
+the legend column are never shaved: half a legend still covers the very tracks
+the legend column exists to keep it clear of. The domain zoom (**d-** / **d+**)
+trades against the alignment through the same budget, so shrinking the domains
+hands their width straight to it. Every display type divides something: the
+rectangular layouts the depth **width**, the circular one the tip-ring
+**radius**, the unrooted one its **fan spread**.
+
+The share is a target rather than an absolute floor — when the labels have
+already been shrunk as far as they can be read, the clade bands and the legend
+column are honoured first, and a very crowded figure can leave the tree a little
+under it. What can no longer happen is the tree being left nothing at all.
+
 **Phylogram / cladogram.** A row of three buttons, each drawn as a small tree
 *with its tip labels*, because the labels are where the difference actually
 shows:
@@ -319,8 +353,15 @@ colour and its label turns bold. A clade holding a hit stays bright while
 clades. Collapsed clades are drawn the same way in Archaeopteryx.js.
 
 The expand button is the deliberate alternative to **Auto-hide Labels** (in
-*Display Data*, on by default), which drops labels when a tree is drawn too
-densely to show them all. Expanding the tree until they fit means nothing has to
+*Display Data*, on by default), which auto-hides crowded data of three kinds:
+tip labels when a tree is drawn too densely to show them all, the **support and
+branch-length numbers** whose branch is too short to carry them, and the
+**support symbols** once the rows are closer together than the symbols
+themselves. In every case the rule is the same — a mark is drawn unless
+something already drawn is in its way — so nothing is dropped that could have
+been read, and a lone zero-length branch keeps its support value, because
+nothing is beside it. Zoom in and the marks come back as room appears; switch
+the checkbox off to draw everything. Expanding the tree until they fit means nothing has to
 be hidden — worth doing before an export, since a figure exported while labels
 are being auto-hidden is missing them, and the export report says so.
 
@@ -1586,7 +1627,11 @@ amino acids only; the same is true of the ambiguity codes `B`, `X` and `Z`, wher
 simply has no value and inventing one would be a fabrication. The hydropathy scale is
 Kyte & Doolittle (1982) — cited in full under **Help → References**.
 
-Turn the display on or off and set the per-residue column width in **Settings → Overlays**
+Turn the display on or off with the **Sequence Alignment** checkbox in *Display Data* on the
+control panel — it appears only for a tree whose tips actually carry an aligned sequence, and
+is ticked automatically when such a tree is opened, so quieting the alignment down is one
+click. It is **per tab**: two open alignments can differ. The same switch, and the
+per-residue column width, are in **Settings → Overlays**
 (**Sequence Alignment** + **Alignment column width**; the width is remembered between
 sessions). Loading an alignment is undoable, and the whole track renders in every export
 (PDF, SVG, EPS, PNG). This first version is drawn in the rectangular **root-on-left**
