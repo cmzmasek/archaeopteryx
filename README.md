@@ -313,12 +313,16 @@ shows:
 | ragged branches, labels in a column | **aligned phylogram** — the same tree, with every tip label carried out to a common column |
 | flush branches, labels in a column | **cladogram** — topology only; branch lengths ignored, all tips flush |
 
-The aligned view needs somewhere to pin the labels — the common right-hand
-column in the rectangular layouts, the outer ring in circular — so it is
-unavailable (and greyed out) in the **unrooted** layout, which has neither. Your
-choice is remembered per tab and comes back when that tab leaves unrooted. All
-three are disabled for a tree without branch lengths, which can only be drawn as
-a cladogram.
+Each radial layout can draw only one of the two phylograms, and the button for
+the other is greyed out rather than left to do nothing. **Unrooted** has nowhere
+to pin the labels — no common column, no ring — so the aligned phylogram is
+greyed there and a tree opened as one shows as a plain phylogram. **Circular**
+is the mirror case: it always carries its tip labels out to the outer ring on
+dotted leaders (a round ring, never a ragged one; Archaeopteryx.js draws the
+same), so there the *plain* phylogram is the one greyed out, and the aligned
+button shows what the ring is. Your choice is remembered per tab and comes back
+when that tab returns to a rectangular layout. All three are disabled for a tree
+without branch lengths, which can only be drawn as a cladogram.
 
 **Rectangular style.** How a branch *joint* is drawn is a separate, set-once
 choice under **Settings → Layout → Rectangular style**: **Square** (right-angle
@@ -351,7 +355,9 @@ click will actually do:
   are free and become **rotate counter-clockwise / clockwise** (the same as the
   `A` and `S` keys, or `Shift`+mousewheel). The fit-to-width button becomes a
   **node-label direction** toggle — labels riding the spoke, or lying flat —
-  and, like the theme button, it shows the state it will switch *to*. Expand is
+  and, like the theme button, it shows the state it will switch *to*. Both radial
+  views open with the labels riding the spoke, where neighbours on a ring never
+  meet (Archaeopteryx.js opens the same way); flat labels are one click away. Expand is
   greyed out, since spreading labels apart has no meaning in a fan.
 
 A button that cannot do anything right now fades rather than vanishing: the two
@@ -376,14 +382,18 @@ clades. Collapsed clades are drawn the same way in Archaeopteryx.js.
 
 The expand button is the deliberate alternative to **Auto-hide Labels** (in
 *Display Data*, on by default), which auto-hides crowded data of three kinds:
-tip labels when a tree is drawn too densely to show them all, the **support and
-branch-length numbers** whose branch is too short to carry them, and the
-**support symbols** once the rows are closer together than the symbols
-themselves. In every case the rule is the same — a mark is drawn unless
-something already drawn is in its way — so nothing is dropped that could have
-been read, and a lone zero-length branch keeps its support value, because
-nothing is beside it. Zoom in and the marks come back as room appears; switch
-the checkbox off to draw everything. Expanding the tree until they fit means nothing has to
+tip labels when a tree is drawn too densely to show them all — in the circular
+and unrooted views exactly: a tip or clade label that would lie across one
+already drawn is not drawn, tip names first and then clade names, the larger
+clade's first, and a search hit's label always — the **support and branch-length
+numbers** that would lie across another number, a label or, in the circular and
+unrooted layouts, another *branch*, where a number reads as that branch's value —
+and the **support symbols** once the rows are closer together than the symbols
+themselves. In every case the rule is the same — a
+mark is drawn unless something already drawn is really in its way — so nothing
+is dropped that could have been read, and a lone zero-length branch keeps its
+support value, because nothing is beside it. Zoom in and the marks come back as
+room appears; switch the checkbox off to draw everything. Expanding the tree until they fit means nothing has to
 be hidden — worth doing before an export, since a figure exported while labels
 are being auto-hidden is missing them, and the export report says so.
 
@@ -1861,6 +1871,7 @@ guessed at.
 | `-size=<W>x<H><unit>` | figure size — `170x120mm`, `8x6in`, `1200x900px`. Default `180x130mm` |
 | `-dpi=<n>` | dots per inch, default `300` |
 | `-style=<s>` | `rectangular` (default), `circular` or `unrooted` |
+| `-labels=<d>` | in `circular` and `unrooted`: `radial` (default -- names ride the spoke) or `horizontal`. Pin it in a script whose figure must not change between versions |
 | `-phylogram` | draw branch lengths to scale |
 | `-cladogram` | ignore branch lengths |
 | `-support` | show confidence / support values |
