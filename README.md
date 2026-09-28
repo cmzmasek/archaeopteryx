@@ -1630,7 +1630,7 @@ differ only in case or in `_`-vs-space between the tree and the matrix are all h
 
 - **Coloring** follows the residue: a Zappo-style scheme for amino acids and an A/C/G/T-U
   scheme for nucleotides (auto-detected). At a wide enough column width the residue
-  **letter** is drawn in each cell; gap positions show a faint dash.
+  **letter** is drawn in each cell; gap positions show a faint horizontal line (a run of gaps is one line).
 - A **dedicated scrollbar** below the alignment pans the columns while the tree and its
   labels stay in place, so a long alignment stays navigable.
 - **Faint boundary lines** mark the true start and end of the alignment, so a
