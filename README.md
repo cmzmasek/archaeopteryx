@@ -2,78 +2,64 @@
 
 **The desktop viewer for phylogenetic figures worth publishing.**
 
-Archaeopteryx is a mature, offline application for visualizing, annotating, and
-analyzing phylogenetic trees — built for publication-quality figures. It reads
-phyloXML, Newick / New Hampshire (NH/NHX), and Nexus trees — including annotated
+Archaeopteryx is an offline application for visualizing, annotating and analyzing
+phylogenetic trees, built for publication-quality figures. It reads phyloXML,
+Newick / New Hampshire (NH/NHX) and Nexus — including annotated
 [**BEAST / BEAST X** output](#beast-and-beast-x-output) and the trees written by
-[**MrBayes, TreeTime and Nextstrain**](#mrbayes-treetime-and-nextstrain-nexus) — and brings together
-integrated taxonomy and sequence annotation, protein-domain architectures,
+[**MrBayes, TreeTime and Nextstrain**](#mrbayes-treetime-and-nextstrain-nexus) — and
+brings together taxonomy and sequence annotation, protein-domain architectures,
 calendar and geologic time axes, and WYSIWYG vector (PDF / SVG / EPS) export.
 
 **→ [cmzmasek.github.io/archaeopteryx](https://cmzmasek.github.io/archaeopteryx)** ·
 **[Download the latest release](https://github.com/cmzmasek/archaeopteryx/releases/latest)**
 
-Self-contained installers (macOS `.dmg`, Windows `.msi`, Linux `.deb`) bundle a
-runtime — there is no Java to install.
-
 > **Prefer the browser?** **[Archaeopteryx.js](https://cmzmasek.github.io/archaeopteryx-js/)**
-> is the online version: open a tree in any modern browser, nothing to install. It shares this
-> viewer's file formats, "Color by" rules and node-data card, so a tree looks the same in both.
+> is the online version: nothing to install. It shares this viewer's file formats,
+> "Color by" rules and node-data card, so a tree looks the same in both.
 
 ---
 
 ## Highlights
 
-- **Integrated annotation** — pull UniProt / NCBI taxonomy, sequence data, and
-  protein-domain architectures straight onto the tree.
-- **Calendar & deep time** — tip-dated calendar axes for molecular epidemiology,
-  and a full ICS geologic time scale for the fossil record.
-- **Publication vector export** — WYSIWYG PDF / SVG / EPS from the same renderer
-  that draws the screen; outline text, figure-grade by construction.
-- **Undo & provenance** — every edit is undoable, and every tree-changing
-  operation records what it did.
-- **Large trees, five layouts** — rectangular (three orientations), circular,
-  and unrooted, with tip-aligned annotation columns that ride into circular rings.
-- **Reads what you have** — Newick, NHX, Nexus, phyloXML, plus Nextstrain /
-  Auspice JSON and Nexus, tip-dated labels, and BEAST, MrBayes and TreeTime
-  annotations.
+- **Integrated annotation** — UniProt / NCBI taxonomy, sequence data and
+  protein-domain architectures, straight onto the tree.
+- **Calendar & deep time** — tip-dated calendar axes for molecular epidemiology, and
+  the full ICS geologic time scale for the fossil record.
+- **Publication vector export** — WYSIWYG PDF / SVG / EPS from the renderer that draws
+  the screen.
+- **Undo & provenance** — every edit is undoable, and every tree-changing operation
+  records what it did.
+- **Large trees, five layouts** — rectangular (three orientations), circular and
+  unrooted, with tip-aligned annotation columns that become rings in circular.
+- **Reads what you have** — Newick, NHX, Nexus, phyloXML, Nextstrain / Auspice JSON
+  and Nexus, tip-dated labels, and BEAST, MrBayes and TreeTime annotations.
 
-See **`File → Demo Trees`** in the app for pre-configured examples of each feature.
+**File → Demo Trees** has a pre-configured example of each.
 
 ---
 
 ## Install
 
-The easiest way to run Archaeopteryx is a **native installer**. Each one bundles
-its own Java 21 runtime, so there is **nothing else to install** — no separate
-Java needed.
-
-Download the installer for your platform from the latest release:
-
-**<https://github.com/cmzmasek/archaeopteryx/releases/latest>**
+Download the installer for your platform from
+**<https://github.com/cmzmasek/archaeopteryx/releases/latest>**. Each bundles its own
+Java 21 runtime — nothing else to install.
 
 > The apps are not code-signed or notarized yet, so each platform shows a
 > first-launch security prompt (steps below). Getting past it once is enough.
 
 ### macOS
 
-There are two macOS installers — take the one that matches your Mac. If you are
-not sure which you have, open the Apple menu → **About This Mac**: a **Chip**
-line (Apple M1 … M4) means Apple Silicon, a **Processor** line means Intel.
-
-1. Download `Archaeopteryx-<version>-apple-silicon.dmg` (Apple Silicon) or
-   `Archaeopteryx-<version>-intel.dmg` (Intel), and open it.
-2. Drag **Archaeopteryx** into **Applications**.
-3. On the first launch, **right-click** (or Control-click) the app and choose
-   **Open**, then **Open** again — this clears macOS's "unidentified developer"
-   warning. After that, launch it normally.
+Take `Archaeopteryx-<version>-apple-silicon.dmg` for Apple Silicon or
+`Archaeopteryx-<version>-intel.dmg` for Intel (Apple menu → **About This Mac**: a
+**Chip** line means Apple Silicon, a **Processor** line Intel). Open it and drag
+**Archaeopteryx** into **Applications**. On the first launch, **right-click** the app
+and choose **Open**, then **Open** again; after that, launch it normally.
 
 ### Windows
 
-1. Download `Archaeopteryx-<version>.msi` and run it. It adds a Start-menu entry
-   (and, optionally, a desktop shortcut) and lets you choose the install folder.
-2. Because the installer is unsigned, SmartScreen may warn — click
-   **More info → Run anyway**.
+Run `Archaeopteryx-<version>.msi` (it adds a Start-menu entry, optionally a desktop
+shortcut, and lets you choose the folder). If SmartScreen warns, click **More info →
+Run anyway**.
 
 ### Linux (Debian / Ubuntu)
 
@@ -81,177 +67,114 @@ line (Apple M1 … M4) means Apple Silicon, a **Processor** line means Intel.
 sudo apt install ./archaeopteryx_<version>_amd64.deb
 ```
 
-(or `sudo dpkg -i archaeopteryx_<version>_amd64.deb`). Launch it from your
-applications menu, or by running `archaeopteryx`.
+(or `sudo dpkg -i …`), then launch it from the applications menu or as `archaeopteryx`.
 
 ### Staying up to date
 
-**Archaeopteryx has no server, and never will.** It does not phone home and it collects nothing.
-
-If you would like to be told when a new version is out, switch on **Settings → Application →
-Check for Updates at Launch** (it is **off** unless you turn it on). With it on, Archaeopteryx
-reads the public GitHub releases page of its own repository once, a moment after it starts, and
-compares the version number with the one you are running. If yours is older, the **Help** menu
-gains a quiet first line, *New version available: x.y.z*, which opens the releases page. If not —
-or if there is no network, or the check fails for any reason — nothing happens and nothing is
-reported. Nothing about you, your trees or your machine is ever sent: the request is a plain read
-of <https://github.com/cmzmasek/archaeopteryx/releases>, the same page you could open yourself.
-
-Otherwise, just check the releases page now and then.
+**Archaeopteryx has no server, and never will.** It does not phone home and collects
+nothing. **Settings → Application → Check for Updates at Launch** (off unless you turn
+it on) reads the public releases page of its repository once, after starting; if a
+newer version exists, the **Help** menu gains a first line, *New version available:
+x.y.z*, linking to it. No network or a failed check: nothing happens. Nothing about
+you, your trees or your machine is sent — the request is a plain read of
+<https://github.com/cmzmasek/archaeopteryx/releases>.
 
 ### If a tree feels slow to draw
 
-**Settings → Application → Diagnostics → Show paint-time / FPS counter** puts a
-small readout in the top-right corner: how long the last frames took to paint, and
-the rate that implies. It is off in a fresh install, and once you switch it on (or
-back off) that choice is remembered. It reports the cost of a *frame*, not how often
-the window happens to redraw — a still tree redraws not at all, which would say
-nothing. It is drawn on screen only and never appears in an exported figure, so a
-figure cannot ship with it. It is useful for telling a genuinely expensive tree from
-a slow machine: a very large tree with several tracks switched on costs tens of
-milliseconds a frame, and switching a track off shows immediately what it was worth.
+**Settings → Application → Diagnostics → Show paint-time / FPS counter** (remembered
+once set) shows in the top-right corner how long the last frames took to paint. It
+measures the cost of a frame, not how often the window redraws, and never appears in
+an exported figure. Use it to tell an expensive tree from a slow machine: switching a
+track off shows at once what it cost.
 
 ### Run from the jar
 
-If there is no installer for your platform, or you prefer a single
-self-contained file, run the jar with your own Java.
-
-**1. Install Java** — running the jar needs **Java 21 or newer** (a Java runtime
-is enough; a full JDK also works). Check what you already have with
-`java -version`; if it reports `21` or higher you are ready, otherwise install a
-free OpenJDK build such as [Eclipse Temurin](https://adoptium.net/temurin/releases/?version=21)
-(e.g. `brew install --cask temurin@21` on macOS,
-`winget install EclipseAdoptium.Temurin.21.JDK` on Windows, or
-`sudo apt install openjdk-21-jre` on Debian / Ubuntu).
-
-**2. Download the jar** — the ready-to-run, self-contained `forester.jar` (every
-required library is bundled inside it) lives in the source repository:
+With no installer for your platform, or for a single self-contained file, run the jar
+with **Java 21 or newer** (`java -version`; otherwise install a free OpenJDK such as
+[Eclipse Temurin](https://adoptium.net/temurin/releases/?version=21): `brew install
+--cask temurin@21`, `winget install EclipseAdoptium.Temurin.21.JDK`, or `sudo apt
+install openjdk-21-jre`). The jar bundles every library it needs:
 
 ```
 curl -L -o forester.jar https://github.com/cmzmasek/forester/raw/master/forester/java/forester.jar
-```
-
-**3. Launch it:**
-
-```
 java -jar forester.jar                 # or open a tree directly:
 java -jar forester.jar mytree.xml
+java -Xmx4g -jar forester.jar big.xml  # more memory for a very large tree
 ```
-
-For very large trees, give the JVM more memory with `-Xmx`, e.g.
-`java -Xmx4g -jar forester.jar mytree.xml`.
 
 ---
 
 ## Try it: demo trees
 
-Don't have a tree handy? Archaeopteryx ships with a small gallery of example
-trees, each **pre-configured to show off a capability** — open one and it comes
-up already colored, banded, or laid out, no setup required.
+**File → Demo Trees** opens example trees, each pre-configured to show a capability
+(the demos are bundled in the jar; the same trees and more are in
+[`forester/demo/`](https://github.com/cmzmasek/forester/tree/master/forester/demo)):
 
-Just launch Archaeopteryx and pick a tree from **File → Demo Trees**:
-
-- **Color Tips by Metadata** — a tree colored by a categorical property
-- **Annotation Columns** — tip-aligned color strips and a numeric heat-map
-- **Symbol Columns** — tip-aligned shape marks: a present value draws a filled mark, an
-  explicit "no"/absent value a hollow mark, and a missing value nothing (a binary
-  presence/absence column); a categorical field becomes distinct colored marks. Pick the
-  glyph (circle / square / diamond / triangle) per column
-- **Properties in Labels** — a tree whose tips each carry six properties: two stay in the
-  tip label, the other four become tip-aligned columns. One field, one role — which is
-  what keeps a heavily annotated tree readable
-- **Stacked Bar Columns** — ten microbiome samples (gut, oral, skin, soil, water), each
-  with three read counts — *Firmicutes*, *Bacteroidetes*, *Proteobacteria* — merged into
-  one segmented bar per tip: the bar's length is the sample's total, its segments the
-  composition. Tick **Normalize stacked bars to 100%** in **Tools → Annotation Fields…**
-  to compare the composition alone
-- **Pie Columns** — the same ten samples with their three read counts drawn as one pie
-  per tip, a wedge per phylum: the pie-chart view of a normalized stacked bar
-- **Pangenome Presence/Absence (Clustergram)** — 100 strains × 40 genes: a plain tree
-  plus a table of gene-presence certainty (0–4, a blank cell *not assessed*), imported
-  and shown as a clustergram. The columns come out clustered; switch **View → Order
-  Matrix Columns** to **Same as Table** and the gene classes — core, clade-specific,
-  mobile, rare, ambiguous — read as bands (see
+- **Color Tips by Metadata** — colored by a categorical property
+- **Annotation Columns** — tip-aligned color strips and a numeric heat map
+- **Symbol Columns** — tip-aligned marks: a present value filled, an explicit
+  "no"/absent value hollow, a missing value nothing; a categorical field in distinct
+  colors; the glyph (circle / square / diamond / triangle) chosen per column
+- **Properties in Labels** — six properties per tip: two in the label, four as
+  columns. One field, one role
+- **Stacked Bar Columns** — ten microbiome samples with three read counts
+  (*Firmicutes*, *Bacteroidetes*, *Proteobacteria*) as one segmented bar per tip: its
+  length the total, its segments the composition. **Normalize stacked bars to 100%**
+  (**Tools → Annotation Fields…**) compares composition alone
+- **Pie Columns** — the same samples as one pie per tip
+- **Pangenome Presence/Absence (Clustergram)** — 100 strains × 40 genes, a table of
+  presence certainty (0–4; blank = not assessed) shown as a clustergram. Set **View →
+  Order Matrix Columns → Same as Table** and the gene classes read as bands (see
   [A heat-map matrix and its column order](#a-heat-map-matrix-and-its-column-order))
-- **Sparse Accessory Genome (Two Clustered Orders)** — 50 strains × 18 genes whose eight
-  rare genes share no strain at all. It opens in the default **Clustered
-  (co-occurrence)**, where all eight clump into one block because Euclidean distance
-  counts the strains they are jointly *absent* from as agreement; switch **View → Order
-  Matrix Columns** to **Clustered (ignoring shared absence)** and the block breaks up,
-  each prophage moving beside its own lineage's capsule locus. The same matrix, the same
-  clustering, two different questions
-- **Protein Domain Architectures** — multi-domain proteins drawn to scale as flat,
-  rounded, distinctly-colored boxes (a soft shadow, an optional glow); label the domains
-  on the boxes or gather them into a draggable, E-value-aware legend
-  (Settings → Layout → Domain labels). In **circular and unrooted** views the
-  architectures ride each tip's spoke as a concentric ring whenever
-  **Radial Labels** are on (auto-enabled when you show domains in a radial layout).
-  A domain needs a positive length (its `to` greater than its `from`) and both
-  coordinates present; any that does not is skipped, and Archaeopteryx says how many
-  it ignored once the file is open, rather than refusing the tree over an annotation
-- **Alignment next to Tree** — a protein alignment of six vertebrates, human to frog,
-  drawn beside the tree as coloured residue cells, one row per tip, switched on as the
-  tree opens; hover a residue to read its column, its position and its properties (see
-  [Sequence alignment](#sequence-alignment))
-- **Bat Phylogeny (Taxonomy by Rank)** — 34 bat species with common + scientific
-  names + synonyms, every clade rank-annotated, colorized by family (all offline)
-- **Animal Tree of Life (Nested Clade Levels)** — 25 animals from sponges and comb
-  jellies to the mammals, with **three ranks annotated at once** (order inside class
-  inside phylum) as nested bars whose colours are shades of the phylum they sit in
-- **GTDB Taxonomy (Genome-based)** — Bacteria + Archaea genomes with the GTDB
-  classification imported from a GTDB-Tk table and colored by phylum (all offline)
+- **Sparse Accessory Genome (Two Clustered Orders)** — 50 strains × 18 genes whose
+  eight rare genes share no strain. **Clustered (co-occurrence)** clumps them, as
+  Euclidean distance counts shared absence as agreement; **Clustered (ignoring shared
+  absence)** puts each prophage beside its lineage's capsule locus
+- **Protein Domain Architectures** — domains drawn to scale as rounded, colored boxes,
+  labelled on the boxes or in a draggable, E-value-aware legend (**Settings → Layout →
+  Domain labels**); in circular and unrooted views they ride each tip's spoke as a ring
+  when **Radial Labels** are on. A domain whose `to` is not greater than its `from`, or
+  that lacks a coordinate, is skipped, and the count skipped is reported on opening
+- **Alignment next to Tree** — six vertebrate proteins drawn beside the tree; hover a
+  residue for its column, position and properties (see [Sequence alignment](#sequence-alignment))
+- **Bat Phylogeny (Taxonomy by Rank)** — 34 species with common and scientific names
+  and synonyms, every clade rank-annotated, colored by family (offline)
+- **Animal Tree of Life (Nested Clade Levels)** — 25 animals with order, class and
+  phylum annotated at once as nested bars in shades of their phylum
+- **GTDB Taxonomy (Genome-based)** — Bacteria and Archaea with a GTDB-Tk
+  classification, colored by phylum (offline)
 - **Ancestral State Pies** — a discrete geographic trait as posterior pies
-- **Node Age Spindles** — divergence-time uncertainty (point age + 95% HPD) as
-  tapered spindles
-- **Tree Properties** — a small gene family whose **Tree Properties** window (View menu,
-  ⌘I) has something in every section: editable name, description and metadata, then
-  structure, branch-length and support-value statistics with histograms, and a map of
-  which tips carry taxonomy, sequences, dates and properties
-- **Break Long Branches** — a fast-evolving outgroup on a huge branch drawn
-  shortened with a break mark so the ingroup reclaims the width (with support values)
-- **SARS-CoV-2 Time Tree** — a tip-dated viral tree on a calendar-year axis
+- **Node Age Spindles** — divergence-time uncertainty (point age + 95% HPD)
+- **Tree Properties** — a gene family whose **Tree Properties** window (View menu, ⌘I)
+  fills every section: name, description, metadata, statistics with histograms, and
+  which tips carry which data
+- **Break Long Branches** — a fast-evolving outgroup drawn shortened with a break mark
+- **SARS-CoV-2 Time Tree** — tip-dated, on a calendar-year axis
 - **Phylodynamics (Nextstrain JSON)** — an Auspice v2 dataset with geographic
-  ancestral-state pies, read straight from `dataset.json`
-- **Filoviridae (Ebola & Marburg)** — a *real* filovirus phylogeny colored by
-  species, with host/country/year metadata and per-protein accessions
-- **Dinosaur Time Tree** — a dated archosaur tree (with *Archaeopteryx*!) on the
-  geologic time scale
-- **Late Cretaceous Dinosaurs** — an all-extinct clade narrow enough that the geologic
-  axis drops a rank and bands the Late Cretaceous over its *stages*
-- **Lagomorph Time Tree** — the rabbits, hares and pikas (18 living species back to
-  the Eocene) on the geologic time scale
+  ancestral-state pies
+- **Filoviridae (Ebola & Marburg)** — a real filovirus phylogeny colored by species,
+  with host / country / year metadata and per-protein accessions
+- **Dinosaur Time Tree** — archosaurs (with *Archaeopteryx*!) on the geologic scale
+- **Late Cretaceous Dinosaurs** — narrow enough that the axis bands the *stages*
+- **Lagomorph Time Tree** — 18 living rabbits, hares and pikas back to the Eocene
 - **Ammonite Time Tree** — an all-extinct fossil clade with FAD/LAD range bars
-- **Tree of Life (Deep Time)** — a time-calibrated tree back to LUCA (~3.8 Ga)
-- **Tanglegram** — two trees (gophers vs. their lice) compared side by side
-
-The demos are bundled inside the jar, so they are always available. (The same
-trees, plus more, live in
-[`forester/demo/`](https://github.com/cmzmasek/forester/tree/master/forester/demo)
-in the source repository for browsing on GitHub.)
+- **Tree of Life (Deep Time)** — back to LUCA (~3.8 Ga)
+- **Tanglegram** — gophers and their lice, side by side
 
 ---
 
 ## Display controls
 
-Every button in the **control panel** on the left is a drawn icon rather than a
-word — one click each, no dialog, and the picture stays readable at any font
-size. The three things you change most often sit at the top.
+Every button in the **control panel** on the left is a drawn icon — one click each, no
+dialog. **Help → Control Panel Cheat Sheet** lists every control currently on screen
+beside its icon and tooltip; it is built from the panel itself, so it cannot fall out
+of step, and shows only what *this* tree has. **Save as PNG…** prints it as a one-page
+reference.
 
-If an icon is not obvious, **Help → Control Panel Cheat Sheet** lists every
-control that is currently on screen, each beside the very icon it draws and the
-description it carries as its tooltip. The sheet is built from the panel itself
-rather than written out separately, so it cannot fall out of step with it, and
-it shows only the controls your tree actually has — the Display Data rows appear
-for the kinds of data present in *this* tree. **Save as PNG…** writes out exactly
-what the window shows, which prints as a one-page reference.
+**Theme.** The **sun / moon** button switches light and dark themes, showing the theme
+it will switch *to*. The canvas follows, and the choice is remembered.
 
-**Theme.** A single **sun / moon** button switches between the light and dark
-themes. It always shows the theme it will switch *to*: a moon while you are in
-the light theme, a sun while you are in the dark one. The tree canvas follows
-the theme, and the choice is remembered between sessions.
-
-**Layout — the five display types.** One row of five buttons, one exclusive
-group, covering every way Archaeopteryx can draw a tree:
+**Layout — the five display types.** One row, one exclusive group:
 
 | button | layout |
 | --- | --- |
@@ -261,512 +184,326 @@ group, covering every way Archaeopteryx can draw a tree:
 | open ring with spokes | **circular** |
 | free-form star | **unrooted** |
 
-Layout family and root position are one question, so they are one control: any
-layout is a single click from any other, and there is no hidden "which
-orientation do I come back to?" state. All five are first-class — annotation
-columns, clade bands, time axes, HPD and range bars, tip images and the vector
-exports all work in every one of them.
+Any layout is one click from any other, and all five are first-class: annotation
+columns, clade bands, time axes, HPD and range bars, tip images and vector export work
+in each.
 
-**Tree share — how much of the width the tree keeps.** Everything drawn beside
-the tree competes for the same width: the tip labels, the protein-domain track,
-the sequence alignment, the annotation columns and the legend column. The tree
-is allocated its share of that width **first**, and the tracks divide what is
-left — so a tree carrying all of them at once stays a tree instead of being
-squeezed to a line. The **Tree share** slider (under *Node size*) re-divides it,
-from 25% to 80%, 40% by default; the setting is remembered between sessions.
+**Tree share — how much of the width the tree keeps.** Tip labels, the domain track,
+the alignment, annotation columns and the legend column all compete for the width.
+The tree takes its share **first** and the tracks divide the rest, so a heavily
+annotated tree stays a tree. The **Tree share** slider (under *Node size*) sets it from
+25% to 80% (40% by default, remembered). In rectangular layouts it divides the depth
+**width**, in circular the tip-ring **radius**, in unrooted the **fan spread**.
 
-The alignment is the elastic track and gives way first — it scrolls, so a
-narrower window simply shows fewer columns. The clade bands and the legend
-column are never shaved: half a legend still covers the very tracks the legend
-column exists to keep it clear of. The domain zoom (**d-** / **d+**)
-trades against the alignment through the same budget, so shrinking the domains
-hands their width straight to it. Every display type divides something: the
-rectangular layouts the depth **width**, the circular one the tip-ring
-**radius**, the unrooted one its **fan spread**.
+- The alignment gives way first — it scrolls, so a narrower window shows fewer columns.
+  The domain zoom (**d-** / **d+**) trades against it. Clade bands and the legend column
+  are never shaved.
+- Tip labels first shrink their font; only at the smallest readable size are they
+  **shortened with an ellipsis**, and only if that widens the tree by at least 1% (the
+  slider's step). No demo tree is shortened at the default share.
+- The share is a target, not a floor: on a 527-tip tree with domains *and* an
+  alignment, asking for 80% gives the tree about 55%. It is never left nothing.
+- With nothing competing for the width, the slider greys out and says **(no effect)**.
 
-The tip labels give way in two stages. First the font shrinks, which keeps every
-character. Only once it reaches the smallest readable size — and the labels still
-do not fit — are they **shortened with an ellipsis**, and then only while that
-actually buys the tree width: if shortening every label would widen the tree by
-less than one percent, which is the step the slider itself moves in, the labels
-keep their text instead. Nothing is shortened at the default share on any tree in
-the demo gallery.
-
-The share is a target rather than an absolute floor. The clade bands and the
-legend column are honoured first, and a very crowded figure can still leave the
-tree under its share — on a 527-tip tree carrying domains *and* an alignment, the
-tree reaches about 55% of the width when asked for 80%, because the side tracks
-have then given up everything they can. What can no longer happen is the tree
-being left nothing at all.
-
-When nothing at all is competing for the width — a tree with short labels and no
-tracks beside it — the slider greys out and says **(no effect)** rather than
-inviting you to drag a control that cannot change the figure.
-
-**Phylogram / cladogram.** A row of three buttons, each drawn as a small tree
-*with its tip labels*, because the labels are where the difference actually
-shows:
+**Phylogram / cladogram.** Three buttons, each drawn with its tip labels, because that
+is where the difference shows:
 
 | button | what it draws |
 | --- | --- |
-| ragged branches, ragged labels | **phylogram** — branch lengths to scale, so the tips end ragged |
-| ragged branches, labels in a column | **aligned phylogram** — the same tree, with every tip label carried out to a common column |
-| flush branches, labels in a column | **cladogram** — topology only; branch lengths ignored, all tips flush |
+| ragged branches, ragged labels | **phylogram** — branch lengths to scale, tips end ragged |
+| ragged branches, labels in a column | **aligned phylogram** — the same, labels carried to a common column |
+| flush branches, labels in a column | **cladogram** — topology only, all tips flush |
 
-Each radial layout can draw only one of the two phylograms, and the button for
-the other is greyed out rather than left to do nothing. **Unrooted** has nowhere
-to pin the labels — no common column, no ring — so the aligned phylogram is
-greyed there and a tree opened as one shows as a plain phylogram. **Circular**
-is the mirror case: it always carries its tip labels out to the outer ring on
-dotted leaders (a round ring, never a ragged one; Archaeopteryx.js draws the
-same), so there the *plain* phylogram is the one greyed out, and the aligned
-button shows what the ring is. Your choice is remembered per tab and comes back
-when that tab returns to a rectangular layout. All three are disabled for a tree
-without branch lengths, which can only be drawn as a cladogram.
+Each radial layout draws only one phylogram and greys the other: **unrooted** has no
+column to align to, so the aligned phylogram is greyed; **circular** always carries its
+labels to the outer ring on dotted leaders, so the *plain* phylogram is greyed
+(Archaeopteryx.js does the same). Your choice is kept per tab and returns in a
+rectangular layout. A tree without branch lengths can only be a cladogram.
 
-**Rectangular style.** How a branch *joint* is drawn is a separate, set-once
-choice under **Settings → Layout → Rectangular style**: **Square** (right-angle
-elbows, the default), **Euro Type** (a slanted corner), **Rounded** (a curved
-corner) or **Triangular** (clades drawn as triangles). You can set it at any
-time — picking a style while a circular or unrooted tree is on screen does not
-switch the layout; it takes effect the next time you choose a rectangular one.
+**Rectangular style** (**Settings → Layout → Rectangular style**): **Square** (the
+default), **Euro Type** (slanted corner), **Rounded** or **Triangular** (clades as
+triangles). Set while a radial tree is shown, it takes effect in the next rectangular
+layout.
 
-**Zoom, fit and navigate.** Below those sit the action buttons:
+**Zoom, fit and navigate:**
 
 | button | what it does |
 | --- | --- |
 | **Y+ / Y−** | zoom in / out vertically |
 | **X− / X+** | zoom in / out horizontally |
-| label rows pushed apart | **expand** the tree along the label axis until the labels stop overlapping at the current font size (`Alt+E`) |
-| square frame with arrows | **fit** the whole tree into the window (`Alt+C`, `Home` or `Esc`) |
-| landscape frame with arrows | **fit to the window width**, keeping the current vertical zoom (`Alt+W`) |
-| small ladderized tree | **ladderize** the whole tree; click again to flip the direction (`Alt+O`) |
+| label rows pushed apart | **expand** along the label axis until labels stop overlapping (`Alt+E`) |
+| square frame with arrows | **fit** the whole tree (`Alt+C`, `Home` or `Esc`) |
+| landscape frame with arrows | **fit to the window width**, keeping the vertical zoom (`Alt+W`) |
+| small ladderized tree | **ladderize**; click again to flip (`Alt+O`) |
 | arrow into a bar | back to the **complete tree** from a sub-tree (`Alt+Shift+R`) |
-| plain left arrow | **up one level** towards the complete tree (`Alt+R`) |
-| triangle with tip lines | **uncollapse all** collapsed clades (`Alt+U`) |
+| plain left arrow | **up one level** (`Alt+R`) |
+| triangle with tip lines | **uncollapse all** (`Alt+U`) |
 
-Several of these change with the layout, so the picture always matches what the
-click will actually do:
+The buttons follow the layout. **Root at top / bottom:** fit-to-width becomes
+*fit to height*, and the expand glyph turns. **Circular and unrooted:** **X− / X+**
+become **rotate counter-clockwise / clockwise** (also `A` / `S`, or `Shift`+wheel);
+fit-to-width becomes the **node-label direction** toggle — along the spoke (the
+default, where ring neighbours never meet) or flat — showing the state it switches
+*to*; expand is greyed. A button that cannot act right now fades rather than vanishing,
+so the row never changes shape.
 
-- **Root at top / bottom.** The fit-to-width frame turns portrait: it becomes
-  *fit to the window **height***, which is the same operation measured across
-  the tree's breadth. The expand glyph's label rows turn with it.
-- **Circular and unrooted.** The two zoom axes collapse into one, so **X− / X+**
-  are free and become **rotate counter-clockwise / clockwise** (the same as the
-  `A` and `S` keys, or `Shift`+mousewheel). The fit-to-width button becomes a
-  **node-label direction** toggle — labels riding the spoke, or lying flat —
-  and, like the theme button, it shows the state it will switch *to*. Both radial
-  views open with the labels riding the spoke, where neighbours on a ring never
-  meet (Archaeopteryx.js opens the same way); flat labels are one click away. Expand is
-  greyed out, since spreading labels apart has no meaning in a fan.
+**Collapsed clades** are drawn as a **wedge** from the node to its nearest and
+farthest tips, so the shape still shows how uneven the clade is (one step deep in a
+cladogram). A wedge takes more room for a bigger clade, never more than two and a half
+rows, and is filled in the colour most of its tips wear under **Color by**. Its label
+stands where a tip label would and names the clade: the node's name; else a Color-by
+value at least 95% of its tips share ("Cow · 12 tips"); else the tips' shared name
+prefix; always with the tip count. A search hit inside outlines the wedge in the search
+colour and adds `[found/total]`; all tips hit fills it and bolds the label. A clade
+holding a hit stays bright under **Dim Non-Matches**. Archaeopteryx.js draws collapsed
+clades the same way.
 
-A button that cannot do anything right now fades rather than vanishing: the two
-sub-tree arrows stay dim until you are inside a sub-tree, and uncollapse-all
-until something is collapsed, so the row never changes shape under you.
+**Auto-hide Labels** (*Display Data*, on by default) hides a mark only where something
+already drawn is really in its way: a tip or clade label over another label (tip names
+first, then clade names, larger clades first; a search hit's label always drawn); a
+**support or branch-length number** over another number, a label, or — in circular and
+unrooted — another branch; **support symbols** once rows are closer than the symbols.
+So nothing is dropped that could have been read, and a lone zero-length branch keeps
+its support value. Zoom in and marks come back; untick it to draw everything. **Expand**
+is the alternative — worth doing before an export, since a figure exported while marks
+are hidden lacks them (the export report says so).
 
-**Collapsed clades.** A collapsed clade is drawn as a **wedge** from its node:
-one edge reaches the clade's nearest tip and the other its farthest, so the
-shape still shows how uneven the clade's branch lengths are (in a cladogram the
-wedge is one step deep). It takes a little more room than a tip — more for a
-bigger clade, never more than two and a half rows — and is filled in the colour
-most of its tips wear under **Color by**. Its label stands where a tip label
-would, on the aligned column or the outer ring included, and names the clade:
-the node's own name if it has one; else the Color-by value at least 95% of its
-tips share, so a clade reads "Cow · 12 tips" while you look at hosts; else the
-tips' shared name prefix; always with the tip count. While a search hits inside
-it, the wedge is outlined in the search colour and the label adds
-`[found/total]`; when every tip is a hit the wedge is filled in the search
-colour and its label turns bold. A clade holding a hit stays bright while
-**Dim Non-Matches** fades the rest — also when every hit is inside collapsed
-clades. Collapsed clades are drawn the same way in Archaeopteryx.js.
-
-The expand button is the deliberate alternative to **Auto-hide Labels** (in
-*Display Data*, on by default), which auto-hides crowded data of three kinds:
-tip labels when a tree is drawn too densely to show them all — in the circular
-and unrooted views exactly: a tip or clade label that would lie across one
-already drawn is not drawn, tip names first and then clade names, the larger
-clade's first, and a search hit's label always — the **support and branch-length
-numbers** that would lie across another number, a label or, in the circular and
-unrooted layouts, another *branch*, where a number reads as that branch's value —
-and the **support symbols** once the rows are closer together than the symbols
-themselves. In every case the rule is the same — a
-mark is drawn unless something already drawn is really in its way — so nothing
-is dropped that could have been read, and a lone zero-length branch keeps its
-support value, because nothing is beside it. Zoom in and the marks come back as
-room appears; switch the checkbox off to draw everything. Expanding the tree until they fit means nothing has to
-be hidden — worth doing before an export, since a figure exported while labels
-are being auto-hidden is missing them, and the export report says so.
-
-**Which node am I on?** Point at a node and a soft **glow** marks it. The cursor
-already tells you *that* something is clickable; the glow tells you *which* node
-— which is what you actually need on a dense tree, and most of all in the modes
-that reroot or delete. It appears in every **Click on Node to:** mode, including
-over a collapsed clade's wedge. Pausing there also brings up the
-[node card](#viewing-and-editing-node-data) with the node's data.
-
-There is only ever one circle on the node, and its colour says what a click will
-do:
+**Which node am I on?** Pointing at a node gives it a soft **glow** — in every **Click
+on Node to:** mode, collapsed wedges included — and pausing brings up the
+[node card](#viewing-and-editing-node-data). The glow's colour says what a click will do:
 
 | glow | meaning |
 | --- | --- |
-| the node's own colour, else a neutral accent | you are on this node (any mode that is not a selection mode) |
+| the node's own colour, else a neutral accent | you are on this node (any non-selection mode) |
 | the found colour | in **Select Node(s)**, a click will **add** this node |
 | muted grey | in **Select Node(s)**, a click will **remove** it |
 
-Outside the selection modes the glow **takes the colour the node is already drawn
-in** — its *Color by* value, a node style you gave it, an event colour, a colorized
-clade — so the mark reads as belonging to *that* node instead of dropping an
-unrelated colour on top of it. A node with no colour of its own keeps the neutral
-accent. In **Select Node(s)** the colour means something (see the table), so there
-it stays as it is.
-
-Pointing at a *branch* in Select Node(s) glows its clade root and marks the tips
-the click would take, since one circle cannot stand for forty of them. Over a
-collapsed wedge the glow reflects the whole clade, because a click there
-takes the tips hidden inside it rather than the clade root.
-
-The glow is on-screen guidance only — it never appears in an exported figure.
+"The node's own colour" is whatever it is drawn in — Color by, a node style, an event
+colour, a colorized clade. In Select Node(s), pointing at a *branch* glows its clade
+root and marks the tips a click would take; over a collapsed wedge the glow stands for
+the whole clade. The glow never appears in an exported figure.
 
 ### Long tip labels ("Shorten Labels")
 
-Trees exported from a database often give every tip the same long preamble —
-`Influenza A virus (A/mallard/Sweden/1/2010)`, or a whole FASTA header. **Shorten
-Labels** (in *Display Data*, on by default when a tree has long names) makes those
-readable without touching the data underneath.
-
-It does two things, in order. First it drops the **boring prefix every tip shares**
-— with `Influenza A virus (A/` on all of them, those characters tell you nothing
-about which tip you are looking at. Then, if what remains is still long, it keeps
-the **first and last eight characters** joined by `..`:
+**Shorten Labels** (*Display Data*, on by default for long names) makes database-style
+names readable without touching the data. It drops the **prefix every tip shares** —
+counted as shared when at least 95% of tips carry it; the rest keep their full names —
+then, if the rest is still long, keeps the **first and last eight characters**:
 
 ```
 Influenza A virus (A/mallard/Sweden/1/2010)   ->   mallard/../1/2010)
 ```
 
-Both ends are kept on purpose: a strain name usually differs from its neighbours
-at the start *and* at the end, so a cut that kept only the beginning would give
-several tips the same label.
-
-This is display only — the node keeps its full name, so searching, exporting and
-accession parsing all still see the whole thing. Archaeopteryx.js shortens labels
-by exactly the same method, so a tree looks the same in both.
-
-> A prefix counts as shared when **at least 95% of the tips** carry it. A handful
-> of differently-named tips therefore no longer blocks it: they simply keep their
-> full names while the rest drop the common opening.
+Both ends stay because neighbouring strains usually differ at both. It is display
+only: search, export and accession parsing see the full name. Archaeopteryx.js shortens
+the same way.
 
 ---
 
 ## Support values in Newick and Nexus files
 
-Newick and Nexus files usually carry branch support as a bare internal label —
-`)100:0.05` — with nothing to say whether `100` is a bootstrap percentage or the
-name of a clade. Archaeopteryx works it out for you: **when every internal label
-in a tree looks like a support value** — bootstrap percentages, posterior
-probabilities, or a 0–1000 scale — they are read as confidence values rather than
-node names, and shown. Everything that works on support then works: colouring by
-it, support symbols, collapsing weakly-supported branches.
+Newick and Nexus carry branch support as a bare internal label — `)100:0.05` — with
+nothing to say whether `100` is a support value or a clade name. **When every internal
+label looks like a support value** (bootstrap percentages, posterior probabilities, a
+0–1000 scale), they are read as confidence values, and everything that works on
+support works: colouring by it, support symbols, collapsing weak branches. A tree whose
+labels are names, or that mixes names and numbers, is left alone — a genuine name is
+never turned into a number.
 
-A tree whose internal labels are real clade names is left untouched, and so is a
-tree that mixes the two — it is all-or-nothing, so a genuine name is never turned
-into a number.
+**Settings → Files → "Treat internal labels as confidence values"**: **Auto** (the
+default: only when they *all* look like support), **Always** (every numeric label — the
+only choice that helps a mixed tree), **Never**. (The old **"Internal Node Names are
+Confidence Values"** checkbox is gone; its equivalent is **Always**.)
 
-To change it, use **Settings → Files → "Treat internal labels as confidence
-values"**:
-
-| | |
-| --- | --- |
-| **Auto** | the default — only when they *all* look like support |
-| **Always** | every numeric label, whatever its value; the only choice that helps a tree mixing names and numbers |
-| **Never** | leave them as names |
-
-> Earlier versions asked, with a dialog, the first time such a tree was opened.
-> They are now recognised without interrupting you. If you used to tick
-> **"Internal Node Names are Confidence Values"**, that checkbox is gone and its
-> equivalent is **Always** — not *Auto*.
-
-**MAD values are not support.** **Tools → MAD-Root** (Tria, Landan & Dagan 2017)
-gives every internal branch its minimal ancestor deviation — how far from a clock
-the tree would be if it were rooted on that branch, so *lower is better*. The
-**MAD Confidence Values** display option shows them in front of any support value
-(`0.12/90`); phyloXML keeps them (`type="MAD"`), and rerooting the tree any other
-way removes them. They are never read as support: support symbols, coloring
-branches by support, collapsing weakly-supported branches, the Support /
-Confidence search and the Tree Properties support statistics all ignore them, and
-a Newick or Nexus file writes the branch's real support value, not its MAD value.
+**MAD values are not support.** **Tools → MAD-Root** (Tria, Landan & Dagan 2017) gives
+every internal branch its minimal ancestor deviation — how far from a clock the tree
+would be if rooted there, *lower is better*. **MAD Confidence Values** shows them before
+any support value (`0.12/90`); phyloXML keeps them (`type="MAD"`), and rerooting any
+other way removes them. Support symbols, colouring and collapsing by support, the
+Support / Confidence search and the support statistics all ignore them, and Newick /
+Nexus write the branch's real support.
 
 ### What gets written back out
 
-**Support values are saved by default.** Newick and Nexus have no field for a
-support value, so Archaeopteryx writes it in square brackets — `)0.3[95]` — and
-reads it back the same way. Until 0.11.157 that was off unless you turned it on,
-so a plain *Save As* quietly dropped every support value in the tree. It is now
-the default. **Settings → Files → Newick / Nexus Saving** still offers the
-alternatives: write them as **internal node names** instead (what some other
-programs expect), or untick both to leave them out.
+**Support values are saved by default**, in square brackets — `)0.3[95]` — and read back
+the same way. (Before 0.11.157 a plain *Save As* dropped them.) **Settings → Files →
+Newick / Nexus Saving** can write them as **internal node names** instead, or leave
+them out.
 
-**Nexus files carry their sequences.** When the tree's tips have molecular
-sequences — from phyloXML, from an imported alignment, or read out of another
-Nexus file — *Save As Nexus* writes them as a `Characters` block beside the tree,
-and opening that file brings them back. Two cases are deliberately left alone: if
-the sequences are of unequal length they are not an alignment, and if two tips
-share a name a matrix cannot say which row belongs to which, so in both cases no
-matrix is written and a comment in the file says why rather than leaving you to
-wonder. A tip that has no sequence gets a row of `?` — missing, which is not the
-same as a gap.
+**Nexus files carry their sequences** as a `Characters` block, and opening the file
+brings them back. No matrix is written — and a comment in the file says why — when the
+sequences differ in length (not an alignment) or two tips share a name. A tip without a
+sequence gets a row of `?` (missing, not a gap).
 
-**A tip with nothing to name it gets `node1`.** A tip with no name, no taxonomy
-and no sequence used to be written as an empty label — `(HUMAN,);` — which is not
-a tree any reader can open, and in Nexus it left the taxon list shorter than the
-taxon count and silently lost that tip's sequence. Such a tip is now written as
-`node1`, `node2`, … by its position. Nothing else changes: a tip named by its
-taxonomy or its sequence still uses that name, and an internal node with no label
-is normal and is left unlabelled.
+**A tip with nothing to name it** — no name, taxonomy or sequence — is written as
+`node1`, `node2`, … by position, so the file stays readable and the Nexus taxon list
+complete. Internal nodes without labels stay unlabelled.
 
 ---
 
 ## Coloring tips by their data ("Color by")
 
-The **Color by:** dropdown in the left control panel colors every tip by one of
-the tree's fields — the taxonomy fields (code, scientific name, common name),
-the sequence fields (name, symbol, gene name), or any node property the tips
-carry (`host`, `country`, `year`, …). A categorical field gets one color per
-value; a numeric field gets either individual colors or a color gradient (see
-below). The same rules, ids and labels are used by
-[Archaeopteryx.js](https://github.com/cmzmasek/archaeopteryx-js), so a shared
-tree colors identically in both viewers.
+**Color by:** (left panel) colors every tip by one field — taxonomy (code, scientific
+name, common name), sequence (name, symbol, gene name), or any node property (`host`,
+`country`, `year`, …). A category gets one color per value; a number individual colors
+or a gradient. [Archaeopteryx.js](https://github.com/cmzmasek/archaeopteryx-js) uses the
+same rules, ids and labels, so a tree colors identically in both.
 
-**Which fields are offered.** The dropdown lists every usable field **best first**:
+**Which fields are offered**, best first: clean categories; numeric fields; very wide
+categories (more than 20 values); *In-Group* / *Out-Group* fields; sparse fields (on
+fewer than two thirds of the tips); categories whose values barely repeat. Within each
+group, wider and more even coverage first. **Never offered:** a single-valued field; a
+text field with a different value on every tip (an identifier); a field some tip
+carries twice; and fields about the *record* rather than the organism — ids,
+accessions, taxon ids, authors, sets, data-use terms, embargo (*restricted until*)
+dates.
 
-- clean categories first;
-- then numeric fields;
-- then very wide categories (more than 20 values);
-- then *In-Group* / *Out-Group* fields;
-- then sparse fields (on fewer than two thirds of the tips);
-- and at the very bottom, categories whose values barely repeat.
+**A tree opens already colored** by the first offered field that is not a very wide
+category. A figure saved with the tree keeps its coloring, and a field you chose is
+never overridden. **Settings → Labels & Colors → Auto-color a newly opened tree** turns
+this off.
 
-Within each group, fields that cover more tips and split them more evenly come
-first. Some fields are never offered, because a colour spent on them says nothing
-about the tree:
+**The legend** is a draggable card (double-click sends it home). Each row shows a color
+and its tip count; `[by count]` / `[A-Z]` flips the order; long legends show the top 20
+with *show all*. Tips with **no value** are counted in a dashed-circle row pinned last
+(they draw no dot). Click a row to give that value your own color; *Use Automatic
+Color* undoes it.
 
-- a field with a single value;
-- a text field with as many values as the tree has tips (an identifier);
-- a field some tip carries **twice** (a node cannot be two colours);
-- fields that describe the *record* rather than the organism — ids, accessions,
-  identifiers, taxon ids, authors, sets, data-use terms and embargo
-  (*restricted until*) dates.
-
-**A tree opens already colored**, with the first field in that list that is not
-a very wide category — nothing to configure. A figure saved with the tree keeps
-its own coloring, and a field you chose yourself is never overridden. To open
-trees uncolored, switch off **Settings → Labels & Colors → Auto-color a newly
-opened tree**.
-
-**The legend** is a draggable card (double-click it to send it back to its
-corner). Each row shows the value's color and its tip count; `[by count]` /
-`[A-Z]` flips the order, and long legends show the top 20 with a *show all*
-control. When some tips carry **no value** for the field, a dashed-circle
-**"no value"** row — pinned last — counts them, so partial coverage is visible
-at a glance (those tips draw no color dot). Clicking a value row lets you
-assign that value your own color; *Use Automatic Color* returns it to the
-automatic one.
-
-**The legend gets a column of its own.** Its home corner — top right — is exactly
-where a root-left tree puts its top tips, and where a matrix puts its column
-headers, so by default Archaeopteryx reserves a strip at the right for it and lays
-the tree out in what is left: the legend never sits on your data, and the window
-shows what **Save/Export as PDF** and `aptx_render` have always drawn. Drag the
-legend anywhere and it gives the column straight back (it is only claimed by a
-legend still at its default corner), and the column is never taken when it would
-cost more than 40% of the width. Switch it off — and let the legend float over the
-tree, as it used to — with **Settings → Layout → Legend in Its Own Column**.
+**The legend gets a column of its own.** Its home corner is where a root-left tree puts
+its top tips and a matrix its headers, so a strip at the right is reserved for it and
+the tree laid out in the rest — the window then shows what **Export as PDF** and
+`aptx_render` draw. A legend dragged elsewhere gives the column back, and the column is
+never taken when it would cost more than 40% of the width. Off: **Settings → Layout →
+Legend in Its Own Column**.
 
 **Numeric fields.** A field is numeric only when **every** value is a plain decimal
-number (`12`, `-0.5`, `1e3`), so a field containing `0x1A` or `Infinity` is a
-category. Spellings of one number (`1`, `1.0`, `+1`) are one value, with one colour
-and one legend row. A field with up to ten distinct numbers is treated as codes
-(think H5N1 vs H5N2 subtype numbers) and gets individual colors; with more
-values it becomes a color **gradient** (years, rates). For fields with up to
-twenty distinct values a `[colors]` / `[gradient]` control in the legend lets
-you flip between the two readings.
+(`12`, `-0.5`, `1e3`); `0x1A` or `Infinity` make it a category. Spellings of one number
+(`1`, `1.0`, `+1`) are one value. Up to ten distinct numbers are treated as codes (H5N1
+vs H5N2) with individual colors; more become a **gradient**. Up to twenty, a
+`[colors]` / `[gradient]` legend control flips between the two.
 
 **Values are grouped for coloring** — spelling variants (`Human` / `human` /
-`homo_sapiens`), a `host` value's qualifiers after `;` and a `country` value's
-subdivision after `:` (`USA:CA` = `USA:IL`), and a short dictionary of
-unambiguous common-animal synonyms (`swine` / `porcine` / `Sus scrofa` all
-read **Pig**; `bovine` / `cattle` → **Cow**; `Homo sapiens` → **Human**; …)
-share one color and one legend row. A value that is nothing but underscores, or
-only a `host` / `country` qualifier, counts as no value. This is display grouping only: the values
-stored in your tree are never modified, and search, exports and the node
-dialog always show them verbatim. Coloring by the taxonomy or sequence fields
-themselves uses the values exactly as written, with no grouping at all.
+`homo_sapiens`), `host` qualifiers after `;`, `country` subdivisions after `:`
+(`USA:CA` = `USA:IL`), and unambiguous animal synonyms (`swine` / `porcine` / `Sus
+scrofa` → **Pig**; `bovine` / `cattle` → **Cow**; `Homo sapiens` → **Human**; …). A value
+of only underscores, or only a qualifier, is no value. Display only: stored values,
+search, exports and the node window keep them verbatim. Taxonomy and sequence fields are
+never grouped.
 
-**Colors are stable.** A value keeps its color while you dive into subtrees,
-collapse clades or delete nodes — the legend re-derives to what is on screen,
-but nothing recolors, so a subtree figure matches the whole-tree figure. Diving
-into a subtree never changes what the dropdown offers or which field is chosen:
-a clade where every tip shares one value is simply coloured that value, and a
-field no tip in view carries keeps a legend of just its **no value** row.
-Deleting nodes, undoing, or editing node data keeps the field you chose for as
-long as any tip still carries it, even if it would no longer be offered.
-(Gradients are the exception by design: a gradient always spans the visible
-range.) Switching the palette (**Settings → Labels & Colors**, Default or
-Colorblind-friendly) or **Reset to Defaults** re-assigns from scratch.
+**Colors are stable.** A value keeps its color through subtrees, collapses and deletions
+— the legend follows what is on screen, nothing recolors. A subtree never changes the
+offered fields or the chosen one, and edits or undo keep your field while any tip
+carries it. (A gradient always spans the visible range.) Switching the palette
+(**Settings → Labels & Colors**: Default or Colorblind-friendly) or **Reset to Defaults**
+reassigns colors.
 
-**Size by** works alongside: it scales each tip symbol by a numeric field, so
-one symbol can encode a color (field A) and a size (field B) at once.
+**Size by** scales each tip symbol by a numeric field, so one symbol can encode two
+fields.
 
 ---
 
 ## Annotation fields: columns or labels
 
-A tree's tips often carry a lot more than a name — a host, a country, a clade, a
-collection year, an accession, a passage history. Archaeopteryx reads all of it
-(from phyloXML `<property>` elements, from **File → Import Annotations**, from a
-BEAST or Auspice file) and gives you one place to decide how each field is shown:
-**Tools → Annotation Fields…**.
+Tips often carry a host, a country, a clade, a year, an accession, a passage history.
+Archaeopteryx reads them all (phyloXML `<property>` elements, **File → Import
+Annotations**, BEAST or Auspice files) and **Tools → Annotation Fields…** decides how
+each is shown.
 
-A table joined with **Import Annotations** follows one convention in both viewers,
-so the same file gives the same tree here and in Archaeopteryx.js: a column
-becomes a `meta:` property named after its header, with spaces written as `_`
-(the menus show "Collection Date" again); a header already written as `ns:name`
-is kept as it is; a column whose every filled cell is a number is stored as a
-number; a cell already on the tip is replaced by the table's; an empty cell
-changes nothing. The table may be tab-, comma- or semicolon-separated, fields
-may be double-quoted, and lines starting with `#` are skipped.
+**Import Annotations** follows one convention in both viewers: a column becomes a
+`meta:` property named after its header, spaces written `_` (menus show "Collection
+Date"); an `ns:name` header is kept as is; a column whose every filled cell is a number
+is stored as a number; the table's value replaces the tip's, an empty cell changes
+nothing. Tab-, comma- or semicolon-separated, fields may be double-quoted, `#` lines
+are skipped.
 
-The rule is simple: **each field gets exactly one role.** It is a tip-aligned
-column, or it is part of the node's label, or it is not drawn. That exclusivity is
-the whole point — the fields that carry the figure become columns, and only the one
-or two that belong next to the name stay in the label. Ten fields crammed into a
-label is unreadable; ten thin colour strips beside the tips is a figure.
+**Each field gets exactly one role:** a tip-aligned column, part of the label, or not
+drawn. Ten fields crammed into a label is unreadable; ten thin strips beside the tips is
+a figure.
 
 ### The roles
 
 | "Show as" | what it draws |
 | --- | --- |
-| **Color strip** | a filled cell per tip, coloured by the value's category |
-| **Symbol** | a centred glyph — filled when the value is present, hollow when it is explicitly `no`/`absent`/`0`/`false`, nothing when it is missing. Pick circle / square / diamond / triangle per column |
-| **Heat map** | a filled cell coloured by the value's position in the numeric range |
-| **Heat map (matrix)** | as above, but every matrix column shares **one** colour scale and one legend, drawn as a contiguous grid — the clustergram look |
-| **Bar** | a horizontal bar whose length is the value's fraction of the range |
-| **Stacked bar** | set several numeric fields to this and they **merge** into one segmented bar per tip — absolute lengths by default, or normalized to 100% |
-| **Pie** | set several numeric fields to this and they merge into one pie per tip, each field a wedge |
-| **Text** | the raw value, drawn as a column of text |
-| **In tip label** | the value is appended to the node's own label |
+| **Color strip** | a filled cell per tip, coloured by category |
+| **Symbol** | a glyph — filled when present, hollow when explicitly `no`/`absent`/`0`/`false`, nothing when missing; circle / square / diamond / triangle per column |
+| **Heat map** | a cell coloured by the value's place in the numeric range |
+| **Heat map (matrix)** | as above, all matrix columns sharing **one** scale and legend, drawn as a contiguous grid (a clustergram) |
+| **Bar** | a bar whose length is the value's fraction of the range |
+| **Stacked bar** | several numeric fields merged into one segmented bar per tip — absolute, or normalized to 100% |
+| **Pie** | several numeric fields merged into one pie per tip |
+| **Text** | the raw value as a column of text |
+| **In tip label** | the value appended to the label |
 
-Which roles you are offered follows the data. A numeric field gets the heat map /
-bar / stacked bar / pie set; a categorical one gets colour strips and symbols. A
-field that cannot usefully be *coloured* — one with the same value on every tip, or
-a different value on every tip, such as an accession — is offered as text or as
-label content, but not as a colour. And a field that only exists on internal nodes
-can only go in the label, because a tip-aligned column would have nothing to draw.
+The roles follow the data: numeric fields get heat map / bar / stacked bar / pie,
+categories get strips and symbols. A field that cannot usefully be *coloured* (one
+value everywhere, or a different one on every tip, like an accession) is offered as
+text or label only; a field only on internal nodes can only go in the label.
 
 ### In the label
 
-Label properties are drawn as **values only**, comma-joined, on one line — `EPI1731,
-E3`, not `data:accession: EPI1731 data:passage: E3`. The full list is always one
-hover away in the [node card](#viewing-and-editing-node-data), and in **Display Node
-Data**, so narrowing the label costs you nothing.
-
-The **↑ / ↓** buttons beside each field set the order — both the left-to-right order
-of the columns and the order the label reads in. You can also move a column by
-dragging its header on the tree itself. (A heat-map matrix can also order its columns
-for you — see [below](#a-heat-map-matrix-and-its-column-order).) Turning on any label field switches
-the **Properties** display checkbox on for you, so the choice takes effect
-immediately.
-
-By default, a field that is not shown as a column goes in the label, which is what
-the **Properties** checkbox has always shown. Open the chooser and narrow it down
-from there. **Settings → Reset to Defaults** puts it back.
+Label properties are drawn as **values only**, comma-joined — `EPI1731, E3` — and the
+full list is one hover away in the [node card](#viewing-and-editing-node-data) and in
+**Display Node Data**. The **↑ / ↓** buttons set the order of the columns and of the
+label; a column can also be dragged by its header (a matrix can order itself — see
+[below](#a-heat-map-matrix-and-its-column-order)). Choosing a label field ticks
+**Properties** for you. By default every field not shown as a column is in the label;
+**Settings → Reset to Defaults** restores that.
 
 ### A heat-map matrix and its column order
 
-A table of numbers per tip — gene presence/absence, abundance across samples,
-expression — reads best as one grid beside the tree. **View → Clustergram** builds it
-in one click: the numeric fields become **Heat map (matrix)** columns on one shared
-colour scale, categorical fields become colour strips (a field with the same value on
-every tip has nothing to show and is left out), and the tree is laid out root on the
-left with its tips aligned: the dendrogram, its tip labels, then the matrix, with each
-column's name across the top. The matrix is drawn in the rectangular layouts (root left,
-top or bottom) and, as rings, in the circular one.
+**View → Clustergram** builds one grid from a table of numbers per tip (gene
+presence/absence, abundance, expression): numeric fields become **Heat map (matrix)**
+columns on one scale, categorical fields colour strips (single-valued fields are left
+out), and the tree is laid out root-left with aligned tips — dendrogram, labels,
+matrix, column names across the top. The matrix is drawn in the rectangular layouts and,
+as rings, in circular.
 
-In a matrix the **order of the columns** decides what the eye can see. **View → Order
-Matrix Columns** picks it for the current tab; each tab keeps its own:
+**View → Order Matrix Columns** sets the column order for the tab:
 
 | Order | the columns are placed … |
 | --- | --- |
 | **Clustered (co-occurrence)** — the default | so that columns whose values agree across the tips sit together |
-| **Clustered (ignoring shared absence)** | the same clustering, but a tip where *both* columns are 0 is left out — so columns sit together because they are found in the same tips, not because they are missing from the same tips |
-| **Same as Table** | in the order the file, or the imported table, lists them |
+| **Clustered (ignoring shared absence)** | the same, but a tip where *both* columns are 0 is left out — columns sit together because they occur in the same tips, not because they are missing from them |
+| **Same as Table** | as the file or imported table lists them |
 | **Alphabetical** | by name, ignoring case |
-| **Frequency** | highest mean value first, over the tips that have a value — on 0/1 data, the fraction of tips carrying it |
-| **Manual** | where you put them; nothing re-sorts them |
+| **Frequency** | highest mean over the tips with a value first (on 0/1 data, the fraction carrying it) |
+| **Manual** | where you put them |
 
-Only the matrix columns move, and only among the places matrix columns already hold:
-colour strips, symbols and bars stay where they are. A blank cell — *not assessed* —
-never counts as 0 in any of these orders.
+Only matrix columns move, and only among matrix places. A blank cell (*not assessed*)
+never counts as 0. Hover a cell to read the tip, the column and the number (see
+[Hovering a cell](#viewing-and-editing-node-data)).
 
-To read a cell's actual **value**, hover it: the rollover names the tip, the gene and the
-number behind the colour (see [Hovering a cell](#viewing-and-editing-node-data)).
+**The clustered orders draw their tree** above the column names, each merge at its
+height, to scale. Read it: neighbouring columns can belong to different clusters, and
+only the dendrogram tells them apart. It disappears when you move a column by hand, and
+is not drawn in circular.
 
-**In the two clustered orders you also get the tree behind them.** A compressed
-dendrogram is drawn above the column names: the clustering that decided the order, with
-each merge at the height the two clusters were apart. It is worth reading, because
-*columns sitting side by side are not necessarily related* — two neighbours can belong
-to different clusters that happen to be adjacent, and the dendrogram is the only thing
-that tells them apart. Bar heights are to scale, so a block that joins low really is
-tighter than one that joins high. It appears only in **Clustered (co-occurrence)** and
-**Clustered (ignoring shared absence)** — the other orders did not come from a
-clustering, so there is no tree to draw — and it disappears the moment you move a column
-by hand, because the order on screen is then no longer the one the tree describes. Not
-drawn in the circular layout, where the columns are rings.
+**Clustered** is complete-linkage clustering on Euclidean distance — the clustered heat
+map, and the default of R's `pheatmap`, `heatmap.2` and `ComplexHeatmap`. A tip missing
+either value is left out of that pair and the rest scaled up (R's `dist()` rule), giving
+the order of R's `hclust(dist(t(m)), method = "complete")`, so a figure can be checked
+against R. Two columns with no shared assessed tip join last.
 
-**Clustered** is complete-linkage hierarchical clustering on Euclidean distance: the
-clustered heat map, and the default of R's `pheatmap`, `heatmap.2` and
-`ComplexHeatmap`. Where either of two columns has no value at a tip, that tip is left
-out of the pair and the rest is scaled up to make up for it (R's `dist()` rule), and
-the result is the same column order R's `hclust(dist(t(m)), method = "complete")`
-gives — so a figure made here can be checked against one made in R. Two columns that
-share no assessed tip at all cannot be compared, and join last (R refuses such input).
+Euclidean distance counts two genes *absent* from the same strains as alike — the
+**double-zero problem** — so rare genes can clump while sharing no strain.
+**Clustered (ignoring shared absence)** uses the **Bray–Curtis dissimilarity**,
+`sum|x − y| / sum(x + y)` over tips where both have a value (the default of R's
+`vegan::vegdist()`): a tip where both are 0 drops out, so two rare genes never together
+come out maximally distant (1). On 0/1 data it is the **Sørensen–Dice** dissimilarity.
+It is for values of 0 or more (counts, abundances, the 0–4 certainty scale); missing
+cells drop out pairwise.
 
-One thing to know about clustering presence/absence data: Euclidean distance counts two
-genes that are both *absent* from the same strains as alike — the **double-zero problem**.
-Rare genes, and genes that each sit on a different clade, are absent almost everywhere, so
-they can end up side by side while sharing no strains at all.
-
-**Clustered (ignoring shared absence)** is the answer to exactly that. It is the same
-complete-linkage clustering, read from the **Bray–Curtis dissimilarity** —
-`sum|x − y| / sum(x + y)` over the tips where both columns have a value, the default of
-R's `vegan::vegdist()`. A tip where both columns are 0 adds nothing to either sum, so it
-simply drops out: two genes that are each rare and never in the same strain come out
-*maximally* distant (1) instead of nearly identical, and each rare gene lands beside the
-genes it actually occurs with. On plain 0/1 data it is exactly the **Sørensen–Dice**
-dissimilarity. It is meant for values that are 0 or more — counts, abundances, the 0–4
-certainty scale — and it is a dissimilarity rather than a distance (it does not obey the
-triangle inequality, which complete linkage does not need). Missing cells are dropped
-pairwise, as above; because it is a ratio it needs no scaling to make up for them.
-
-Which to use: **co-occurrence** when a 0 is a real, informative measurement and you want
-the arrangement R's heat maps would give; **ignoring shared absence** when the matrix is
-sparse — a pan-genome, a presence/absence table, anything where most cells are 0 and
-being absent together says nothing. Try both on
+Use **co-occurrence** when 0 is an informative measurement and you want R's arrangement;
+**ignoring shared absence** for sparse matrices — a pan-genome, presence/absence.
 [`sparse-accessory-genome.xml`](https://github.com/cmzmasek/forester/blob/master/forester/demo/sparse-accessory-genome.xml)
-and its table: eight rare genes that share no strain at all clump into one block under
-the first and scatter to their own lineages under the second.
+shows the difference. If your table already groups its columns meaningfully, **Same as
+Table** shows the groups as bands.
 
-If your table already groups its columns in a meaningful way — core genes, then
-resistance genes, then mobile elements — **Same as Table** shows that grouping as bands.
-
-To arrange the columns yourself, **drag a column's header** — in the circular layout,
-its ring — to where you want it; a marker shows where it will land, and a plain click on
-the header still shows that column's legend. The **↑ / ↓** buttons in **Tools →
-Annotation Fields…** do the same one place at a time. Moving a matrix column to a new
-place switches the tab to **Manual**, so the order you set is never re-sorted behind
-your back. Moving a row and back again, or
-moving only a colour strip, leaves the tab's order as it was. A figure saved in the file
-reopens with its columns exactly as saved, in **Manual**. **Settings → Reset to
-Defaults** puts every tab back to **Clustered**.
+**Drag a column's header** (in circular, its ring) to move it — a marker shows where it
+lands, and a plain click still shows its legend — or use **↑ / ↓** in **Tools →
+Annotation Fields…**. Moving a matrix column switches the tab to **Manual**; moving it
+back, or moving only a colour strip, does not. A saved figure reopens with its columns
+as saved, in **Manual**. **Reset to Defaults** returns every tab to **Clustered**.
 
 - Complete linkage: Sørensen T (1948): "A method of establishing groups of equal
   amplitude in plant sociology based on similarity of species content and its
@@ -779,565 +516,396 @@ Defaults** puts every tab back to **Clustered**.
   forest communities of southern Wisconsin", *Ecological Monographs* 27(4):325–349,
   doi:10.2307/1942268.
 
-**Where it works.** Annotation **columns** are drawn in the three **rectangular**
-orientations and in **circular**, where they become concentric rings around the tree
-and the shared colour legend rides along. They are **not** drawn in the **unrooted**
-layout, for the same reason clade bars are not: unrooted tips sit at different radii
-and in no fixed order, so there is no common edge to line a column of cells up
-against. Nothing is lost by switching to it — the tab keeps its columns and their
-order, and draws them again the moment you switch back.
-
-Fields shown **in the tip label** do work in all five, unrooted included: they ride
-each tip's spoke with the rest of the label.
+**Where it works.** Columns are drawn in the three rectangular orientations and in
+circular (as rings, with the legend). **Not in unrooted**: its tips sit at different
+radii in no fixed order, so there is no edge to line cells up against. The tab keeps its
+columns and draws them again when you switch back. Fields **in the tip label** work in
+all five layouts.
 
 ## Your figure is saved with the tree
 
-A tree usually takes a while to turn into a figure: you pick a layout, switch some
-labels on and others off, add an annotation column or two, mark the clades, colour
-the tips by a field. All of that used to be lost the moment you saved the file and
-opened it again — the tree came back, the figure did not.
+Save a tree as **phyloXML** and its figure is stored with it and restored on reopening:
 
-Now it comes back. When you save a tree as **phyloXML**, Archaeopteryx stores the
-figure alongside it and restores it when the file is reopened:
-
-- the **layout** — rectangular (root left, top or bottom), circular or unrooted —
-  and whether it is drawn as a phylogram, an aligned phylogram or a cladogram
-- **which labels are drawn**: every checkbox in the Display panel, so a figure that
-  shows only scientific names comes back showing only scientific names
-- the **annotation columns** you configured, with their types and symbol shapes
+- the **layout** — rectangular (root left, top or bottom), circular or unrooted — and
+  phylogram, aligned phylogram or cladogram
+- **which labels are drawn**: every Display-panel checkbox
+- the **annotation columns**, with their types and symbol shapes
 - the **clade marks**, with their ranks and label angles
-- **colour by**, **size by**, the **ancestral-state pie** trait, and the property
-  fields you chose to show in the tip labels
+- **colour by**, **size by**, the **ancestral-state pie** trait, and the property fields
+  shown in the labels
 
-Each tab keeps its own figure, so several trees can be open at once with quite
-different figures, and saving them all preserves each one. Close one with the
-**×** on its own tab, which asks before discarding unsaved changes exactly as
-**File → Close Tab** and the tab's right-click menu do — it is the same path, so
-a tree with edits in it cannot be lost to a stray click.
+Each tab keeps its own figure. The **×** on a tab asks before discarding unsaved
+changes, like **File → Close Tab**.
 
-Three things are worth knowing:
-
-**It only travels in phyloXML.** Newick and Nexus have nowhere to put it. If you
-want your figure to survive, save as phyloXML (`.xml`).
-
-**The theme is not part of it.** Fonts, colours and light/dark stay your own
-preferences, so a figure you send a colleague opens in *their* setup rather than
-overriding it.
-
-**A figure from a newer version still opens.** Anything an older Archaeopteryx
-cannot draw is skipped rather than refused, so the tree always opens.
+- **Only phyloXML carries it** — Newick and Nexus have nowhere to put it.
+- **The theme is not part of it** — fonts, colours and light/dark stay the reader's own.
+- **A figure from a newer version still opens**; anything an older Archaeopteryx cannot
+  draw is skipped.
 
 ### Clearing every overlay at once
 
-Overlays are easy to add and, until now, tedious to remove: the clade marks in
-particular had no off switch once they were on. **Tools → Clear All Overlays**
-switches all of them off in one action — annotation columns, clade marks, colour
-by, size by, ancestral pies, and the properties shown in the labels.
-
-It clears the overlays and nothing else. The layout stays as it is and the labels
-stay as they are, so this is a way to strip a tree back to a clean drawing without
-undoing the rest of your work.
-
+**Tools → Clear All Overlays** switches off annotation columns, clade marks, colour by,
+size by, ancestral pies and the properties in the labels in one action, and nothing
+else: layout and labels stay.
 
 ## Viewing and editing node data
 
-Every node carries data beyond its name — taxonomy, sequences, branch support, a date, a
-distribution, a literature reference, properties — and two of the **Click on Node to:** modes
-open it in a window of its own. **Display Node Data** opens a read-only page; **Edit Node Data**
-opens the same page with every value live.
+Two **Click on Node to:** modes open a node's data — taxonomy, sequences, support, a
+date, a distribution, a reference, properties — in a window of its own: **Display Node
+Data** (read-only) and **Edit Node Data**. The page is one scrolling list of foldable
+sections — **Basic**, **Taxonomy**, **Sequences**, **Events** (internal nodes),
+**Date**, **Distribution**, **Reference**, **Properties** — with data-bearing sections
+open. The header says what the node is: external or internal, children and tips, depth,
+distance from the root.
 
-The page is one scrolling list of sections — **Basic**, **Taxonomy**, **Sequences**, **Events**
-(internal nodes only), **Date**, **Distribution**, **Reference**, **Properties** — each of which
-folds with a click on its header. Sections that hold data start open, empty ones start
-folded, and the read-only page shows only what is actually there. The header names the node
-and says what it is: external or internal, how many children and tips it has, its depth and
-its distance from the root.
-
-A few things about editing are worth knowing:
-
-- **Nothing reaches the tree until you press Write to Tree** (⌘↩ / Ctrl+Enter, or just
-  Enter in any field). Type, change your mind, type again — the tree is untouched until then,
-  and the title shows a **•** while there are unwritten changes. **Close** with unwritten
-  changes asks whether to write them, discard them, or stay.
-- **Values are checked as you type.** A branch length that is not a number, a taxonomy code
-  that is not 3–5 capitals, a rank phyloXML does not know, a bad DOI or URL, a latitude
-  outside ±90 — the field is outlined and the status line at the bottom says what is wrong.
-  **Write to Tree** stays disabled until every field is valid, so a write is all-or-nothing.
-- **Only what you changed is written.** A branch length you never touched keeps every digit
-  it had; a sequence's annotations, a taxonomy's lineage, a distribution's polygons — data
-  the editor does not show — survive a round trip untouched.
-- **A node can carry several sequences** (a protein and its mRNA, say). Each is a card with
-  its own name, symbol, gene name, type, accession, location, molecular sequence and URIs;
-  **+ Add sequence** adds a card, **×** removes one. The molecular sequence box counts its
-  residues for you and cleans whatever you paste (line numbers, spaces) on write.
+- **Nothing reaches the tree until Write to Tree** (⌘↩ / Ctrl+Enter, or Enter in a
+  field); the title shows **•** while changes are unwritten, and **Close** asks whether
+  to write, discard or stay.
+- **Values are checked as you type** — a branch length that is not a number, a taxonomy
+  code that is not 3–5 capitals, an unknown rank, a bad DOI or URL, a latitude beyond
+  ±90 — and **Write to Tree** stays disabled until all are valid.
+- **Only what you changed is written.** Untouched branch lengths keep every digit; data
+  the editor does not show (sequence annotations, lineages, polygons) survives.
+- **Several sequences per node** (a protein and its mRNA): one card each, **+ Add
+  sequence** / **×**. The sequence box counts residues and cleans pasted text on write.
 - **Properties are a table** — reference, value, unit, datatype, applies-to — with
-  **+ Add property** and **− Remove property**. References and units need a namespace
-  prefix (`data:depth`, `METRIC:m`), and a value declared `xsd:decimal` has to be a number.
-  This is the same data the *Color by*, *Size by* and annotation-column features read, so a
-  property you add here is available to them at once.
-- **Emptying a section removes it.** Clear every taxonomy field and the node simply has no
-  taxonomy any more, rather than an empty one.
-- **One write is one undo step**, whatever you changed, and the tree's description records
-  that the node was edited by hand.
-
-Several node windows can be open at once. An undo or redo closes them, because the tree they
-were editing has been replaced.
+  **+ / − property**. References and units need a namespace prefix (`data:depth`,
+  `METRIC:m`); an `xsd:decimal` value must be a number. *Color by*, *Size by* and the
+  annotation columns see a new property at once.
+- **Emptying a section removes it.**
+- **One write is one undo step**, recorded in the tree's description.
 
 ## Tree properties, statistics, and the tree as text
 
-**View → Tree Properties…** (⌘I / Ctrl+I, or double-click the tree's tab) opens the tree's
-own page in the same style as the node window. The top of it is editable: the tree's **name**
-(which is also its tab title), its **description** (free text — the tools append a sentence
-here whenever they change the tree), and the phyloXML metadata nothing else lets you set —
-an **identifier** with its provider, the tree **type** (gene tree, species tree, …), the
-**branch-length unit**, and whether the tree is **re-rootable** — untick it and the rooting
-tools grey out, tick it on a curated tree that arrived marked `rerootable="false"` and they
-come back. The same rules as for node data apply: nothing reaches the tree until
-**Write to Tree**, a named tree cannot be renamed to nothing, a provider needs an identifier
-value, one write is one undo step, and closing with unwritten changes asks first.
+**View → Tree Properties…** (⌘I / Ctrl+I, or double-click the tab) opens the tree's own
+page. Editable at the top: the **name** (also the tab title), the **description** (the
+tools append to it when they change the tree), and phyloXML metadata — an
+**identifier** and provider, the tree **type**, the **branch-length unit**, and
+**re-rootable** (untick it and the rooting tools grey out). The editing rules are those
+of the node window.
 
-Below that, everything the tree can tell you about itself, computed on the spot and kept
-current while the window is open:
+Below, computed live:
 
-- **File** — path, format (as sniffed from the file, not guessed from its suffix), size, when
-  it was last modified, and whether there are unsaved changes.
-- **Structure** — tips, internal nodes, branches, rooted or not, whether it is fully binary
-  or how many polytomies it has, its depth, its height (the longest root-to-tip path), and
-  how many clades are collapsed.
-- **Branch lengths** — how many branches have one, median, mean ± sd, minimum, maximum, the
-  total tree length, zero-length and negative branches, whether the tree is ultrametric —
-  and a small histogram of the distribution (hover a bar for its range and count).
-- **Support values** — one section per kind (bootstrap, posterior probability, …), each
-  with the same statistics and its own histogram.
-- **Annotation coverage** — the answer to "what is in this tree": how many tips carry a
-  taxonomy (and a taxonomy identifier), how many distinct taxonomies there are, how many
-  tips carry sequences, molecular sequences and domain architectures, dates, distributions,
-  references, how many internal nodes are named, the event totals (duplications,
-  speciations, gene losses), and every property name with the number of nodes that have it.
-  This is also a quick way to see which tools will work on the tree: *Color by* needs
-  properties, the taxonomy tools need taxonomies, and so on.
-- **Time axis** — when the tree has dates or a time axis: the axis type, how many nodes are
-  dated, the unit, and the root age or the most recent date.
+- **File** — path, format (sniffed, not guessed from the suffix), size, modified,
+  unsaved changes.
+- **Structure** — tips, internal nodes, branches, rooted, binary or how many
+  polytomies, depth, height, collapsed clades.
+- **Branch lengths** — how many, median, mean ± sd, min, max, total, zero-length and
+  negative branches, ultrametric, and a histogram (hover a bar).
+- **Support values** — per kind (bootstrap, posterior, …), with its own histogram.
+- **Annotation coverage** — how many tips carry taxonomy (and an identifier), distinct
+  taxonomies, sequences, molecular sequences, domain architectures, dates,
+  distributions, references; named internal nodes; event totals; every property with
+  its node count — a quick way to see which tools will work.
+- **Time axis** — for a dated tree: axis type, dated nodes, unit, root age or most
+  recent date.
 
-One window per tab; opening it again brings the existing one forward. The statistics
-re-read the tree shortly after every change — an edit, an undo, a redo — and any edits you
-have typed but not yet written are kept.
+One window per tab; it re-reads the tree after every change, keeping unwritten edits.
 
-**View → as phyloXML / as Newick / as Nexus** show the tree as text, in one window with a
-format switcher at the top (all three items open the same window, on the format you asked
-for). The text is what *Save As* would write — Newick and Nexus honour the support-value
-setting under **Settings → Files** — with the markup muted so the names stand out: tags,
-brackets, commas, branch lengths and support values in grey; the words that structure the
-document in the accent colour (`#NEXUS`, `Begin Taxa;`, `TaxLabels`, `Tree`, `End;`) with
-setting and attribute names such as `NTax=` or phyloXML's `branch_length=` in the same colour
-but lighter; and the labels themselves in the normal text colour. Only the document's own
-structure is tinted — a taxon that happens to be *called* `End` or `Matrix` stays plain data. **Find** (⌘F / Ctrl+F) highlights every hit
-and steps through them with ↩ and ⇧↩; **Wrap lines** is on for the one-line formats and off
-for phyloXML; **Copy** puts the whole text on the clipboard and **Save As…** writes it to a
-file. The window re-generates its text after the tree changes.
+**View → as phyloXML / as Newick / as Nexus** shows the tree as text — what *Save As*
+would write — in one window with a format switcher. Markup is muted so names stand out:
+syntax, lengths and support in grey, the document's own keywords (`#NEXUS`, `Begin
+Taxa;`, `Tree`, `End;`) and attribute names (`NTax=`, `branch_length=`) in the accent
+colour; a taxon *called* `End` stays plain. **Find** (⌘F) steps through hits with ↩ /
+⇧↩; **Wrap lines**, **Copy**, **Save As…**. It regenerates after the tree changes.
 
-**Hovering a node** shows a card with the essentials — name, distance to parent, date, depth,
-support values, taxonomy, each sequence's accession and symbol, events, properties, and for an
-internal node the number of tips below it — the same card, in the same order, as the online
-Archaeopteryx.js viewer. It follows the light or dark theme, keeps itself inside the window,
-and goes away the instant the pointer leaves the node. (It is drawn on the tree canvas itself,
-not as a separate window, so it can never be left behind on the desktop.) Switch it off with
-**Display Data → Rollover** in the control panel if you find it busy.
+**Hovering a node** shows a card — name, distance to parent, date, depth, support,
+taxonomy, each sequence's accession and symbol, events, properties, and for an internal
+node its tip count — the same card, in the same order, as Archaeopteryx.js. It is drawn
+on the canvas, never a separate window, and follows the theme.
 
-**Hovering a cell** of an annotation column shows the same card, for what that cell holds:
-which tip's row it is, the field and its value, and — for a heat map — the scale the colour
-was taken from, so a shade can be read back to a number. A cell that was never filled in reads
-*not assessed* rather than 0, and a merged stacked-bar or pie column lists every series with
-its own value. It works wherever cells are drawn: the three rectangular orientations and, on
-the rings, the circular layout. The same **Rollover** checkbox switches both off.
+**Hovering a cell** of an annotation column shows the tip, the field and its value, and
+for a heat map the scale the colour came from. A never-filled cell reads *not assessed*,
+not 0; a stacked-bar or pie cell lists every series. Rectangular layouts and the
+circular rings.
 
-**Hovering a protein domain** names what is under the pointer: the domain, its E-value, the
-residues it covers (`185–445 (261 aa)`) and the length of the whole protein, the tip it
-belongs to, and its accession if the file carries one. Domain architectures line up in a
-column of their own, so a box out there says nothing on its own about which protein it is
-on or how good the hit is — the card supplies both. A **left click** opens the domain at
-InterPro: straight to the **Pfam entry** when the domain carries a Pfam accession
-(`PF00069`), and otherwise to a **search for its name**, which is the weaker promise and is
-labelled as one — most files record only the name. Nothing is ever fetched; it is only ever
-a link. The rollover works wherever the boxes are drawn: all four rectangular display types
-in each of the three orientations, and the circular and unrooted rings when **Radial
-Labels** are on. It answers only for boxes that are really on screen — a domain above the
-E-value threshold is not drawn and is not reported, and neither are the tips whose tracks
-**Auto-hide Labels** dropped to keep a dense tree legible. The same **Rollover** checkbox
-switches it off with the others.
+**Hovering a protein domain** names it, with its E-value, the residues it covers
+(`185–445 (261 aa)`), the protein length, the tip and the accession if present. A
+**left click** opens it at InterPro — the **Pfam entry** when it has a Pfam accession
+(`PF00069`), else a **search for its name**, labelled as such. It is only a link; nothing
+is fetched. It answers only for boxes really on screen — not for domains above the
+E-value threshold, nor tracks **Auto-hide Labels** dropped. **Display Data → Rollover**
+switches all three hovers off.
 
-**Exporting does not disturb the figure on screen.** Saving a circular or unrooted tree as
-a PDF, SVG, EPS or PNG lays the ring out for the *page*, which is a different shape from
-the window — so for the moment between writing the file and redrawing the window, the tree
-on the panel is positioned for the page rather than for the screen. Archaeopteryx redraws
-it immediately, and while it has not, hovering and clicking answer nothing at all rather
-than answering about the page: no rollover, no node under the pointer, no column to drag.
-Nothing is lost, the view comes back exactly as it was, and the same applies to an export
-made at a fixed size in any layout.
+**Exporting does not disturb the figure on screen.** A radial or fixed-size export lays
+the tree out for the page; until the window has redrawn — at once — hovering and
+clicking answer nothing rather than answering about the page.
 
 ## Re-rooting
 
-A tree is re-rooted by clicking a node with **Click on Node to: Root/Reroot**, by **Tools →
-Midpoint-Root**, or by **Tools → MAD-Root** (**Analysis → GSDIR** chooses a new root too). Each
-one is undoable and adds a sentence to the tree's description.
+Re-root by clicking a node with **Click on Node to: Root/Reroot**, or with **Tools →
+Midpoint-Root** or **Tools → MAD-Root** (**Analysis → GSDIR** chooses a root too). Each is
+undoable and adds a sentence to the description.
 
-**Trees that cannot be re-rooted.** Two kinds of tree refuse, and the controls above are greyed
-out for them, with the reason as their tooltip:
+**Trees that cannot be re-rooted** — the controls grey out, with the reason as tooltip:
 
-- a tree its phyloXML file marks `rerootable="false"` (a reconciled gene tree, for example);
-- a **time tree** — most of its internal nodes carry a date (a chronogram, a BEAST MCC tree, a
-  Nextstrain tree). Its branch lengths are times measured from its root, so a new root would
-  contradict them. A tree whose *tips* alone are dated — sampling dates on a divergence tree —
-  can still be re-rooted: that is exactly what a root-to-tip regression does.
+- a tree its phyloXML marks `rerootable="false"` (a reconciled gene tree, say);
+- a **time tree** — most internal nodes dated (a chronogram, a BEAST MCC tree, a
+  Nextstrain tree): its branch lengths are times from its root. A tree with only its
+  *tips* dated can be re-rooted — that is what a root-to-tip regression does.
 
-**A warning when internal nodes carry data.** A name, taxonomy, events, a date or properties on
-an internal node describe its clade, and re-rooting changes the clade of the nodes between the
-old and the new root. So before a re-root that affects any of them, Archaeopteryx says how many —
-*"This tree has data on 12 internal nodes. Re-rooting changes the clade of 4 of them, so their
-data may no longer describe them."* — and you choose **Re-root** or **Cancel**. Branch lengths,
-support values and colours do not count, and a re-root that changes no annotated clade asks
-nothing.
+**A warning when internal nodes carry data.** A name, taxonomy, events, a date or
+properties on an internal node describe its clade, and re-rooting changes the clades
+between the old and new root. Before such a re-root Archaeopteryx says how many —
+*"This tree has data on 12 internal nodes. Re-rooting changes the clade of 4 of them, so
+their data may no longer describe them."* — and you choose **Re-root** or **Cancel**.
+Branch lengths, support and colours do not count.
 
-**Unrooted trees.** When a tree's file declares it unrooted (phyloXML `rooted="false"`, Nexus
-`[&U]`) *and* it is shown in the **unrooted** layout, the values that only mean something relative
-to a root are left out. Hovering an internal node lists the **tips around** it — one count per
-side, e.g. `2 · 3 · 5` — instead of its distance to parent, depth and tips below; a tip shows its
-**branch length** but no depth; the node data window does not offer an internal node's branch
-length; the Depth, Distance from Root and Clade Size search fields are not offered; and Tree
-Properties leaves out Depth and Height. A plain Newick tree declares nothing, so it is not treated
-as unrooted. Try [`unrooted-node-data.xml`](https://github.com/cmzmasek/forester/blob/master/forester/demo/unrooted-node-data.xml)
-and [`not-rerootable.xml`](https://github.com/cmzmasek/forester/blob/master/forester/demo/not-rerootable.xml).
-
-The same rules apply in the online Archaeopteryx.js viewer.
+**Unrooted trees.** When the file declares the tree unrooted (phyloXML `rooted="false"`,
+Nexus `[&U]`) *and* it is shown **unrooted**, values that only mean something relative to
+a root are left out: hovering an internal node lists the **tips around** it (`2 · 3 · 5`)
+instead of distance, depth and tips below; a tip shows its branch length but no depth;
+the node window omits an internal branch length; the Depth, Distance from Root and Clade
+Size searches and the Depth / Height statistics are not offered. A plain Newick tree
+declares nothing. Demos:
+[`unrooted-node-data.xml`](https://github.com/cmzmasek/forester/blob/master/forester/demo/unrooted-node-data.xml),
+[`not-rerootable.xml`](https://github.com/cmzmasek/forester/blob/master/forester/demo/not-rerootable.xml).
+Archaeopteryx.js follows the same rules.
 
 ## Undo and redo
 
-**Edit → Undo** (⌘Z / Ctrl+Z) steps back through the tree edits of the **current tab**;
-**Edit → Redo** steps forward again. Both menu items name the operation they will reverse —
-*Undo Collapse Clade*, *Undo Edit Node Data* — so you can see what you are about to change
-before you commit to it. Each tab keeps its own history, 25 steps deep.
+**Edit → Undo** (⌘Z / Ctrl+Z) and **Redo** step through the current tab's tree edits, 25
+deep, each item naming its operation (*Undo Collapse Clade*). Undo snapshots the whole
+tree before each change, so it covers everything alike: rerooting (midpoint and MAD
+too), ladderizing and ordering, swapping and deleting nodes or subtrees, cut and paste,
+node-data and tree-property edits, node styles and branch colours, collapsing, and every
+data tool that writes into the tree — fetch, infer ancestor taxonomies, extract dates
+from labels, import annotations, import GTDB taxonomy, load alignment, write clade taxa.
+Reconciliation opens its results in a **new tab** instead.
 
-Undo works by **snapshotting the whole tree** before each change rather than by knowing how
-to reverse each operation individually. That is why it covers everything uniformly:
-rerooting (including midpoint and MAD), ladderizing and ordering, swapping and deleting
-nodes or subtrees, cut and paste, node-data and tree-property edits, node styles and branch
-colours, collapsing and uncollapsing clades, and every data tool that writes into the tree —
-fetch, infer ancestor taxonomies, extract dates from labels, import annotations, import
-GTDB taxonomy, load alignment and write clade taxa. Gene-tree/species-tree reconciliation
-does not need it: it opens its results in a **new tab** and leaves your tree untouched.
-
-Two things are deliberately outside it:
-
-- **Display settings are not tree edits.** Which checkboxes are on, the layout, the colours
-  you pick in a legend, which annotation fields are shown — none of these change the tree,
-  so none of them consume an undo step. **Settings → Reset to Defaults** is what returns
-  those to their starting state.
-- **Looking at something is never an edit.** Opening a node in the editor and closing it
-  again leaves the history untouched; only **Write to Tree** creates a step, and one write is
-  one step no matter how many fields you changed before pressing it.
-
-**Open windows survive an undo.** A node-data or Tree Properties window that is open when
-you undo or redo stays open and simply re-reads its node from the restored tree. Anything
-you have typed but not yet written is kept, and is now measured against the restored
-values, so you can still press **Write to Tree**. If the undo removes the node itself (you
-undo the step that added it, or redo a deletion), the window stays open but says so in its
-status line and can no longer write; the next undo or redo that brings the node back
-re-attaches it, edits intact.
+- **Display settings are not edits** — checkboxes, layout, legend colours, shown fields.
+  **Settings → Reset to Defaults** resets those.
+- **Looking is never an edit** — only **Write to Tree** makes a step, one per write.
+- **Open windows survive an undo**: a node or Tree Properties window re-reads its node
+  from the restored tree, keeping unwritten edits. If the node is gone, the window says
+  so and cannot write until an undo or redo brings the node back.
 
 ## Searching trees
 
-Two independent **search boxes** on the left control panel (**A** and **B**) find
-and highlight matching nodes; a node matched by A (**red**), by B, or by **both**
-(**teal**) is shown in a distinct colour, so two searches can be compared at a
-glance. Search B’s colour is chosen under **Settings → Labels & Colors →
-Found/Selected Colors** — **Electric Violet** (default), **Neon Magenta**, or **Emerald Green** —
-each picked to stay legible on a white background, and the choice is remembered
-across restarts.
+Two **search boxes** (**A** and **B**) highlight matches: by A in **red**, by B in its
+colour, by **both** in **teal**. B's colour (**Settings → Labels & Colors →
+Found/Selected Colors**) is **Electric Violet** (default), **Neon Magenta** or **Emerald
+Green**. With both filled, **Combine:** keeps them **independent** (default) or makes one
+result, **A AND B** or **A OR B**, which drives the highlight, stepping, counter and
+export.
 
-When both boxes carry a query, a **Combine:** control appears below them: keep the
-two highlights **independent** (the default), or fold them into one result set —
-**A AND B** (matches both) or **A OR B** (matches either) — which then drives the
-highlight, step-through, counter, and export.
+Each box chooses a **Field** and a **Match**:
 
-Each box has two dropdowns — **what** to search and **how** to match — above its
-query field:
+- **Field** — only fields this tree has, named as in **Display Data**. **Any Text** (the
+  default) searches every text field and your properties; or pick **Node Name**, a
+  taxonomy field (**Scientific**, **Common**, **Code**, **Identifier**, **Synonym**,
+  **Lineage**), a sequence field (**Seq Name**, **Gene Name**, **Gene Symbol**, **Seq
+  Accession**), **Annotation**, **Domain**, or a custom property (`data:host`). Numeric
+  fields — **Branch Length**, **Support / Confidence**, numeric properties — and
+  **structure** fields (`Structure:` **Clade Size (tips)**, **Number of Children**,
+  **Depth from Root (edges)**, **Distance from Root**, **Node Type**) find, say, every
+  clade over 50 tips or every unresolved node.
+- **Match** — for text **contains** (default), **starts with**, **ends with**, **whole
+  word**, **regular expression**; for numbers **equals**, **not equal**, **less than**,
+  **at most**, **greater than**, **at least**, **range**.
 
-- **Field** — the node data to search. The list is tailored to the loaded tree, so
-  you only see fields it actually has, and the labels match the **Display Data**
-  checkboxes. **Any Text** (the default) searches every text field — and your custom
-  annotation properties — at once; or pick a specific one — **Node Name**, a taxonomy
-  field (**Taxonomy Scientific**, **Taxonomy Common**, **Taxonomy Code**, **Taxonomy
-  Identifier**, **Taxonomy Synonym**, **Taxonomy Lineage**), a sequence field (**Seq
-  Name**, **Gene Name**, **Gene Symbol**, **Seq Accession**), **Annotation**,
-  **Domain**, or **any custom phyloXML property** by its reference (e.g. `data:host`).
-  Numeric fields — **Branch Length**, **Support / Confidence**, and numeric
-  properties — are offered as well, as are the tree's **structure** fields (prefixed
-  `Structure:`): **Clade Size (tips)**, **Number of Children**, **Depth from Root
-  (edges)**, **Distance from Root** (when the tree has branch lengths), and **Node
-  Type** (leaf / internal / root) — so you can, for example, find every clade with
-  more than 50 tips, or every unresolved node (children > 2).
-- **Match** — how the query is compared. For a text field: **contains** (the
-  default), **starts with**, **ends with**, **whole word**, or **regular
-  expression**. For a numeric field the operators switch to plain-language
-  comparisons — **equals**, **not equal**, **less than**, **at most**, **greater
-  than**, **at least** — and **range** (which reveals a second box for the upper
-  bound).
+For a specific text field the box **suggests the values the tree has**, filtered as you
+type the way the search will match (prefix, suffix or anywhere; with **Match Case**),
+the typed part in bold, ten at most. Only the current term is completed (`kinase, pho`
+completes `pho`). **↓ / ↑** move, **Enter** picks and searches, **Esc** closes.
+Archaeopteryx.js suggests the same way.
 
-When you search a specific text field, the query box **suggests the values that
-field actually has in the tree**, filtered as you type — pick one to match it exactly.
-This makes categorical fields (**Node Type**, **Taxonomy Code**, an annotation column
-like `data:host`) point-and-click, and saves you from mistyping a value. The list
-matches the way your search will: by prefix for *starts with*, by suffix for *ends
-with*, anywhere otherwise, and with or without case as **Match Case** says. The part
-you typed is marked in bold. It shows at most ten values; if more match, a last line
-tells you how many and to keep typing. Only the term you are typing is completed, so
-after `kinase, pho` it offers values for `pho` and keeps `kinase,` in front of your
-pick. Use **↓ / ↑** to move through the list, **Enter** to pick and search, and
-**Esc** to close it. Archaeopteryx.js suggests the same way.
+**Match Case** and **Inverse** (the non-matches) apply to both boxes. In a text query `,`
+is **OR** and `+` is **AND** (`kinase, phosphatase`; `human + receptor`), literal in a
+regular expression. Choices are remembered as you work.
 
-Two shared options sit above the boxes: **Match Case** and **Inverse** (select the
-nodes that do *not* match). Within a text query, `,` is a logical **OR** and `+` a
-logical **AND** (e.g. `kinase, phosphatase`, or `human + receptor`); both are treated
-literally in a regular-expression search. Your field and match choices are remembered
-as you work, so switching fields or navigating between trees doesn't reset them.
-
-Step through the hits with the **◀ / ▶** buttons beside the boxes, or **View → Find
-Next / Find Previous** (**⌘G / ⌘⇧G**) — each jump centres the next match in the view.
-Under **Settings → Labels & Colors**, **Bold Found Labels**, **Dim Non-Matches**, and
-**Pulse Found Nodes** make the matches stand out further.
-
-Whenever any nodes are highlighted, a **Found / Selected: N** counter appears at the
-right of the menu bar. Search hits and manual selection are one and the same in
-Archaeopteryx, so this is a single running total of the distinct highlighted nodes; it
-hides itself when nothing is highlighted. Hover it for the breakdown by search box
-(**A** / **B**) and manual **Selected** nodes.
+Step through hits with **◀ / ▶** or **View → Find Next / Previous** (**⌘G / ⌘⇧G**), each
+centred in view. **Bold Found Labels**, **Dim Non-Matches** and **Pulse Found Nodes**
+(**Settings → Labels & Colors**) make them stand out. A **Found / Selected: N** counter at
+the right of the menu bar totals the highlighted nodes (hits and manual selection are
+one); hover it for the A / B / Selected breakdown.
 
 ---
 
 ## Time trees & chronograms
 
-Archaeopteryx treats a **dated tree** as a first-class object, and this is one of
-the places it most tries to *just work*. However the dates arrive — parsed from
-**BEAST / BEAST X** output, read from an **Auspice / Nextstrain** JSON,
-**extracted from the tip labels**, or already sitting in a phyloXML `<date>` —
-they all land in one native date model, and every time-tree feature reads from
-it. So the whole toolkit composes on any dated tree, whatever its origin:
+However the dates arrive — **BEAST / BEAST X** output, an **Auspice / Nextstrain** JSON,
+**extracted from the tip labels**, or a phyloXML `<date>` — they land in one date model
+that every time-tree feature reads, so the toolkit works the same on any dated tree:
 
-- Archaeopteryx **auto-detects** the dated tree, marks it with a **"Time tree"**
-  badge, and — because the axis is chosen **per tree from its own `<date>`
-  values** (their unit) — draws the **right axis automatically**: a
-  **Geologic (ICS)** axis for a tree dated in millions of years, a
-  **Calendar-year** axis for a tip-dated molecular-epidemiology tree. A Dinosaur
-  tree and a SARS-CoV-2 tree open in two tabs show the correct axis *at the same
-  time* — there is no global switch to flip.
-- **Node-age (HPD) bars / spindles** draw each internal node's divergence-time
-  uncertainty; **fossil-range (FAD/LAD) bars** draw each fossil tip's
-  stratigraphic duration; **Color by → date** shades the tips by sampling date.
-  Each turns on by itself when the tree carries the data for it.
+- A dated tree is **auto-detected**, marked with a **"Time tree"** badge, and given the
+  **right axis per tree from its own dates' unit**: **Geologic (ICS)** for millions of
+  years, **Calendar-year** for a tip-dated epidemiology tree. A dinosaur tree and a
+  SARS-CoV-2 tree in two tabs each show their own axis; there is no global switch.
+- **Node-age (HPD) bars / spindles** draw divergence-time uncertainty, **fossil-range
+  (FAD/LAD) bars** a fossil tip's stratigraphic duration, and **Color by → date** shades
+  tips by sampling date — each turning on by itself when the data is there.
 
-Two things are worth knowing, because they are the rare places where the magic is
-conditional. A time axis is a property of a **phylogram** — it needs branch
-lengths that mean time — so a dated tree opens as a phylogram by default; if you
-switch it to a **cladogram** (the third button of the phylogram/cladogram row) the
-axis has no time scale to draw and steps aside. And a time axis **replaces** the
-plain numeric distance scale, so you see one or the other, not both.
+A time axis needs branch lengths that mean time, so a dated tree opens as a
+**phylogram**; as a **cladogram** the axis steps aside. The axis **replaces** the plain
+distance scale.
 
-Everything below is a piece of this one picture; in practice you rarely set any of
-it by hand.
+### Time | Div: the time or the divergence layout
+
+A tree that says, for every branch, both *how long* it lasted and *how much* changed
+along it gets a **Time | Div** toggle (left panel, under the P/A/C layout buttons).
+**Time** lays it out in time, with its time axis; **Div** in substitutions per site.
+The divergence is either **recorded** on every node (Nextstrain's `div`) or
+**derived** from a clock **`rate`** on every branch (BEAST) as rate × the branch's
+length in time — the tooltip says which. It is a display mode: nothing is edited, and
+switching back is exact.
+
+- **Time is the tree you opened** — the branch lengths the file states, given back to
+  the digit, not recomputed from the node dates. In a summary tree the two need not
+  agree (demo: `beast-lengths-not-heights.nex`, a branch of 1.407 between nodes dated
+  1.2 apart).
+- **Offered only when both layouts can state every branch:** a date on every node,
+  the root included; a length on every branch; a divergence for every branch. A rate
+  or a recorded divergence is a plain decimal number (`0.0026`, `2.6e-3`); a rate may
+  not be negative, a recorded divergence may. Zero is a value — only a missing number
+  is missing. Nor is a picture of nothing offered: divergence 0 on every branch, or
+  every tip on the root's date. A constant rate *is* offered. Each of
+  `beast-rate-missing.nex`, `beast-date-missing.nex`, `beast-length-missing.nex`,
+  `beast-rate-spelling.nex`, `beast-rates-zero.nex`, `nextstrain-div-missing.nex` and
+  `nextstrain-div-spelling.nex` is an offered tree with exactly one thing changed.
+- **One tree, one layout:** the toggle acts on the whole tree, also from a subtree view.
+- **A branch that runs backwards** (a node dated before its parent — summary trees and
+  real Nextstrain builds both have them): **Time** keeps the negative length the file
+  states, **Div** counts it as 0, and it is drawn at 0 (demo: `beast-negative-span.nex`).
+- **Edits keep the two layouts in step** — delete, cut, prune, undo, redo, and a new tab
+  made from the tree. A deleted node gives its branch to its child: in **Time** the sum
+  of the two lengths, a negative one included; in **Div** each part at its own node's
+  rate, a part that runs backwards adding nothing.
+- **Saving:** saved as phyloXML from **Div**, a tree reopens in **Div** and takes its
+  time from its dates. Saved as Newick or Nexus from **Div**, it keeps neither dates
+  nor rates and opens as a plain tree in divergence lengths.
+
 
 ## BEAST and BEAST X output
 
-Archaeopteryx reads the annotated trees produced by **BEAST**, **BEAST 2**, and
-**BEAST X** (the current BEAST 2 release line), including **TreeAnnotator**
-maximum-clade-credibility (MCC) summaries. Both output shapes are supported:
-
-- annotated **Nexus** (TreeAnnotator's `.tree` / `.trees` output), and
-- annotated **Newick / NHX** with FigTree-style `[&key=value, ...]` comment
-  blocks on nodes and branches.
-
-Just open the file — reading these annotations is **on by default** (toggle under
-**Settings → Files → "Read [&...] Annotations (BEAST, MrBayes, FigTree, TreeTime,
-Nextstrain)"**; off, an annotation is kept as a plain comment). The same goes for
-the command line: `aptx_render` reads a file exactly as the window does.
-Each annotation is mapped onto the viewer's existing display features:
+Archaeopteryx reads annotated trees from **BEAST**, **BEAST 2** and **BEAST X**, including
+**TreeAnnotator** MCC summaries — annotated **Nexus** (`.tree` / `.trees`) and annotated
+**Newick / NHX** with FigTree-style `[&key=value, ...]` blocks. Just open the file
+(**Settings → Files → "Read [&...] Annotations (BEAST, MrBayes, FigTree, TreeTime,
+Nextstrain)"**, on by default; off, an annotation stays a plain comment). `aptx_render`
+reads a file exactly as the window does.
 
 | BEAST annotation | Becomes | Turn it on with |
 | --- | --- | --- |
 | `posterior` | Branch support (confidence) | **Confidence Values**; support coloring / symbols |
-| node age `height` / `height_median` / `height_mean` + `height_95%_HPD={lo,hi}` (or `height_range`) | Node age with a 95% HPD interval | **Node Age Bars (HPD)** — auto-enabled on load for a dated tree with HPD intervals |
-| discrete / geographic traits (e.g. a phylogeographic `location`) with posterior state sets | **Ancestral-state pie charts** | the **"Ancestral pie:"** dropdown (appears automatically when the tree carries such a trait) |
-| FigTree's `!color` — written as `#RRGGBB` or, as FigTree really writes it, as a signed integer (`!color=#-8381639`) | In the tree: the **branch color**. In the Nexus `taxlabels` block (`'NewYork_454'[&!color=#-8381639]`, where FigTree puts a colored *taxon*): the tip's **label color** | **Use Visual Styles** |
-| any other field (`rate`, `length_*`, custom traits, …) | A node property `beast:<key>` | **Color by**, **Size by**, and **Annotation Fields** (numeric traits render as gradients / bars) |
+| node age `height` / `height_median` / `height_mean` + `height_95%_HPD={lo,hi}` (or `height_range`) | Node age with a 95% HPD interval | **Node Age Bars (HPD)** — on by itself for a dated tree with intervals |
+| discrete / geographic traits (e.g. `location`) with posterior state sets | **Ancestral-state pie charts** | the **"Ancestral pie:"** dropdown (appears when the tree has such a trait) |
+| FigTree's `!color` — `#RRGGBB` or, as FigTree writes it, a signed integer (`!color=#-8381639`) | In the tree: the **branch color**. In a Nexus `taxlabels` block (`'NewYork_454'[&!color=#-8381639]`): the tip's **label color** | **Use Visual Styles** |
+| any other field (`rate`, `length_*`, custom traits, …) | A node property `beast:<key>` | **Color by**, **Size by**, **Annotation Fields** |
 
-Nothing is discarded: recognized fields become native structures (support, node
-dates, pies), and every remaining field is preserved as a `beast:*` property you
-can color, size, or tabulate. A malformed field is skipped rather than aborting
-the load, so real-world TreeAnnotator files open cleanly. It does not matter what
-an annotation starts with (a FigTree-colored BEAST tree leads with `!color` and
-still has its posterior, ages and rates read), and a node may carry several
-`[&...]` groups — all are read. (`beast:` means "came from a bracket annotation",
-whoever wrote the file.)
+Nothing is discarded; a malformed field is skipped rather than refusing the file. An
+annotation may start with anything (`!color` first still has its posterior, ages and
+rates read), and a node may carry several `[&...]` groups. (`beast:` means "came from a
+bracket annotation", whoever wrote it.) A dated MCC tree opens as a **phylogram** with
+**Node Age Bars (HPD)** on.
 
-A dated MCC tree opens as a **phylogram** with **Node Age Bars (HPD)** already on.
+**Heights become calendar dates when the tip labels say so.** BEAST writes node ages as
+**heights** with **no unit**. A tip-dated analysis nearly always has the **sampling date
+in the tip name** (`A_duck_Guangdong_12_2000`, `EBOV|KR817226|2014-06-10`): if heights are
+years, every tip's label date plus its height is the same date — the youngest tip's.
+Where the labels agree, the heights are **converted to calendar dates**, the tree opens
+on the **Calendar axis** with its HPD intervals in years, and the description records
+the conversion and the date of height 0. At least 19 in 20 of the tips with a height and
+a dated label must agree, sampled at **different times** (tips from one year fit any
+unit). Otherwise the tree keeps plain heights and gets no axis — choose one under
+**Settings → Overlays → Time Axis**, and a saved tree keeps it. Dates that already carry a
+unit are never overridden.
 
-BEAST writes node ages as plain **heights** — time before the youngest tip, **with no
-unit** — and a height on its own cannot say whether it counts years, months or days.
-But a tip-dated analysis nearly always carries the **sampling date in the tip name**
-(`A_duck_Guangdong_12_2000`, `EBOV|KR817226|2014-06-10`), and that settles it: if the
-heights are years, then every tip's label date plus its height is the *same* calendar
-date — the date of the youngest tip. Archaeopteryx checks that when the file opens,
-and where the labels agree it **converts the heights into calendar dates**. The tree
-then opens on the **Calendar axis**, with each node's 95% HPD interval drawn in
-calendar years, and a sentence recording the conversion — including which calendar
-date height 0 is — is added to the tree's description (**View → Tree Properties…**).
+Samples dated only to a month or year keep their interval: on calendar time a
+**sampling-date uncertainty**, drawn by the Node Age Bars, never a fossil range. When
+**every branch** carries a **`rate`**, the tree also gets the
+[**Time | Div**](#time--div-the-time-or-the-divergence-layout) toggle.
 
-This is evidence from the file, not a guess about the size of the numbers. At least
-19 in 20 of the tips carrying both a height and a dated label must agree, and they
-must have been sampled at **different times** (tips all from one year would fit
-heights in any unit, so they prove nothing). A tree that fails either test — labels
-without dates, a strain number that is not a year, heights in months — keeps its
-plain heights and gets no axis; pick **Calendar** or **Geologic** under **Settings →
-Overlays → Time Axis** yourself (see *Time trees & chronograms* above), and a saved
-tree keeps that choice. A tree whose dates already carry a unit is never overridden.
-
-Samples dated only to a month or a year, whose exact dates BEAST sampled, keep their
-interval: on calendar time that is a **sampling-date uncertainty**, drawn by the Node
-Age Bars, never a fossil range. When the tree carries a per-branch **`rate`**, the
-**Time | Div** toggle (left panel, under the P/A/C layout buttons) also offers a
-**divergence** layout, derived as rate × time; its tooltip says the divergence is
-derived, not recorded.
-
-The node-age overlay has two shapes (**Settings → Overlays → Data Overlays → Node
-age shape**): a flat **Bar** across the 95% HPD interval (the FigTree convention),
-or a **Spindle** — a tapered lens that peaks at the point estimate and narrows to
-the HPD bounds, so you can see *where* the estimate sits within its interval. The
-spindle is a schematic of the *summarized* uncertainty (the point estimate + 95%
-HPD), not the raw posterior density — a summary (MCC) tree doesn't carry the
-per-node posterior sample.
+The node-age overlay has two shapes (**Settings → Overlays → Data Overlays → Node age
+shape**): a **Bar** across the 95% HPD interval (the FigTree convention), or a
+**Spindle** peaking at the point estimate and narrowing to the bounds — a schematic of
+the summarized uncertainty, not the raw posterior density, which a summary tree does
+not carry.
 
 ## MrBayes, TreeTime and Nextstrain (Nexus)
 
-The same `[&key=value, ...]` annotations are what **MrBayes**, **TreeTime** and
-**Nextstrain / Auspice** write into their Nexus and Newick trees. Open the file;
-each is read for what it is. Only `.nex`, `.nexus`, `.nx` and `.nxs` are taken as
-Nexus by name; for anything else (`.tre`, `.trees`, `.con.tre`, `.t`, …) the first
-line decides, because tools disagree about those names.
+**MrBayes**, **TreeTime** and **Nextstrain / Auspice** write the same `[&key=value, ...]`
+annotations, and each is read for what it is. Only `.nex`, `.nexus`, `.nx` and `.nxs` are
+Nexus by name; for anything else (`.tre`, `.trees`, `.con.tre`, `.t`, …) the first line
+decides.
 
-**MrBayes consensus trees** (`sumt`, `.con.tre`). MrBayes writes *two* annotation
-groups per node with the branch length between them. `prob` (with `prob_stddev`)
-becomes the branch's **posterior probability**; the **branch length is the one the
-file states**; `length_mean`, `length_median`, `length_95%HPD`, `prob_range` and the
-rest are kept as node data you can **Color by**, search, and see in the node window.
+**MrBayes consensus trees** (`sumt`, `.con.tre`) carry two annotation groups per node
+with the branch length between them. `prob` (with `prob_stddev`) is the **posterior
+probability**; the **branch length is the one the file states**; `length_mean`,
+`length_median`, `length_95%HPD`, `prob_range` and the rest are node data to color by,
+search and inspect.
 
-**TreeTime.** TreeTime writes the *same* `date=2003.84` on every node of both
-trees it produces — `timetree.nexus` (branch lengths in years) and
-`divergence_tree.nexus` (substitutions per site) — and nothing in either file says
-which it is. Archaeopteryx asks the tree: a `date=` becomes the node's date in
-calendar years only where the parent-to-child date differences actually reproduce
-the branch lengths. So the time tree opens as a **time tree with the Calendar axis**,
-and the divergence tree — identical dates — does not (its dates stay descriptions,
-and it can still be re-rooted). `mutations="A54G,T92C"` is read whole, and
-TreeTime's own annotations are filed as `treetime:<key>` (a tree with mutations and
-no node ages is TreeTime's). TreeTime's **Newick** glues an internal node's name to
-its confidence — `NODE_00000161.00` is node `NODE_0000016` with confidence `1.00`;
-they are separated on open, whatever the *internal labels* setting says. TreeTime's
-`auspice_tree.json` (its only output with full-precision dates) opens as an
-[Auspice JSON](#auspice--nextstrain-json).
+**TreeTime** writes the *same* `date=2003.84` on every node of both `timetree.nexus`
+(years) and `divergence_tree.nexus` (substitutions per site). A `date=` becomes a
+calendar date only where the parent-to-child date differences reproduce the branch
+lengths — so the time tree opens **on the Calendar axis** and the divergence tree does not
+(its dates stay descriptions, and it can be re-rooted). `mutations="A54G,T92C"` is read
+whole, and TreeTime's annotations are filed as `treetime:<key>`. TreeTime's **Newick**
+glues an internal name to its confidence — `NODE_00000161.00` is `NODE_0000016` with
+confidence `1.00` — and they are separated on open. Its `auspice_tree.json` (the only
+output with full-precision dates) opens as an [Auspice JSON](#auspice--nextstrain-json).
 
-**Nextstrain "download Nexus".** An Auspice Nexus export opens like the same
-build's JSON: `num_date` is every node's date in calendar years (**Calendar axis**,
-time tree), `num_date_CI` its date interval (**Node Age Bars** — see below), and
-`div` the `nextstrain:div` behind the **Time | Div** toggle. Values are
-read as written — `country=Democratic Republic of the Congo`, `country=Côte d'Ivoire`.
-Auspice writes `num_date` on its **divergence** export too (`…_tree.nexus`, branch
-lengths in substitutions); there the dates do not match the branch lengths, so they
-are kept as plain data (`nextstrain:num_date`, `nextstrain:num_date_CI`) and the tree
-is — correctly — not a time tree.
+**Nextstrain "download Nexus"** opens like the build's JSON: `num_date` is each node's
+calendar date (**Calendar axis**, time tree), `num_date_CI` its interval (**Node Age
+Bars**), and `div` the `nextstrain:div` behind the
+[**Time | Div**](#time--div-the-time-or-the-divergence-layout) toggle. Values are read as
+written (`country=Côte d'Ivoire`). On the **divergence** export (`…_tree.nexus`), whose
+branch lengths are substitutions, the dates do not match the lengths, so they stay plain
+data (`nextstrain:num_date`, `nextstrain:num_date_CI`) and the tree is not a time tree.
 
-Demo files for all of these (`nextstrain-nexus.nex`, `treetime-nexus.nex` +
-`treetime-divergence.nex`, `treetime-tree.nwk`, `mrbayes-consensus.con.tre`), and for
-a TreeAnnotator tree dated from its tip labels (`beast-tip-dates.nex`), are in the
+Demos: `nextstrain-nexus.nex`, `treetime-nexus.nex` + `treetime-divergence.nex`,
+`treetime-tree.nwk`, `mrbayes-consensus.con.tre`, and a TreeAnnotator tree dated from its
+tip labels, `beast-tip-dates.nex`, in the
 [demo folder](https://github.com/cmzmasek/forester/tree/master/forester/demo).
 
 ## Dates in tip labels
 
-Most molecular-epidemiology trees (BEAST, TreeTime, augur, GISAID Newick) carry
-the **sampling date in the tip name** — `hCoV-19/USA/CA-1234/2021|2021-03-15`,
-`A/Texas/50/2012` — rather than as a structured field, so Archaeopteryx can't see
-it. When you open such a tree Archaeopteryx **offers to extract the dates**
-automatically; you can also run it any time from **Tools → Extract Dates from
-Labels…**. Either way it recognizes ISO
-(`2021-03-15`), numeric (`15/03/2021`), month-name (`01-Dec-2015`), decimal-year
-(`2021.37`) and bare-year (`…/2012`) formats, shows a **preview** of exactly what
-it found on every tip *before* writing anything, and (on Apply) sets each tip's
-`<date>` plus a numeric `data:date` property. The tree then drops onto the
-**Calendar axis** and gains a **Color by → data:date** date gradient.
-
-An incomplete date maps to the midpoint of its interval (`2021` → mid-2021); an
-ambiguous numeric date (e.g. `05/03` — is that 5 March or 3 May?) is read
-**day-first** by default, with a toggle in the preview. The write is undoable.
+Most epidemiology trees (BEAST, TreeTime, augur, GISAID Newick) carry the **sampling date
+in the tip name** — `hCoV-19/USA/CA-1234/2021|2021-03-15`, `A/Texas/50/2012`. Opening such
+a tree **offers to extract the dates** (not asked when the tips already carry dates —
+BEAST heights count, a height of 0 included); **Tools → Extract Dates from Labels…** runs
+it any time. It reads ISO (`2021-03-15`), numeric (`15/03/2021`), month-name
+(`01-Dec-2015`), decimal-year (`2021.37`) and bare-year (`…/2012`) dates, shows a
+**preview** of every tip before writing, and on Apply sets each tip's `<date>` and a
+numeric `data:date`: the tree moves onto the **Calendar axis** and gains a **Color by →
+data:date** gradient. An incomplete date maps to the middle of its interval (`2021` →
+mid-2021); an ambiguous one (`05/03`) is read **day-first** by default, switchable in the
+preview. Undoable.
 
 ## Newick time trees (no dates in the file)
 
-TreeTime and Nextstrain also export a time tree as a plain **Newick**: the branch
-lengths are **years**, but nothing in the file says so — and the same programs write
-*divergence* trees, in substitutions per site, in exactly the same shape. The Nexus
-exports of those runs carry dates and land on the Calendar axis; their `.nwk`
-siblings used to open as a bare distance tree.
-
-The tip labels settle it, the same way they do for [BEAST heights](#beast-and-beast-x-output):
-if the branch lengths are years, then every tip's sampling date **minus its distance
-from the root** is the same calendar date — the root's. Where the labels agree,
-Archaeopteryx **dates every node** on open (root date + its distance from the root),
-so the tree opens on the **Calendar time axis**; **View → Tree Properties…** shows a
-sentence recording the root date, from which every node's date follows. Because the
-internal nodes are then dated the tree is a **time tree**, so **re-rooting is
-refused** — a new root would contradict the dates its own branch lengths imply.
-
-A divergence tree cannot pass: its tips sit ~0.001 substitutions from the root while
-their labels span years, so nothing agrees. The same guards apply as for BEAST
-heights — at least 19 in 20 of the dated labels must agree, the samples must differ
-in time, and a tree that already carries dates of its own is never touched. Compare
-the demo pair `newick-time-tree.nwk` and `newick-divergence-tree.nwk`: same topology,
-same tip labels, and only the first becomes a time tree.
+TreeTime and Nextstrain also export time trees as plain **Newick** — branch lengths in
+**years**, nothing saying so, in the same shape as their divergence trees. As for
+[BEAST heights](#beast-and-beast-x-output), the tip labels settle it: if lengths are
+years, each tip's date **minus its distance from the root** is the same date, the root's.
+Where the labels agree, **every node is dated** on open (root date + distance), the tree
+opens on the **Calendar axis**, the description records the root date — and, being a time
+tree, it **refuses re-rooting**. A divergence tree cannot pass (its tips sit ~0.001 from
+the root while its labels span years). The same guards apply: 19 in 20 agreeing, samples
+at different times, a tree with its own dates never touched. Demo pair:
+`newick-time-tree.nwk` and `newick-divergence-tree.nwk` — same topology and labels, only
+the first becomes a time tree.
 
 ## Geologic time axis
 
-For a dated, time-calibrated tree — where the branch lengths are geologic time
-(millions of years) — Archaeopteryx can draw the **international geologic time
-scale** beneath the tree instead of a plain numeric axis. Turn it on under
-**Settings → Overlays → Time Axis → Geologic (ICS)**. The axis appears when the
-tree is shown as a **phylogram** (branch lengths = time), as two coloured, named
-bands — **System/Period** over **Series/Epoch** — so a clade's position along the
-time axis reads directly against the named geologic intervals (Cretaceous,
-Jurassic, Triassic, …).
+For a tree dated in millions of years, **Settings → Overlays → Time Axis → Geologic (ICS)**
+draws the **international geologic time scale** beneath a **phylogram** as two coloured,
+named bands — **System/Period** over **Series/Epoch** — so clades read directly against
+the Cretaceous, Jurassic, Triassic, ….
 
-The Time Axis is **per tree**: Archaeopteryx reads the appropriate axis from each
-tree's own `<date>` values (their unit), so a geologic Dinosaur tree
-in one tab and a calendar-dated SARS-CoV-2 tree in another each show the right axis
-at the same time — no global switch to flip. Dates that carry **no unit** get no
-time axis, only the plain distance scale: Archaeopteryx does not guess a unit from
-how big the numbers are — the one exception being a BEAST tree whose **tip labels**
-carry sampling dates that agree with its heights (see *BEAST and BEAST X output*
-above), which is evidence in the file rather than a guess. The Settings dropdown lets you
-override the axis for the current tab (or turn it off), and when you **save** the
-tree, a deliberate choice travels with it (restored on reload).
+The axis is **per tree**, derived from the unit of the tree's own `<date>` values; dates
+with **no unit** get no time axis — the size of the numbers is never taken as a unit (the
+one exception is a BEAST tree whose tip labels date its heights; see
+[BEAST and BEAST X output](#beast-and-beast-x-output)). The Settings dropdown overrides
+the axis for the current tab, or turns it off, and a saved tree keeps a deliberate
+choice.
 
-The axis follows the layout: it runs along the bottom in the **root-left**
-orientation, down the breadth side in the **root-on-top / root-on-bottom**
-orientations, and becomes concentric coloured **rings** (period bands from the
-centre outward) in the **circular** layout — a geologic disc. (It is
-not shown in the unrooted layout, which has no single time axis to band.) In the
-rectangular orientations the axis stays pinned to the edge as you zoom and scroll,
-so it is always in view.
+The axis runs along the bottom (root left), down the breadth side (root top / bottom),
+and as concentric period **rings** in **circular** — a geologic disc. Not in unrooted. In
+rectangular layouts it stays pinned in view as you zoom and scroll. A **numeric age
+axis** in Ma sits beneath the bands (in circular the annuli are the scale).
 
-Beneath the coloured bands a **numeric age axis** is drawn — a ruler in *millions of
-years before present* (Ma), with tick marks and labels at round intervals that
-increase toward the root, so you can read any node's age directly off the axis.
-(In the circular layout the named, coloured annuli themselves are the age scale.)
-
-The two bands **adapt to the window the tree actually spans**, so they always
-fully cover it and always carry some detail:
+The bands **adapt to the span of the tree**, always covering it with some detail:
 
 | The tree spans | Bands |
 | --- | --- |
@@ -1346,66 +914,42 @@ fully cover it and always carry some detail:
 | into the Proterozoic | **Erathem/Era** over **System/Period** |
 | into the Archean | **Eonothem/Eon** over **Erathem/Era** |
 
-So a billions-of-years "tree of life" is fully banded (the Precambrian is never
-blank), and — at the other end — a narrow window is not reduced to two enormous
-blocks: a tree that sits inside the Late Cretaceous is banded *Late Cretaceous*
-over *Cenomanian, Turonian, Coniacian, Santonian, Campanian, Maastrichtian*, which
-is the scale you actually want to read a Cretaceous tree against. Stages exist for
-the Phanerozoic only (the Precambrian has no ratified stages), which is exactly the
-range in which the axis can reach for them. The demo tree
-**late-cretaceous-stages.xml** (File → Demo Trees → *Late Cretaceous Dinosaurs*)
-shows it.
+So a tree of life is fully banded, and a Late Cretaceous tree is banded *Late Cretaceous*
+over *Cenomanian … Maastrichtian* (stages exist for the Phanerozoic only). Demo:
+**late-cretaceous-stages.xml** (*Late Cretaceous Dinosaurs*).
 
-The tree is anchored in time by its **root age**: Archaeopteryx uses the oldest
-`<date>` value in the tree, or you can set it explicitly with **"Set root age…"**
-next to the Time Axis selector.
+The tree is anchored by its **root age** — the oldest `<date>`, or **"Set root age…"** —
+and each Ma spans one branch-length unit, so a **fossil-only** clade works: an all-extinct
+ammonite tree ends at 66 Ma rather than being stretched to the present.
 
-The axis is aligned to the tree's **own branches**, so it works on a **fossil-only**
-clade — one with no living (age-0) tip. Each Ma spans exactly one branch-length
-unit, anchored at the root age, so the coloured bands line up with the branch
-nodes and the youngest tips sit at their true age (e.g. an all-extinct ammonite
-tree ends at the end-Cretaceous, 66 Ma, rather than being stretched to the
-present). A tree that *does* reach the present is the ordinary special case.
+**Settings → Overlays** (with the geologic axis on; off by default, saved per tree):
+**Time-Axis Grid Lines** draws faint lines at the finer band's boundaries; **Geologic
+Boundary Ages** labels the coarser band's boundaries (*201.4* at the base of the Jurassic).
 
-Two optional refinements (both **off by default**, and — like the axis itself —
-per tree, saved with the tree) are available under **Settings → Overlays** when the
-geologic axis is on: **Time-Axis Grid Lines** draws faint reference lines across the tree at the
-finer band's interval boundaries (e.g. the Early/Middle/Late Triassic and the
-Triassic/Permian boundaries), and **Geologic Boundary Ages** labels the coarser
-band's boundaries with their age (e.g. *201.4* at the base of the Jurassic).
-
-The interval names, boundaries, and official colours are those of the
-**International Chronostratigraphic Chart** of the **International Commission on
-Stratigraphy (ICS / IUGS)** ([stratigraphy.org](https://stratigraphy.org)).
-Reference:
+Names, boundaries and colours are those of the **International Chronostratigraphic Chart**
+of the **International Commission on Stratigraphy (ICS / IUGS)**
+([stratigraphy.org](https://stratigraphy.org)):
 
 - Cohen, K.M., Harper, D.A.T., Gibbard, P.L. & Car, N. (2025, updated): "The ICS
   International Chronostratigraphic Chart this decade", *Episodes* 48:105–115.
 
 ## Fossil range bars (FAD/LAD)
 
-For a tree of **fossil taxa**, a tip is not a single point in time — each taxon is
-known from a *stratigraphic range*, from its **First Appearance Datum** (FAD, its
-oldest occurrence) to its **Last Appearance Datum** (LAD, its youngest). Turn on
-**Settings → Overlays → Data Overlays → Fossil Range Bars (FAD/LAD)** and, on a
-dated phylogram, each tip that carries a `<date>` **min/max** gets a capped
-stratigraphic-range bar spanning its known duration, drawn back over the terminal
-branch so the tip label stays clear. Read against the **Geologic time axis**, this
-turns a phylogeny into a proper stratigraphic-range figure — the duration and
-overlap of taxa laid out against the named geologic intervals, no hand-drawing in
-Illustrator required.
+A fossil taxon is known from a *stratigraphic range*, from its **First Appearance Datum**
+(FAD) to its **Last Appearance Datum** (LAD). **Settings → Overlays → Data Overlays →
+Fossil Range Bars (FAD/LAD)** draws, on a dated phylogram, a capped bar over the terminal
+branch of each tip whose `<date>` has a **min/max** — read against the
+[geologic axis](#geologic-time-axis), a stratigraphic-range figure without hand-drawing.
+It turns on by itself when the tree has fossil tip ranges, and is drawn in every
+rectangular orientation and as radial segments in circular. The range is the tip's
+phyloXML `<date>` (value / min / max), so it works on a tree time-scaled by any tool.
 
-Like the Node Age Bars, it is **auto-enabled** on load when the tree has fossil tip
-ranges, and it renders in every rectangular orientation and as radial segments in
-the **circular** layout. A tip range needs a **width**: `{0,0}` is no range, and neither is an interval whose
-two ends differ only in the last decimal or two of floating-point arithmetic —
-TreeAnnotator writes an exactly dated tip as `{9.0, 9.000000000000004}`, which states
-a date, not a duration. Nothing draws, switches on, or reports a range from one.
-and on a tree dated in **calendar years** a tip's interval is not a fossil range at
-all but the uncertainty of a sampling date — a virus sampled "sometime in 2015" —
-so there the **Node Age Bars** draw it and the fossil bars never do. The range is read from the tip's native phyloXML `<date>`
-(value/min/max — the same model the node card and the node window show), so it works directly on a
-tree time-scaled by any of the usual tools. Reference:
+A range needs a **width**: `{0,0}` is none, and so is an interval whose ends differ only in
+the last digits of floating-point arithmetic (TreeAnnotator writes an exact date as
+`{9.0, 9.000000000000004}`); such a range draws, switches on and reports nothing. On a
+tree dated in **calendar years** a tip's interval is not a fossil range but the uncertainty
+of a sampling date ("sometime in 2015"): the **Node Age Bars** draw it, the fossil bars
+never do.
 
 - Bell, M.A. & Lloyd, G.T. (2015): "strap: an R package for plotting phylogenies
   against stratigraphy and assessing their stratigraphic congruence",
@@ -1413,54 +957,34 @@ tree time-scaled by any of the usual tools. Reference:
 
 ## Calendar (absolute-date) axis
 
-For a **tip-dated** tree — a time-scaled phylogeny whose branch lengths are
-calendar time and whose tips carry sampling dates, as in molecular epidemiology
-(e.g. a SARS-CoV-2 phylodynamic tree) — Archaeopteryx can draw a **calendar-year
-axis** instead of the geologic one. Turn it on under **Settings → Overlays →
-Time Axis → Calendar (dates)**. It draws a labelled year/decade ruler (like the
-distance scale axis, but in calendar time): along the bottom in the root-left
-orientation, down the side in root-on-top / root-on-bottom, and as concentric
-labelled **year rings** in the circular layout.
-
-The axis is anchored by the **most-recent tip** (the present): Archaeopteryx uses
-the largest tip `<date>` (a calendar-year value) automatically, or you can set it
-explicitly with **"Set most-recent-tip date…"** next to the Time Axis selector.
-Each node's calendar date is then its distance-from-root back from that present.
-The **Time-Axis Grid Lines** toggle (Settings → Overlays) also works here, drawing
-faint reference lines across the tree at each labelled year tick.
+For a **tip-dated** tree (e.g. a SARS-CoV-2 phylodynamic tree), **Settings → Overlays →
+Time Axis → Calendar (dates)** draws a labelled year / decade ruler: along the bottom
+(root left), down the side (root top / bottom), or as labelled **year rings** in
+circular. It is anchored at the **most recent tip** — the largest tip `<date>`, or **"Set
+most-recent-tip date…"** — and each node's date is its distance from the root back from
+there. **Time-Axis Grid Lines** draws a faint line at each labelled year.
 
 ## Auspice / Nextstrain JSON
 
-Archaeopteryx reads **Auspice / Nextstrain v2** datasets (including TreeTime's
-`auspice_tree.json`, which states no version) — the `dataset.json`
-format behind [nextstrain.org](https://nextstrain.org) and the Auspice viewer,
-the de-facto interchange format for dated, annotated pathogen phylogenies. Just
-open a `.json` file with **File → Read Tree from File…** (or try **File → Demo
-Trees → Phylodynamics (Nextstrain JSON)**).
+Archaeopteryx reads **Auspice / Nextstrain v2** datasets — the `dataset.json` behind
+[nextstrain.org](https://nextstrain.org), and TreeTime's `auspice_tree.json` (which states no
+version). Open the `.json` with **File → Read Tree from File…**, or try **File → Demo Trees
+→ Phylodynamics (Nextstrain JSON)**. It maps onto features the viewer already has:
 
-The point is that it maps straight onto features Archaeopteryx already has, so
-your Nextstrain tree lights up on open:
+- **`num_date`** puts the tree on the **Calendar axis**, and each node's
+  **`num_date.confidence`** becomes a **Node Age bar / spindle** — on an internal node
+  the divergence-time interval, on a **tip** the sampling-date uncertainty of a sample
+  dated only to the month or year (an exact date draws nothing; never a fossil range).
+  It is also the numeric **`nextstrain:num_date`**, to **Color by** date.
+- **`div`** (cumulative divergence) drives the
+  [**Time | Div**](#time--div-the-time-or-the-divergence-layout) toggle: the **time**
+  layout (`num_date`, with the calendar axis) or the **divergence** layout (`div`, in
+  substitutions/site).
+- each **discrete trait** — `country`, `region`, `clade_membership`, `host`, … — becomes a
+  **`nextstrain:<trait>`** property to color by, tabulate or search, and each trait's
+  per-node **confidence** drives the **Ancestral-State Pies**.
 
-- **`num_date`** → the tree is placed on the **Calendar axis**, and each node's
-  **`num_date.confidence`** becomes a **Node Age bar / spindle**: on an internal
-  node the divergence-time interval, on a **tip** the *sampling-date uncertainty*
-  of a sample dated only to the month or the year (an exactly dated sample draws
-  nothing). On calendar time a tip's interval is never drawn as a fossil range.
-  It is also exposed as a numeric **`nextstrain:num_date`** property, so you can
-  **Color by** the sampling date (a date gradient).
-- **`div`** (cumulative divergence) drives the **Time | Div** toggle (left panel,
-  under the P/A/C layout buttons, shown only for a tree that carries both) — flip the whole tree
-  between the **time** layout (`num_date`, with the calendar axis) and the
-  **divergence** layout (`div`, in substitutions/site) at any time. It's a reversible
-  display mode: both metrics stay on the tree, so nothing is edited or lost.
-- every **discrete trait** — `country`, `region`, `clade_membership`, `host`, … —
-  becomes a **`nextstrain:<trait>`** node property you can **Color by**, tabulate
-  as an **Annotation Column**, or search; and each trait's per-node **confidence**
-  drives the **Ancestral-State Pies** (geographic phylogeography, straight from the
-  file).
-
-Not imported (Archaeopteryx is a tree viewer, not a phylodynamics dashboard): the
-map, entropy, and frequencies panels. Reference:
+The map, entropy and frequencies panels are not imported.
 
 - Hadfield, J. *et al.* (2018): "Nextstrain: real-time tracking of pathogen
   evolution", *Bioinformatics* 34(23):4121–4123.
@@ -1469,106 +993,60 @@ map, entropy, and frequencies panels. Reference:
 
 ## Annotating clades by rank
 
-Nested rank brackets down the side of a tree — genus inside family inside order — are
-one of the most common things in a published phylogeny figure, and one of the most
-commonly drawn by hand in Illustrator. **Tools → Annotate Clades by Rank…** builds them
-from the tree's own taxonomy.
-
-Pick a rank and how to show it:
+**Tools → Annotate Clades by Rank…** draws nested rank brackets — genus inside family
+inside order — from the tree's own taxonomy:
 
 | Mode | What you get |
 | --- | --- |
 | **Shaded boxes** | a translucent wash behind each clade, in the clade's colour |
 | **Bars + labels** | a solid colour bar per clade past the tip labels, with the taxon name |
-| **Brackets `]` + labels** | the same, drawn as a black-and-white bracket (no colour key) |
+| **Brackets `]` + labels** | the same, as a black-and-white bracket (no colour key) |
 
-To **take the marks off again**, reopen the dialog and pick the first entry in the rank
-list — *(none) — stop drawing the clade marks*. It is offered only while there is something
-to remove, and it is never the entry the dialog opens on, so pressing OK can never wipe
-your annotation by accident. It removes the **drawing** only: any internal-node taxonomies
-you wrote with *Also write the clade taxa into the tree* are real tree data and stay put
-(undo them with **⌘Z**). **Settings → Reset to Defaults** clears the marks too, along with
-everything else.
+To **remove the marks**, pick *(none) — stop drawing the clade marks* at the top of the
+rank list (offered only when there are marks, and never preselected, so OK cannot wipe
+them by accident). It removes the drawing only: clade taxa you wrote into the tree stay
+(undo them with **⌘Z**). **Reset to Defaults** clears the marks too.
 
 ### More than one rank at once
 
-**Bars** and **Brackets** can show **up to three ranks together**, as nested columns.
-Choose the main rank, then add up to two more under *Additional nested levels*. You do
-not have to put them in any particular order — Archaeopteryx sorts them, always drawing
-the **finest rank nearest the tips and the broadest outermost**, which is the only
-arrangement in which the nesting reads correctly.
+**Bars** and **Brackets** show **up to three ranks** as nested columns (the main rank plus
+two under *Additional nested levels*, in any order): the finest is always drawn nearest
+the tips, the broadest outermost. Colours are **hue-banded** — each broadest-rank clade
+owns a slice of the colour wheel and the clades inside are shades of it (in the animal
+demo *Mammalia*, *Aves* and *Amphibia* are greens inside *Chordata*). A single rank gets
+the plain distinct palette. Containment is read from the **tree**, not the names; a clade
+whose broader rank could not be resolved is drawn **desaturated** rather than implying a
+parent.
 
-The colours are **hue-banded**: each clade at the broadest rank owns a slice of the
-colour wheel, and the finer clades inside it are shades of that slice. So in the animal
-demo, *Mammalia*, *Aves* and *Amphibia* all read as greens because they sit inside
-*Chordata*, while *Insecta* is a yellow inside olive *Arthropoda* — you can see which
-class belongs to which phylum without consulting the legend. Give a single rank and you
-get the plain distinct-colour palette instead, since there is no hierarchy to show.
+- **Label angle is per level** (*Vertical / Diagonal / Horizontal*). Vertical is compact
+  for a few large clades; use **Horizontal** for many one- or two-tip clades, whose
+  vertical labels would overprint.
+- **Skip single-member clades** (on by default) drops bars for one-tip taxa; turn it off
+  for a deep backbone like the animal demo, where one representative per class is normal.
 
-Containment is read from the **tree**, not from the names: a genus belongs to the family
-whose clade root is its ancestor. That keeps the colouring honest when the taxonomy is
-patchy — a clade whose broader rank could not be resolved has no parent hue to vary, and
-is drawn **desaturated** rather than being given a confident colour implying a parent it
-does not have.
-
-Two practical notes:
-
-- **Label angle is per level.** Each level has its own *Labels: Vertical / Diagonal /
-  Horizontal* setting. Vertical is the most compact and is usually right for a rank with
-  a few large clades; **Horizontal** is the one to use when a rank has many clades of one
-  or two tips each, because a vertical label needs far more height than a one-tip bar and
-  a column of them will overprint. Horizontal costs width instead — three horizontal
-  columns is what the animal demo uses.
-- **Skip single-member clades** (on by default) suppresses the bar for a taxon
-  represented by a single tip, which is usually just noise. Turn it **off** for a deep
-  backbone like the animal demo, where many classes and orders legitimately have one
-  representative and skipping them leaves the inner columns full of holes.
-
-The legend splits into a titled block per rank, so a family row is never mistaken for a
-genus row, and every rank keeps rows even when one of them has far more taxa than the
-others. Clicking a legend row recolours that taxon, at its own rank.
+The legend has a titled block per rank; clicking a row recolours that taxon at its rank.
 
 ### Where it works
 
-Clade annotation draws in the three **rectangular** orientations and in **circular**,
-where the bars become concentric rings around the tree. It is **not** drawn in the
-**unrooted** layout: unrooted tips sit at different radii, so there is no common edge to
-hang a bar or bracket on, and a clade's tips are not guaranteed to occupy one contiguous
-sector.
-
-Boxes stay **single-level** by design. The wash is translucent, so nesting one inside
-another would paint the inner clade as the product of two washes — darker than either,
-and no longer the colour its legend row claims.
-
-Everything works **offline** whenever the tree itself carries the ranks (as the bundled
-demos do); otherwise Archaeopteryx offers to resolve the unplaced tips online through
-NCBI and UniProt. You can also tick *Also write the clade taxa into the tree* to turn the
-annotation into real, saveable internal-node taxonomies (that part is undoable).
-
-Try it with **File → Demo Trees → Animal Tree of Life (Nested Clade Levels)**, which
-opens with all three ranks drawn, or **Bat Phylogeny (Taxonomy by Rank)** for the
-single-rank case inside one order.
+In the three **rectangular** orientations and in **circular** (as rings); **not in
+unrooted**, whose tips sit at different radii and a clade need not occupy one sector.
+Boxes stay **single-level**: nested translucent washes would multiply into a colour no
+legend row claims. It works **offline** when the tree carries the ranks (as the demos do);
+otherwise it offers to resolve tips online through NCBI and UniProt. *Also write the
+clade taxa into the tree* makes the annotation real, saveable internal-node taxonomies
+(undoable). Demos: **Animal Tree of Life (Nested Clade Levels)** and **Bat Phylogeny
+(Taxonomy by Rank)**.
 
 ## GTDB taxonomy
 
-For trees of bacterial and archaeal genomes, Archaeopteryx imports the **GTDB**
-(Genome Taxonomy Database) classification — the genome-based standard for microbial
-taxonomy. Load a tree whose tips are genome accessions, then **File → Import GTDB
-Taxonomy…** and pick a **GTDB-Tk**-style table (a tip-name column plus a GTDB
-classification column, e.g.
-`d__Bacteria;p__Pseudomonadota;…;g__Escherichia;s__Escherichia coli`, exactly as a
-GTDB-Tk `classify` summary emits). Or just try **File → Demo Trees → GTDB Taxonomy
-(Genome-based)**.
-
-Each of the seven standardized ranks — domain / phylum / class / order / family /
-genus / species — becomes a categorical **`gtdb:<rank>`** node property, plus a
-`<taxonomy>` at the most specific rank present. So you can immediately **Color by**
-`gtdb:phylum` (or `gtdb:domain`), add an **Annotation Column** for `gtdb:family`, and
-**search** `gtdb:genus`. It is **entirely offline** — no network lookup, no bundled
-database — so it is reproducible and version-pinned to whatever GTDB release produced
-your table. The import is undoable.
-
-References:
+For bacterial and archaeal genomes, **File → Import GTDB Taxonomy…** reads a
+**GTDB-Tk**-style table — a tip-name column and a classification like
+`d__Bacteria;p__Pseudomonadota;…;g__Escherichia;s__Escherichia coli`, as `classify`
+writes it — onto a tree whose tips are genome accessions (demo: **GTDB Taxonomy
+(Genome-based)**). Each of the seven ranks becomes a categorical **`gtdb:<rank>`**
+property, plus a `<taxonomy>` at the most specific rank: **Color by** `gtdb:phylum`, add a
+column for `gtdb:family`, search `gtdb:genus`. Entirely offline — reproducible, pinned to
+the GTDB release that made your table. Undoable.
 
 - Parks, D.H., Chuvochina, M., Rinke, C., Mussig, A.J., Chaumeil, P.-A., Hugenholtz, P.
   (2022): "GTDB: an ongoing census of bacterial and archaeal diversity through a
@@ -1580,274 +1058,166 @@ References:
 
 ## Tip images
 
-Show a picture at each tip — a species photo, a phylogenetic silhouette, a specimen
-image — drawn **right at the branch end**, so a figure carries its own visual key.
-Turn it on with **Settings → Overlays → Tip Images**, and set the size with the slider
-next to it (a fixed height in pixels; the aspect ratio is preserved).
+**Settings → Overlays → Tip Images** draws a picture at each branch end — a photo, a
+silhouette, a specimen — at the height set by the slider beside it (aspect kept). A tip's
+image comes from a **local file** (relative to the tree's folder, or absolute) or an
+**http(s) URL** (fetched once, in the background, and cached in
+`~/.archaeopteryx/image-cache`, so it works offline afterwards). The reference is read
+from a node property (`image`, `img`, `photo`, `silhouette`, `picture`, `thumbnail`,
+`tip_image`, `image_url`), a taxonomy `<uri>` of type `image_url`, or any property ending
+in `.png`, `.jpg`, `.jpeg`, `.gif` or `.bmp` (not SVG yet). The easy way: an image column in
+a table loaded with **File → Import Annotations**. A tree with image references turns Tip
+Images on by itself.
 
-Each image comes from a **reference** attached to the tip. Two forms are auto-detected:
+Tip images render in **all five layouts** (upright on the spoke in the radial ones) and
+in every export. One that cannot load — a missing file, or a URL to a web *page* — draws a
+faint broken-image marker.
 
-- a **local file** — a relative path (resolved against the folder the tree was loaded
-  from) or an absolute path, e.g. `images/t_rex.png`;
-- an **http(s) URL** — fetched once, off the main thread, and kept in a small on-disk
-  cache (`~/.archaeopteryx/image-cache`), so re-opening a tree of web images is instant
-  and works offline afterwards.
-
-The reference is read from a node **property** (`image`, `img`, `photo`, `silhouette`,
-`picture`, `thumbnail`, `tip_image`, or `image_url`), from a taxonomy `<uri>` of type
-`image_url`, or from any property whose value ends in a raster-image extension
-(`.png`, `.jpg`, `.jpeg`, `.gif`, `.bmp` — SVG is not yet supported). The everyday way
-to attach it is the raw tree plus a spreadsheet: keep an image column in your CSV/TSV
-and load it with **File → Import Annotations**. A tree that already carries image
-references turns Tip Images on automatically when you open it.
-
-Tip images render in **all five display types** — rectangular (root left / top / bottom)
-and, drawn upright on the spoke, circular and unrooted — and appear in every export
-(PDF, SVG, EPS, PNG). A reference that cannot be loaded (a missing file, or a URL that
-points at a web *page* rather than the image itself) draws a faint broken-image marker
-so the problem is visible rather than silent.
-
-> **Wikimedia Commons tip:** a Commons *article* URL (`…/wiki/File:…`) returns a web
-> page, not an image. Use a direct-file URL such as
-> `https://commons.wikimedia.org/wiki/Special:FilePath/<FileName>`, which redirects to
-> the image file itself.
+> **Wikimedia Commons:** an article URL (`…/wiki/File:…`) is a page, not an image; use
+> `https://commons.wikimedia.org/wiki/Special:FilePath/<FileName>`.
 
 ## Sequence alignment
 
-Show a multiple sequence alignment **beside the tree** — the classic tree + alignment
-figure. Load an aligned FASTA with **File → Load Alignment (FASTA)…**; each row is joined
-to the tip of the same name and drawn as a track of colored residue cells to the right of
-the labels. A tree saved as phyloXML **embeds the alignment** (it is written onto each
-tip's molecular sequence), so a re-opened tree shows its alignment automatically — and a
-tree that already carries aligned sequences turns the display on when you open it.
+**File → Load Alignment (FASTA)…** draws a multiple sequence alignment **beside the tree**:
+each row joins the tip of the same name as a track of coloured residue cells. Saved as
+phyloXML, the tree **embeds the alignment** (on each tip's molecular sequence), and a tree
+that carries aligned sequences shows them when opened. A **Nexus** file with a tree and a
+`CHARACTERS` or `DATA` matrix (MrBayes, PAUP\*, …) opens with its alignment directly —
+interleaved matrices, `MATCHCHAR` (`.`), `[ ]` comments, and names differing only in case or
+`_` versus space are handled.
 
-You can also open a **Nexus** file that bundles a tree and a sequence matrix in one file (a
-`CHARACTERS` or `DATA` block of protein/DNA/RNA, as produced by MrBayes, PAUP\*, and similar
-tools). Just open it with **File → Read Tree from File…**; the matrix rows are joined to the
-tips by taxon name and the alignment shows beside the tree automatically — no separate step.
-Interleaved matrices, `MATCHCHAR` (`.`) shorthand, `[ ]` comments, and taxon names that
-differ only in case or in `_`-vs-space between the tree and the matrix are all handled.
-
-- **Coloring** follows the residue: a Zappo-style scheme for amino acids and an A/C/G/T-U
-  scheme for nucleotides (auto-detected). At a wide enough column width the residue
-  **letter** is drawn in each cell; gap positions show a faint horizontal line (a run of gaps is one line).
-- A **dedicated scrollbar** below the alignment pans the columns while the tree and its
-  labels stay in place, so a long alignment stays navigable.
-- **Faint boundary lines** mark the true start and end of the alignment, so a
-  scrolled-into window is distinguishable from the real edges.
-- A **column ruler** below the alignment shows absolute 1-based column numbers, so you can
-  read exactly which columns a scrolled window is showing.
-- **Hover a residue** for a readout of what is under the pointer (see below).
+- **Colouring** follows the residue: Zappo-style for amino acids, A/C/G/T-U for
+  nucleotides (auto-detected). Wide enough columns show the **letter**; a run of gaps is
+  one faint line.
+- A **scrollbar** below pans the columns while the tree stays put; **faint lines** mark
+  the alignment's real ends, and a **column ruler** shows 1-based column numbers.
 
 ### Hovering a residue
 
-Point at any residue and a small readout tells you what it is:
-
 | line | what it means |
 | --- | --- |
-| **Alignment column** | the 1-based column of the *alignment* — what the column ruler shows |
-| **Residue *n* of this sequence** | the residue's own 1-based number in that sequence with the gaps removed |
-| **`L` – Leucine** | the letter and its full name (for DNA/RNA, the base: `G` – Guanine) |
-| *aliphatic (hydrophobic)* | the physico-chemical class — **the same grouping the cell is coloured by**, so the words and the colour can never disagree |
-| **Hydropathy (Kyte–Doolittle)** | the residue's hydropathy index, +4.5 (isoleucine) to −4.5 (arginine) |
+| **Alignment column** | the 1-based column of the *alignment* — what the ruler shows |
+| **Residue *n* of this sequence** | the residue's own number in the ungapped sequence |
+| **`L` – Leucine** | the letter and its name (for DNA/RNA the base: `G` – Guanine) |
+| *aliphatic (hydrophobic)* | the physico-chemical class — the grouping the cell is coloured by |
+| **Hydropathy (Kyte–Doolittle)** | +4.5 (isoleucine) to −4.5 (arginine) |
 
-The two positions are the point of it. The **column** is a property of the alignment and
-moves if you realign; the **residue number** is the coordinate that maps back onto the real
-protein or gene, which is what you need when comparing against a structure, a mutation list
-or a paper. Working that out by counting gaps down a row is exactly the tedium this removes.
+The column moves if you realign; the **residue number** maps back onto the real protein or
+gene — for a structure, a mutation list, a paper — without counting gaps. A gap says only
+that. Nucleotides get the base and purine/pyrimidine but no hydropathy (the scale is for
+amino acids), nor do `B`, `X` and `Z`. Kyte & Doolittle (1982) is cited under **Help →
+References**.
 
-A gap says so and nothing more — no residue number, no name, no hydropathy. Nucleotides get
-the base name and purine/pyrimidine but **no hydropathy**, because the scale is defined for
-amino acids only; the same is true of the ambiguity codes `B`, `X` and `Z`, where the scale
-simply has no value and inventing one would be a fabrication. The hydropathy scale is
-Kyte & Doolittle (1982) — cited in full under **Help → References**.
-
-Turn the display on or off with the **Sequence Alignment** checkbox in *Display Data* on the
-control panel — it appears only for a tree whose tips actually carry an aligned sequence, and
-is ticked automatically when such a tree is opened, so quieting the alignment down is one
-click. It is **per tab**: two open alignments can differ. The same switch, and the
-per-residue column width, are in **Settings → Overlays**
-(**Sequence Alignment** + **Alignment column width**; the width is remembered between
-sessions). Loading an alignment is undoable, and the whole track renders in every export
-(PDF, SVG, EPS, PNG). This first version is drawn in the rectangular **root-on-left**
-layout. There is a ready-made example in **File → Demo Trees → Alignment next to Tree**.
+The **Sequence Alignment** checkbox (*Display Data*; shown only for a tree with aligned
+sequences, ticked on opening) is **per tab**; **Settings → Overlays** has it too, with the
+**Alignment column width** (remembered). Loading is undoable, and the track renders in
+every export. It is drawn in the rectangular **root-left** layout. Demo: **Alignment next
+to Tree**.
 
 ### Conservation and consensus
 
-Under the alignment, a band shows how conserved each column is: a bar per column,
-with the column's **consensus residue** — its most common non-gap residue — drawn
-beneath it once the columns are wide enough to read one. It appears with the
-alignment; switch it off under **Settings → Overlays → Conservation track**.
+A band under the alignment shows each column's conservation, with its **consensus
+residue** (most common non-gap residue) beneath once columns are wide enough; off under
+**Settings → Overlays → Conservation track**. It is scored over the tips **currently
+displayed** — entering a sub-tree or collapsing a clade re-scores it — so it labels itself
+with its measure and count (`Consensus identity (n = 6)`), in exports too.
 
-**It describes what you can see.** The profile is scored over the tips *currently
-displayed*, so entering a sub-tree or collapsing a clade re-scores it for the
-sequences that are left. That is usually what you want when you are working
-through a tree, and it does mean the numbers change as you navigate — so the band
-labels itself with both the measure and the count, e.g. `Consensus identity
-(n = 6)`, and that label goes into every export.
+**Settings → Overlays → Conservation measure**:
 
-**Three choices**, under **Settings → Overlays → Conservation measure**. The
-first two draw a bar and run from 0 to 1, so the bar means the same thing either
-way, and both count gaps against a column — a column that is half gaps cannot
-score above 0.5. The third draws the same information as letters.
+- **Consensus identity** — the fraction of rows with the consensus residue; easiest to
+  state in a caption.
+- **Information content** — the sequence-logo measure, `(log2(K) − H) / log2(K)` (*H* the
+  Shannon entropy of the residues present, *K* 4 or 20), scaled by the non-gap fraction.
+  It ranks a column split two ways above one split four ways, where identity ties them.
+- **Sequence logo** — the information content as a stack of letters, each letter's height
+  its share, the most frequent on top, coloured like the cells. A conserved but half-gapped
+  column is drawn at *full* conservation and *half* height; an all-gap column draws nothing;
+  letters under half a pixel are left out. The consensus row is dropped — the top letter is
+  the consensus.
 
-- **Consensus identity** — the fraction of rows carrying the consensus residue.
-  Reads directly as "how much of this column agrees", and is the easier of the
-  two to state in a caption.
-- **Information content** — the sequence-logo measure: `(log2(K) − H) / log2(K)`,
-  where *H* is the Shannon entropy of the residues present and *K* is the alphabet
-  size (4 for nucleotide, 20 for amino acid), scaled by the non-gap fraction. Use
-  it when columns have no clear majority: it ranks a column split evenly between
-  two residues above one split four ways, though identity scores them the same.
-- **Sequence logo** — the information content drawn as a stack of letters instead
-  of a bar: one stack per column, each letter's height its share of that column's
-  information, the most frequent residue on top, coloured as the alignment cells
-  above it are. It answers "which residues, and in what proportion" where a bar
-  answers only "how much". A column that is conserved but half gapped is drawn at
-  *full* conservation and *half* height — gaps scale the stack rather than joining
-  it — and an all-gap column draws nothing at all, since nothing is known about
-  it. Letters that would come out under half a pixel are left out. The band is
-  taller than the bar's, and the consensus row beneath it is dropped: the letter
-  on top of each stack already is the consensus.
-
-A few conventions worth knowing, because they change what a bar means:
-
-- Upper and lower case are the same residue, as they are for the colouring.
-- A row shorter than the alignment counts as gapped past its end.
-- A gappy column still names its consensus residue — the bar already carries the
-  gappiness. Ties go to the alphabetically first residue, so the same alignment
-  always gives the same figure.
-- Ambiguity codes (N, X, B, Z…) count as ordinary distinct residues, so a column
-  full of them scores *low* rather than being quietly treated as conserved.
-
-This is **not** the physico-chemical property score Jalview labels "Conservation"
-(Livingstone & Barton 1993), which is defined for amino acids only; the measures
-here work the same way on a nucleotide alignment. The full definitions and their
-citations are in **Help → References**.
+The first two run from 0 to 1 and count gaps against a column (half gaps caps it at 0.5).
+Upper and lower case are the same residue; a short row counts as gapped past its end; a
+gappy column still names its consensus; ties go alphabetically; ambiguity codes (N, X, B,
+Z…) are ordinary residues, so a column of them scores *low*. This is **not** the
+amino-acid property score Jalview calls "Conservation" (Livingstone & Barton 1993); these
+measures work on nucleotides too. Definitions and citations: **Help → References**.
 
 ## Broken (truncated) long branches
 
-One branch that is far longer than the rest — a distant outgroup, a fast-evolving
-lineage — squashes the informative part of a phylogram to an unreadable sliver.
-Turn on **Settings → Layout → Break Long Branches** and such a branch is drawn
-**shortened, with an axis-break glyph** (`─//─`) across it — the tree analogue of a
-broken axis in a chart — while the **depth scale is re-derived from the capped
-height** so the rest of the tree reclaims the freed width. It is **display-only**:
-the underlying branch length is never altered, and its true value is still shown as
-the branch-length label.
-
-A branch is treated as *long* when its length exceeds **8× the median** of the
-tree's strictly-positive branch lengths — a robust threshold (unaffected by the one
-outlier being detected, or by the many zero-length branches of a polytomy-heavy
-tree), so a well-behaved, near-clock tree shows no breaks at all. This is a
-graphical convention, not an inference step. It applies in **all** phylogram layouts — the
-unaligned and aligned phylogram views of the rectangular family (root-left / -top /
--bottom and triangular), and the **circular** and **unrooted** radial views. In the aligned view
-the broken branch is capped and its tip still lines up at the common label column; in
-the radial views the outlier's spoke is shortened (the informative part fans out to
-reclaim the disc) with the break glyph rotated to ride the spoke. While it is on
-(rectangular), the small **scale bar** is kept — sized to the un-broken
-(ingroup) scale, so it reads correctly for the bulk of the tree — but the full-width
-scale **axis** and **grid lines** are hidden, since a single linear ruler across the
-whole width can't represent a truncated branch (the break mark denotes the
-discontinuity). Try it on the **Break Long Branches** demo tree.
+**Settings → Layout → Break Long Branches** draws a branch far longer than the rest — a
+distant outgroup, a fast lineage — **shortened, with a break glyph** (`─//─`), and
+re-derives the depth scale so the rest of the tree reclaims the width. Display only: the
+branch length is unchanged and still shown as its label. A branch is *long* above **8×
+the median** positive branch length (robust to the outlier itself and to zero-length
+polytomy branches), so a near-clock tree shows no breaks. It works in every phylogram
+layout — rectangular (unaligned and aligned; in aligned the tip still meets the label
+column), circular and unrooted (the spoke is shortened, the glyph rides it). In
+rectangular layouts the **scale bar** stays, sized to the unbroken scale, while the
+full-width **axis** and **grid lines** are hidden — no linear ruler can span a truncated
+branch. Demo: **Break Long Branches**.
 
 ## Tanglegrams
 
-A **tanglegram** compares two trees side by side with connectors linking their
-matching tips — the standard way to see how congruent two phylogenies are (a gene
-tree vs. a species tree, host vs. parasite, two reconstruction methods, …). With
-two or more trees open, choose **Analysis → Create Tanglegram…**, pick the two
-trees and the field to link their tips on (node name, taxonomy, or sequence), and
-the tanglegram opens in its own window (the second tree mirrored). It reports the
-number of **crossing** connectors and a size-normalised **entanglement** score
-(described below) — measures of how incongruent the two trees are.
+A **tanglegram** links two trees' matching tips to show how congruent they are (gene vs.
+species tree, host vs. parasite, two methods). With two trees open, **Analysis → Create
+Tanglegram…**, choose them and the field to link on (node name, taxonomy or sequence); it
+opens in its own window, the second tree mirrored, reporting the **crossing** connectors
+and a normalised **entanglement** score.
 
-To untangle it, **click a clade's vertical bar** to flip it (a topology-preserving
-rotation), or press **Auto-untangle** to have Archaeopteryx do it for both trees;
-both are undoable. The **Colour** selector recolours the connectors — uniform,
-**Crossings** (the crossing connectors highlighted in red), or by a tip attribute
-(taxonomy or an imported category, with a legend). **Export…** saves the figure
-as **PDF**, **SVG**, **EPS**, or **PNG** (the vector formats are publication-ready,
-document-white with the colouring preserved).
+**Click a clade's vertical bar** to flip it (a topology-preserving rotation), or
+**Auto-untangle** both trees; both are undoable. **Colour** recolours the connectors:
+uniform, **Crossings** (in red), or by a tip attribute with a legend. **Export…** writes
+**PDF**, **SVG**, **EPS** or **PNG**.
 
-**Auto-untangle heuristic.** Auto-untangle reorders the two trees by rotating
-clades (reversing the child order at internal nodes — a topology-preserving
-operation) to reduce the number of crossing connectors between their matched tips.
-Archaeopteryx uses a barycentre heuristic — each clade's children are ordered by
-the mean vertical position of the tips they link to in the other tree — applied
-alternately to both trees and iterated to convergence, combined with random
-restarts, keeping the arrangement with the fewest crossings (it never increases
-the crossing count). Minimising the crossings of a tanglegram is NP-hard, so this
-is a heuristic. Foundational references:
+**Auto-untangle** is a barycentre heuristic: each clade's children are ordered by the mean
+position of the tips they link to in the other tree, alternating between trees until
+stable, with random restarts, keeping the fewest crossings (it never adds any). Minimising
+crossings is NP-hard.
 
-- Barycentre crossing-reduction heuristic: Sugiyama K, Tagawa S, Toda M (1981):
-  "Methods for visual understanding of hierarchical system structures", *IEEE
-  Transactions on Systems, Man, and Cybernetics* 11(2):109–125.
-- Tanglegram layout and crossing minimisation: Scornavacca C, Zickmann F, Huson
-  DH (2011): "Tanglegrams for rooted phylogenetic trees and networks",
-  *Bioinformatics* 27(13):i248–i256.
+- Sugiyama K, Tagawa S, Toda M (1981): "Methods for visual understanding of hierarchical
+  system structures", *IEEE Transactions on Systems, Man, and Cybernetics* 11(2):109–125.
+- Scornavacca C, Zickmann F, Huson DH (2011): "Tanglegrams for rooted phylogenetic trees
+  and networks", *Bioinformatics* 27(13):i248–i256.
 
-**Entanglement (congruence score).** Alongside the raw crossing count, the window
-reports a size-normalised **entanglement** in the range [0, 1]: **0** when the two
-leaf orderings agree perfectly (no crossings) and **1** when they are fully
-reversed. Two connectors cross exactly when their matched tips sit in the opposite
-vertical order in the two trees, so the total number of crossings is the number of
-**discordant** tip pairs — an inversion count, which is the Kendall rank-correlation
-(τ) distance between the two leaf orderings. Archaeopteryx divides that count by the
-maximum possible number of pairs, *n*(*n*−1)/2, so the score is comparable across
-trees of different sizes, and computes it in *O*(*n* log *n*) with a counting merge
-sort. This is a crossing-based (Kendall-τ) entanglement; it is a different, simpler
-definition from the leaf-position-based *entanglement* of the dendextend package.
-References:
+**Entanglement** is in [0, 1]: **0** when the leaf orders agree, **1** when fully reversed.
+Two connectors cross exactly when their tips are in opposite order in the two trees, so
+crossings are discordant pairs — the Kendall-τ distance — divided by *n*(*n*−1)/2 to compare
+trees of different sizes (computed in *O*(*n* log *n*)). It is simpler than the
+leaf-position-based *entanglement* of dendextend.
 
-- Rank-correlation (concordant/discordant pairs) basis: Kendall MG (1938): "A New
-  Measure of Rank Correlation", *Biometrika* 30(1–2):81–93.
-- Related, leaf-position-based entanglement: Galili T (2015): "dendextend: an R
-  package for visualizing, adjusting and comparing trees of hierarchical
-  clustering", *Bioinformatics* 31(22):3718–3720.
+- Kendall MG (1938): "A New Measure of Rank Correlation", *Biometrika* 30(1–2):81–93.
+- Galili T (2015): "dendextend: an R package for visualizing, adjusting and comparing
+  trees of hierarchical clustering", *Bioinformatics* 31(22):3718–3720.
 
 ---
 
 ## Rendering figures from the command line
 
-> **You can skip this section.** Everything Archaeopteryx does, it does in the
-> window — nothing here is needed to make a figure. This is for the narrower case
-> where you would rather *not* be at the keyboard: rendering many trees at once,
-> or regenerating a figure automatically whenever its data changes.
+> **You can skip this section.** Everything Archaeopteryx does, it does in the window.
+> This is for rendering many trees at once, or regenerating a figure whenever its data
+> changes.
 
-`aptx_render` draws a tree to a file without opening Archaeopteryx. It is the
-**same renderer and the same exporters** the window uses, so a script produces
-the figure you would have produced by hand.
+`aptx_render` draws a tree to a file without opening Archaeopteryx, with the **same
+renderer and exporters** as the window.
 
 ### When it is worth it
 
-- **A folder of trees.** One figure each, identical settings, no clicking.
-- **A figure that keeps changing.** Re-run the same command after the alignment
-  is rebuilt and the figure updates itself — no re-doing the display settings.
-- **A methods section that others can reproduce.** The command *is* the record of
-  how the figure was made, and it produces the same figure on anyone's machine.
-
-If none of those describe you, the window is the better tool.
+- **A folder of trees** — one figure each, identical settings.
+- **A figure that keeps changing** — re-run the command after the alignment is rebuilt.
+- **A reproducible methods section** — the command records how the figure was made and
+  gives the same figure on anyone's machine.
 
 ### Running it
 
-`aptx_render` lives in `forester.jar` — the same self-contained jar described
-under [Run from the jar](#run-from-the-jar); download it once and you have the
-tool.
+`aptx_render` is in `forester.jar` (see [Run from the jar](#run-from-the-jar)):
 
 ```
 java -cp forester.jar org.forester.application.aptx_render  tree.xml  figure.pdf
-```
-
-That is a complete command: with no options at all it writes a 180 × 130 mm
-figure at 300 dpi, drawn the way Archaeopteryx would draw that tree on opening
-it. Run it with `-help` for the option list. A shell alias makes the rest of this
-section easier to read:
-
-```
 alias aptx_render='java -cp /path/to/forester.jar org.forester.application.aptx_render'
 ```
+
+With no options it writes a 180 × 130 mm figure at 300 dpi, drawn as Archaeopteryx would
+draw the tree on opening it. `-help` lists the options.
 
 ### The output format is the file extension
 
@@ -1860,9 +1230,8 @@ alias aptx_render='java -cp /path/to/forester.jar org.forester.application.aptx_
 | `figure.jpg` | raster JPEG (lossy; PNG is better for line art) |
 | `figure.tiff` | raster TIFF |
 
-Vector text is drawn as outlines, so the file needs no fonts installed to look
-right anywhere. An extension it cannot write is refused outright rather than
-guessed at.
+Vector text is drawn as outlines, so no fonts are needed to view it. An unknown extension
+is refused.
 
 ### Options
 
@@ -1871,7 +1240,7 @@ guessed at.
 | `-size=<W>x<H><unit>` | figure size — `170x120mm`, `8x6in`, `1200x900px`. Default `180x130mm` |
 | `-dpi=<n>` | dots per inch, default `300` |
 | `-style=<s>` | `rectangular` (default), `circular` or `unrooted` |
-| `-labels=<d>` | in `circular` and `unrooted`: `radial` (default -- names ride the spoke) or `horizontal`. Pin it in a script whose figure must not change between versions |
+| `-labels=<d>` | in `circular` and `unrooted`: `radial` (default — names ride the spoke) or `horizontal`. Pin it in a script whose figure must not change between versions |
 | `-phylogram` | draw branch lengths to scale |
 | `-cladogram` | ignore branch lengths |
 | `-support` | show confidence / support values |
@@ -1879,44 +1248,25 @@ guessed at.
 | `-color=<ref>` | colour tips by a property, e.g. `data:host` |
 | `-help` | the option list |
 
-With neither `-phylogram` nor `-cladogram`, the tree is drawn as a phylogram when
-it has branch lengths and a cladogram when it does not — the same choice
-Archaeopteryx makes on opening it.
-
-`-color` takes a property reference (`data:host`, or — for an annotated BEAST,
-MrBayes, TreeTime or Nextstrain tree — `beast:rate`, `beast:region`, …). Give it
-one the tree does not have and it stops and tells you which ones it does have,
-rather than quietly writing an uncoloured figure. In a rectangular figure the
-legend gets a **column of its own** at the right, so it never sits on the tips —
-here always, whatever **Settings → Layout → Legend in Its Own Column** says in the
-window, since nobody can drag a legend in a rendered figure.
+Without `-phylogram` or `-cladogram`, a tree with branch lengths is drawn as a phylogram.
+`-color` takes a property reference (`data:host`, `beast:rate`, `beast:region`, …); one the
+tree lacks stops the render with the list of those it has. In a rectangular figure the
+legend always gets its own column at the right.
 
 ### Size and DPI — worth two minutes
 
-Size is the one option that repays a little thought, because **the figure is laid
-out at its physical size, not at its pixel count**. Text is set in points, so a
-12-point label occupies the same fraction of a 170 mm page whether you render it
-at 150 or 600 dpi. That has one consequence worth knowing:
+**The figure is laid out at its physical size, not its pixel count**: a 12-point label
+takes the same share of a 170 mm page at 150 or 600 dpi.
 
-> **Prefer a physical size (`mm` or `in`).** `-size=1000x1000px -dpi=300` is a
-> page only 3.3 inches across, on which the default font is enormous: labels
-> collide and, in circular layouts, get truncated — with the page apparently half
-> empty. The same tree at `-size=250x250mm` renders cleanly.
+> **Prefer a physical size (`mm` or `in`).** `-size=1000x1000px -dpi=300` is a page 3.3
+> inches across on which the default font is enormous — labels collide and, in circular
+> layouts, are truncated. The same tree at `-size=250x250mm` renders cleanly.
 
-So:
-
-- **`mm` / `in`** set the page; `-dpi` then decides how many pixels a raster
-  export puts on it. Vector output ignores `-dpi` entirely.
-- **`px`** sets the pixel count; `-dpi` then decides how large the page is
-  physically. Useful for a figure destined for a screen, but easy to make
-  accidentally tiny.
-
-Journal column widths are a good starting point: `-size=85x110mm` for a single
-column, `-size=170x120mm` for a double.
-
-If the tree is too dense for the size you asked for, Archaeopteryx hides labels
-rather than overlapping them — and `aptx_render` tells you it did, so a figure
-never loses labels silently:
+With **`mm` / `in`** the size sets the page and `-dpi` the pixels a raster export puts on
+it (vector output ignores `-dpi`); with **`px`** the pixels are set and `-dpi` decides the
+page size. Journal columns are a good start: `-size=85x110mm` single, `-size=170x120mm`
+double. If the tree is too dense for the size, labels are hidden rather than overlapped,
+and `aptx_render` says so:
 
 ```
 Warning: some labels were hidden by "Auto-hide Labels" to avoid overlap at this size.
@@ -1944,87 +1294,59 @@ done
 
 ### The same command gives the same figure
 
-The render starts from documented defaults plus the options you passed. It does
-**not** pick up whatever you last set in the Archaeopteryx window — if it did,
-the same command would produce different figures on different machines, which
-would defeat the purpose. Your saved settings are neither read nor changed by it.
+The render starts from documented defaults plus your options — **never** from what you
+last set in the window, which would make one command draw different figures on different
+machines. Your saved settings are neither read nor changed.
 
 ### It needs a display, even though no window appears
 
-Archaeopteryx's display settings live in its control panel, so drawing a tree
-means building that panel; the window is created off-screen and never shown. On a
-desktop machine this simply works. On a headless server — a cluster node, a CI
-runner — run it under a virtual display:
+Drawing a tree builds the control panel off-screen. On a desktop that just works; on a
+headless server (a cluster node, a CI runner) use a virtual display:
 
 ```
 xvfb-run -a java -cp forester.jar org.forester.application.aptx_render \
          tree.xml figure.pdf
 ```
 
-(`xvfb-run` comes from the `xvfb` package on Debian / Ubuntu.)
+(`xvfb-run` is in the `xvfb` package on Debian / Ubuntu.)
 
 ### What it does not do yet
 
-This is a first version, deliberately small, to find out whether people want it.
-It renders a tree from the options above; it does **not** yet reproduce a figure
-you composed in the window — annotation columns, clade bands, time axes, tip
-images and the rest are not reachable from the command line. Making them so means
-letting Archaeopteryx save a figure's full appearance into the tree file, which
-is a larger piece of work worth doing only if there is appetite for it.
-
-If this is useful to you, or nearly useful, say so on the
-[issue tracker](https://github.com/cmzmasek/forester/issues) — including which
-setting you most want to reach from a script.
+It renders from the options above only. The figure you composed in the window — annotation
+columns, clade bands, time axes, tip images and the rest — is saved with a phyloXML tree,
+but `aptx_render` does not apply it yet. If that, or any setting, is what you want from a
+script, say so on the [issue tracker](https://github.com/cmzmasek/forester/issues).
 
 ---
 
 ## When something goes wrong
 
-An installed Archaeopteryx has no console. The Windows launcher is a windowed
-one, a macOS `.app` hands its output to the system, and a Linux desktop entry
-sends it to the session journal — so if something failed, the details used to go
-nowhere you could reach, and the most you could report was "it stopped drawing".
-
-Archaeopteryx now writes unexpected errors to a log file:
-
-```
-~/.archaeopteryx/archaeopteryx.log
-```
-
-Open it from **Help → Show Error Log**. If something has gone wrong in the
-current session, a quiet **⚠ error logged** marker also appears in the menu bar —
-click it to open the log, or dismiss it. There is deliberately no pop-up: a
-failure inside the drawing code repeats on every redraw, and a dialog for each
-one would make the program unusable.
-
-**If you hit a bug, attach that file to your report.** It holds the stack trace,
-which is the part that makes a problem findable. Two details keep it useful
-rather than enormous: a failure that repeats is written once and then counted
-("… the same failure repeated 412 more times"), and the file restarts itself if
-it ever grows past a couple of megabytes, so a runaway error cannot fill your
-disk.
+An installed Archaeopteryx has no console, so unexpected errors are written to
+`~/.archaeopteryx/archaeopteryx.log` — open it with **Help → Show Error Log**. When
+something has failed in this session a quiet **⚠ error logged** marker appears in the menu
+bar (click to open the log, or dismiss it); there is no pop-up, since a failure while
+drawing repeats on every redraw. **If you hit a bug, attach that file to your report** —
+its stack trace is what makes the problem findable. A repeating failure is written once
+and counted ("… the same failure repeated 412 more times"), and the file restarts past a
+couple of megabytes.
 
 ## This repository
 
-This is the **home** of Archaeopteryx: the website (`docs/`, served by GitHub
-Pages), this documentation, the citation metadata, and the release stream.
-
-The **source code** lives in the [`forester`](https://github.com/cmzmasek/forester)
-project — an open-source Java library and command-line toolkit for phylogenetics,
-of which Archaeopteryx is the interactive front end. The release workflow here
-builds the installers from a pinned `forester` tag and publishes them to this
-repository's Releases, so Archaeopteryx has its own versioned, citable identity.
-
-The **online version**, [Archaeopteryx.js](https://cmzmasek.github.io/archaeopteryx-js/),
-is a separate JavaScript implementation with its own repository,
-[`archaeopteryx-js`](https://github.com/cmzmasek/archaeopteryx-js). The two are kept in
-step on the things a shared tree depends on (formats, "Color by", node data).
+This is the **home** of Archaeopteryx: the website (`docs/`, on GitHub Pages), this
+documentation, the citation metadata and the releases. The **source code** is in
+[`forester`](https://github.com/cmzmasek/forester), the Java library and command-line
+toolkit of which Archaeopteryx is the interactive front end; the release workflow here
+builds the installers from a pinned `forester` tag, so Archaeopteryx has its own
+versioned, citable identity. The **online version**,
+[Archaeopteryx.js](https://cmzmasek.github.io/archaeopteryx-js/), is a separate
+implementation ([`archaeopteryx-js`](https://github.com/cmzmasek/archaeopteryx-js)) kept in
+step on what a shared tree depends on (formats, "Color by", node data).
 
 ## Citing
 
-A dedicated publication is in preparation. Until then, use the **Cite this
-repository** button (backed by [`CITATION.cff`](CITATION.cff)); once a release is
-archived on Zenodo, its DOI provides a stable, versioned citation.
+A dedicated publication is in preparation. Until then, use the **Cite this repository**
+button (backed by [`CITATION.cff`](CITATION.cff)); once a release is archived on Zenodo,
+its DOI provides a stable, versioned citation.
 
 ## License
 
