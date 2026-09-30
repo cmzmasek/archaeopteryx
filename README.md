@@ -540,7 +540,10 @@ changes, like **File → Close Tab**.
 - **Only phyloXML carries it** — Newick and Nexus have nowhere to put it.
 - **The theme is not part of it** — fonts, colours and light/dark stay the reader's own.
 - **A figure from a newer version still opens**; anything an older Archaeopteryx cannot
-  draw is skipped.
+  draw is skipped. The exception is 0.11.173, which changed where the figure is stored:
+  0.11.173 and later do not restore a figure saved by 0.11.172 or earlier, and 0.11.172
+  or earlier do not restore one saved by 0.11.173 or later. The tree and its data open
+  either way.
 
 ### Clearing every overlay at once
 
