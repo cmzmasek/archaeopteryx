@@ -1151,9 +1151,9 @@ branch length is unchanged and still shown as its label. A branch is *long* abov
 the median** positive branch length (robust to the outlier itself and to zero-length
 polytomy branches), so a near-clock tree shows no breaks. It works in every phylogram
 layout — rectangular (unaligned and aligned; in aligned the tip still meets the label
-column), circular and unrooted (the spoke is shortened, the glyph rides it). In
-rectangular layouts the **scale bar** stays, sized to the unbroken scale, while the
-full-width **axis** and **grid lines** are hidden — no linear ruler can span a truncated
+column), circular and unrooted (the spoke is shortened, the glyph rides it). In the
+rectangular and circular layouts the **scale bar** stays, sized to the unbroken scale,
+while the **axis** and **grid lines** are hidden — no linear ruler can span a truncated
 branch. Demo: **Break Long Branches**.
 
 ## Tanglegrams
