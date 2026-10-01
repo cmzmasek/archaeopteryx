@@ -30,7 +30,7 @@ calendar and geologic time axes, and WYSIWYG vector (PDF / SVG / EPS) export.
 - **Undo & provenance** — every edit is undoable, and every tree-changing operation
   records what it did.
 - **Large trees, five layouts** — rectangular (three orientations), circular and
-  unrooted, with tip-aligned annotation columns that become rings in circular.
+  unrooted, with tip-aligned metadata columns that become rings in circular.
 - **Reads what you have** — Newick, NHX, Nexus, phyloXML, Nextstrain / Auspice JSON
   and Nexus, tip-dated labels, and BEAST, MrBayes and TreeTime annotations.
 
@@ -110,17 +110,17 @@ java -Xmx4g -jar forester.jar big.xml  # more memory for a very large tree
 (the demos are bundled in the jar; the same trees and more are in
 [`forester/demo/`](https://github.com/cmzmasek/forester/tree/master/forester/demo)):
 
-- **Color Tips by Metadata** — colored by a categorical property
-- **Annotation Columns** — tip-aligned color strips and a numeric heat map
+- **Color Tips by Metadata** — colored by a categorical metadata field
+- **Metadata Columns** — tip-aligned color strips and a numeric heat map
 - **Symbol Columns** — tip-aligned marks: a present value filled, an explicit
   "no"/absent value hollow, a missing value nothing; a categorical field in distinct
   colors; the glyph (circle / square / diamond / triangle) chosen per column
-- **Properties in Labels** — six properties per tip: two in the label, four as
+- **Metadata in Labels** — six metadata fields per tip: two in the label, four as
   columns. One field, one role
 - **Stacked Bar Columns** — ten microbiome samples with three read counts
   (*Firmicutes*, *Bacteroidetes*, *Proteobacteria*) as one segmented bar per tip: its
   length the total, its segments the composition. **Normalize stacked bars to 100%**
-  (**Tools → Annotation Fields…**) compares composition alone
+  (**Tools → Metadata Fields…**) compares composition alone
 - **Pie Columns** — the same samples as one pie per tip
 - **Pangenome Presence/Absence (Clustergram)** — 100 strains × 40 genes, a table of
   presence certainty (0–4; blank = not assessed) shown as a clustergram. Set **View →
@@ -189,7 +189,7 @@ columns, clade bands, time axes, HPD and range bars, tip images and vector expor
 in each.
 
 **Tree share — how much of the width the tree keeps.** Tip labels, the domain track,
-the alignment, annotation columns and the legend column all compete for the width.
+the alignment, metadata columns and the legend column all compete for the width.
 The tree takes its share **first** and the tracks divide the rest, so a heavily
 annotated tree stays a tree. The **Tree share** slider (under *Node size*) sets it from
 25% to 80% (40% by default, remembered). In rectangular layouts it divides the depth
@@ -344,7 +344,7 @@ complete. Internal nodes without labels stay unlabelled.
 ## Coloring tips by their data ("Color by")
 
 **Color by:** (left panel) colors every tip by one field — taxonomy (code, scientific
-name, common name), sequence (name, symbol, gene name), or any node property (`host`,
+name, common name), sequence (name, symbol, gene name), or any metadata field (`host`,
 `country`, `year`, …). A category gets one color per value; a number individual colors
 or a gradient. [Archaeopteryx.js](https://github.com/cmzmasek/archaeopteryx-js) uses the
 same rules, ids and labels, so a tree colors identically in both.
@@ -402,15 +402,17 @@ fields.
 
 ---
 
-## Annotation fields: columns or labels
+<a id="annotation-fields-columns-or-labels"></a>
+
+## Metadata fields: columns or labels
 
 Tips often carry a host, a country, a clade, a year, an accession, a passage history.
 Archaeopteryx reads them all (phyloXML `<property>` elements, **File → Import
-Annotations**, BEAST or Auspice files) and **Tools → Annotation Fields…** decides how
+Metadata**, BEAST or Auspice files) and **Tools → Metadata Fields…** decides how
 each is shown.
 
-**Import Annotations** follows one convention in both viewers: a column becomes a
-`meta:` property named after its header, spaces written `_` (menus show "Collection
+**Import Metadata** follows one convention in both viewers: a column becomes a
+`meta:` metadata field named after its header, spaces written `_` (menus show "Collection
 Date"); an `ns:name` header is kept as is; a column whose every filled cell is a number
 is stored as a number; the table's value replaces the tip's, an empty cell changes
 nothing. Tab-, comma- or semicolon-separated, fields may be double-quoted, `#` lines
@@ -444,13 +446,13 @@ text or label only; a field only on internal nodes can only go in the label.
 
 ### In the label
 
-Label properties are drawn as **values only**, joined by ` | ` — `EPI1731 | E3` — so a value
+Label metadata is drawn as **values only**, joined by ` | ` — `EPI1731 | E3` — so a value
 that contains a comma still reads as one field; the
 full list is one hover away in the [node card](#viewing-and-editing-node-data) and in
 **Display Node Data**. The **↑ / ↓** buttons set the order of the columns and of the
 label; a column can also be dragged by its header (a matrix can order itself — see
 [below](#a-heat-map-matrix-and-its-column-order)). Choosing a label field ticks
-**Properties** for you. By default every field not shown as a column is in the label;
+**Metadata** for you. By default every field not shown as a column is in the label;
 **Settings → Reset to Defaults** restores that.
 
 ### A heat-map matrix and its column order
@@ -505,7 +507,7 @@ Table** shows the groups as bands.
 
 **Drag a column's header** (in circular, its ring) to move it — a marker shows where it
 lands, and a plain click still shows its legend — or use **↑ / ↓** in **Tools →
-Annotation Fields…**. Moving a matrix column switches the tab to **Manual**; moving it
+Metadata Fields…**. Moving a matrix column switches the tab to **Manual**; moving it
 back, or moving only a colour strip, does not. A saved figure reopens with its columns
 as saved, in **Manual**. **Reset to Defaults** returns every tab to **Clustered**.
 
@@ -533,9 +535,9 @@ Save a tree as **phyloXML** and its figure is stored with it and restored on reo
 - the **layout** — rectangular (root left, top or bottom), circular or unrooted — and
   phylogram, aligned phylogram or cladogram
 - **which labels are drawn**: every Display-panel checkbox
-- the **annotation columns**, with their types and symbol shapes
+- the **metadata columns**, with their types and symbol shapes
 - the **clade marks**, with their ranks and label angles
-- **colour by**, **size by**, the **ancestral-state pie** trait, and the property fields
+- **colour by**, **size by**, the **ancestral-state pie** trait, and the metadata fields
   shown in the labels
 
 Each tab keeps its own figure. The **×** on a tab asks before discarding unsaved
@@ -551,17 +553,17 @@ changes, like **File → Close Tab**.
 
 ### Clearing every overlay at once
 
-**Tools → Clear All Overlays** switches off annotation columns, clade marks, colour by,
-size by, ancestral pies and the properties in the labels in one action, and nothing
+**Tools → Clear All Overlays** switches off metadata columns, clade marks, colour by,
+size by, ancestral pies and the metadata in the labels in one action, and nothing
 else: layout and labels stay.
 
 ## Viewing and editing node data
 
 Two **Click on Node to:** modes open a node's data — taxonomy, sequences, support, a
-date, a distribution, a reference, properties — in a window of its own: **Display Node
+date, a distribution, a reference, metadata — in a window of its own: **Display Node
 Data** (read-only) and **Edit Node Data**. The page is one scrolling list of foldable
 sections — **Basic**, **Taxonomy**, **Sequences**, **Events** (internal nodes),
-**Date**, **Distribution**, **Reference**, **Properties** — with data-bearing sections
+**Date**, **Distribution**, **Reference**, **Metadata** — with data-bearing sections
 open. The header says what the node is: external or internal, children and tips, depth,
 distance from the root.
 
@@ -575,10 +577,10 @@ distance from the root.
   the editor does not show (sequence annotations, lineages, polygons) survives.
 - **Several sequences per node** (a protein and its mRNA): one card each, **+ Add
   sequence** / **×**. The sequence box counts residues and cleans pasted text on write.
-- **Properties are a table** — reference, value, unit, datatype, applies-to — with
-  **+ / − property**. References and units need a namespace prefix (`data:depth`,
+- **Metadata is a table** — reference, value, unit, datatype, applies-to — with
+  **+ / − metadata field**. References and units need a namespace prefix (`data:depth`,
   `METRIC:m`); an `xsd:decimal` value must be a number. *Color by*, *Size by* and the
-  annotation columns see a new property at once.
+  metadata columns see a new metadata field at once.
 - **Emptying a section removes it.**
 - **One write is one undo step**, recorded in the tree's description.
 
@@ -602,7 +604,7 @@ Below, computed live:
 - **Support values** — per kind (bootstrap, posterior, …), with its own histogram.
 - **Annotation coverage** — how many tips carry taxonomy (and an identifier), distinct
   taxonomies, sequences, molecular sequences, domain architectures, dates,
-  distributions, references; named internal nodes; event totals; every property with
+  distributions, references; named internal nodes; event totals; every metadata field with
   its node count — a quick way to see which tools will work.
 - **Time axis** — for a dated tree: axis type, dated nodes, unit, root age or most
   recent date.
@@ -617,11 +619,11 @@ colour; a taxon *called* `End` stays plain. **Find** (⌘F) steps through hits w
 ⇧↩; **Wrap lines**, **Copy**, **Save As…**. It regenerates after the tree changes.
 
 **Hovering a node** shows a card — name, distance to parent, date, depth, support,
-taxonomy, each sequence's accession and symbol, events, properties, and for an internal
+taxonomy, each sequence's accession and symbol, events, metadata, and for an internal
 node its tip count — the same card, in the same order, as Archaeopteryx.js. It is drawn
 on the canvas, never a separate window, and follows the theme.
 
-**Hovering a cell** of an annotation column shows the tip, the field and its value, and
+**Hovering a cell** of a metadata column shows the tip, the field and its value, and
 for a heat map the scale the colour came from. A never-filled cell reads *not assessed*,
 not 0; a stacked-bar or pie cell lists every series. Rectangular layouts and the
 circular rings.
@@ -652,7 +654,7 @@ undoable and adds a sentence to the description.
   *tips* dated can be re-rooted — that is what a root-to-tip regression does.
 
 **A warning when internal nodes carry data.** A name, taxonomy, events, a date or
-properties on an internal node describe its clade, and re-rooting changes the clades
+metadata on an internal node describes its clade, and re-rooting changes the clades
 between the old and new root. Before such a re-root Archaeopteryx says how many —
 *"This tree has data on 12 internal nodes. Re-rooting changes the clade of 4 of them, so
 their data may no longer describe them."* — and you choose **Re-root** or **Cancel**.
@@ -677,7 +679,7 @@ tree before each change, so it covers everything alike: rerooting (midpoint and 
 too), ladderizing and ordering, swapping and deleting nodes or subtrees, cut and paste,
 node-data and tree-property edits, node styles and branch colours, collapsing, and every
 data tool that writes into the tree — fetch, infer ancestor taxonomies, extract dates
-from labels, import annotations, import GTDB taxonomy, load alignment, write clade taxa.
+from labels, import metadata, import GTDB taxonomy, load alignment, write clade taxa.
 Reconciliation opens its results in a **new tab** instead.
 
 - **Display settings are not edits** — checkboxes, layout, legend colours, shown fields.
@@ -699,11 +701,11 @@ export.
 Each box chooses a **Field** and a **Match**:
 
 - **Field** — only fields this tree has, named as in **Display Data**. **Any Text** (the
-  default) searches every text field and your properties; or pick **Node Name**, a
+  default) searches every text field and your metadata; or pick **Node Name**, a
   taxonomy field (**Scientific**, **Common**, **Code**, **Identifier**, **Synonym**,
   **Lineage**), a sequence field (**Seq Name**, **Gene Name**, **Gene Symbol**, **Seq
-  Accession**), **Annotation**, **Domain**, or a custom property (`data:host`). Numeric
-  fields — **Branch Length**, **Support / Confidence**, numeric properties — and
+  Accession**), **Annotation**, **Domain**, or a metadata field (`data:host`). Numeric
+  fields — **Branch Length**, **Support / Confidence**, numeric metadata fields — and
   **structure** fields (`Structure:` **Clade Size (tips)**, **Number of Children**,
   **Depth from Root (edges)**, **Distance from Root**, **Node Type**) find, say, every
   clade over 50 tips or every unresolved node.
@@ -798,7 +800,7 @@ reads a file exactly as the window does.
 | node age `height` / `height_median` / `height_mean` + `height_95%_HPD={lo,hi}` (or `height_range`) | Node age with a 95% HPD interval | **Node Age Bars (HPD)** — on by itself for a dated tree with intervals |
 | discrete / geographic traits (e.g. `location`) with posterior state sets | **Ancestral-state pie charts** | the **"Ancestral pie:"** dropdown (appears when the tree has such a trait) |
 | FigTree's `!color` — `#RRGGBB` or, as FigTree writes it, a signed integer (`!color=#-8381639`) | In the tree: the **branch color**. In a Nexus `taxlabels` block (`'NewYork_454'[&!color=#-8381639]`): the tip's **label color** | **Use Visual Styles** |
-| any other field (`rate`, `length_*`, custom traits, …) | A node property `beast:<key>` | **Color by**, **Size by**, **Annotation Fields** |
+| any other field (`rate`, `length_*`, custom traits, …) | A metadata field `beast:<key>` | **Color by**, **Size by**, **Metadata Fields** |
 
 Nothing is discarded; a malformed field is skipped rather than refusing the file. An
 annotation may start with anything (`!color` first still has its posterior, ages and
@@ -988,7 +990,7 @@ version). Open the `.json` with **File → Read Tree from File…**, or try **Fi
   layout (`num_date`, with the calendar axis) or the **divergence** layout (`div`, in
   substitutions/site).
 - each **discrete trait** — `country`, `region`, `clade_membership`, `host`, … — becomes a
-  **`nextstrain:<trait>`** property to color by, tabulate or search, and each trait's
+  **`nextstrain:<trait>`** metadata field to color by, tabulate or search, and each trait's
   per-node **confidence** drives the **Ancestral-State Pies**.
 
 The map, entropy and frequencies panels are not imported.
@@ -1051,7 +1053,7 @@ For bacterial and archaeal genomes, **File → Import GTDB Taxonomy…** reads a
 `d__Bacteria;p__Pseudomonadota;…;g__Escherichia;s__Escherichia coli`, as `classify`
 writes it — onto a tree whose tips are genome accessions (demo: **GTDB Taxonomy
 (Genome-based)**). Each of the seven ranks becomes a categorical **`gtdb:<rank>`**
-property, plus a `<taxonomy>` at the most specific rank: **Color by** `gtdb:phylum`, add a
+metadata field, plus a `<taxonomy>` at the most specific rank: **Color by** `gtdb:phylum`, add a
 column for `gtdb:family`, search `gtdb:genus`. Entirely offline — reproducible, pinned to
 the GTDB release that made your table. Undoable.
 
@@ -1070,10 +1072,10 @@ silhouette, a specimen — at the height set by the slider beside it (aspect kep
 image comes from a **local file** (relative to the tree's folder, or absolute) or an
 **http(s) URL** (fetched once, in the background, and cached in
 `~/.archaeopteryx/image-cache`, so it works offline afterwards). The reference is read
-from a node property (`image`, `img`, `photo`, `silhouette`, `picture`, `thumbnail`,
-`tip_image`, `image_url`), a taxonomy `<uri>` of type `image_url`, or any property ending
+from a metadata field (`image`, `img`, `photo`, `silhouette`, `picture`, `thumbnail`,
+`tip_image`, `image_url`), a taxonomy `<uri>` of type `image_url`, or any metadata field ending
 in `.png`, `.jpg`, `.jpeg`, `.gif` or `.bmp` (not SVG yet). The easy way: an image column in
-a table loaded with **File → Import Annotations**. A tree with image references turns Tip
+a table loaded with **File → Import Metadata**. A tree with image references turns Tip
 Images on by itself.
 
 Tip images render in **all five layouts** (upright on the spoke in the radial ones) and
@@ -1252,11 +1254,11 @@ is refused.
 | `-cladogram` | ignore branch lengths |
 | `-support` | show confidence / support values |
 | `-bl` | show branch-length values |
-| `-color=<ref>` | colour tips by a property, e.g. `data:host` |
+| `-color=<ref>` | colour tips by a metadata field, e.g. `data:host` |
 | `-help` | the option list |
 
 Without `-phylogram` or `-cladogram`, a tree with branch lengths is drawn as a phylogram.
-`-color` takes a property reference (`data:host`, `beast:rate`, `beast:region`, …); one the
+`-color` takes a metadata field's reference (`data:host`, `beast:rate`, `beast:region`, …); one the
 tree lacks stops the render with the list of those it has. In a rectangular figure the
 legend always gets its own column at the right.
 
@@ -1287,7 +1289,7 @@ A larger `-size` is the fix.
 # a double-column PDF with support values
 aptx_render -size=170x120mm -support  tree.xml  figure.pdf
 
-# a circular figure, coloured by a metadata property, as editable SVG
+# a circular figure, coloured by a metadata field, as editable SVG
 aptx_render -style=circular -size=250x250mm -color=data:host  tree.xml  figure.svg
 
 # a single-column PNG at 600 dpi
