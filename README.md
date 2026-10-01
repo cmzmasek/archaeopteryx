@@ -434,6 +434,9 @@ a figure.
 | **Text** | the raw value as a column of text |
 | **In tip label** | the value appended to the label |
 
+Heat-map cells at least 5 pixels on their shorter side, on a heat map of at most 60,000 cells, get a thin
+border in a darker shade of their own colour, so neighbouring cells with the same value stay countable.
+
 The roles follow the data: numeric fields get heat map / bar / stacked bar / pie,
 categories get strips and symbols. A field that cannot usefully be *coloured* (one
 value everywhere, or a different one on every tip, like an accession) is offered as
@@ -441,7 +444,8 @@ text or label only; a field only on internal nodes can only go in the label.
 
 ### In the label
 
-Label properties are drawn as **values only**, comma-joined — `EPI1731, E3` — and the
+Label properties are drawn as **values only**, joined by ` | ` — `EPI1731 | E3` — so a value
+that contains a comma still reads as one field; the
 full list is one hover away in the [node card](#viewing-and-editing-node-data) and in
 **Display Node Data**. The **↑ / ↓** buttons set the order of the columns and of the
 label; a column can also be dragged by its header (a matrix can order itself — see
