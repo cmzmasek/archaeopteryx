@@ -784,6 +784,43 @@ switching back is exact.
   time from its dates. Saved as Newick or Nexus from **Div**, it keeps neither dates
   nor rates and opens as a plain tree in divergence lengths.
 
+### Clock plot
+
+Under **Time | Div**, the **Clock plot** button opens a window that plots each tip's
+**date** against its **divergence** from the root, with a straight line through the
+tips (a root-to-tip regression). Under the plot:
+
+- **Rate**: the slope, in substitutions per site per year (per unit of the tree's dates
+  where they are not calendar years). Negative where divergence falls with time.
+- **Root date, by the line** (where the line comes down to the root's divergence) over
+  **Root date, in the tree**.
+- **R²** and the number of **Tips** in the fit.
+
+The line is ordinary least squares over the **tips only**: an ancestor's date was
+inferred, usually with a clock, and counting it would have the estimate confirm itself.
+It is not forced through the root. Tips share ancestry, so R² describes the fit and is
+no significance test. On a BEAST clock-model tree the divergence *is* time × rate, so
+the plot shows the model's rates rather than a measurement of its own, and the window
+says so.
+
+The window stays open while you work in the tree, and the two are linked:
+
+- a point wears its node's colour in the tree (selection, search hits, **Color by**);
+- pointing at a point lights its node in the tree (or the collapsed clade holding it);
+  pointing at a tip in the tree rings its point;
+- **clicking** a point selects or deselects its node and **dragging** a box selects the
+  tips in it: the tree's own selection, whatever **Click to** is set to. **Deselect all**
+  clears it;
+- tips with one date and one divergence (identical samples from one day) are **one dot**
+  that names, lights and selects all of them;
+- in a subtree view the plot and the line are the clade's.
+
+**Regression line** shows or hides the line; **Internal nodes** adds the ancestors'
+points (off at first: a deep root crowds the tips into a corner). The button is offered
+on a tree with **Time | Div** that has three tips or more, not all sampled on one date.
+Demos: `clock-plot.nex` (an outlier and four identical samples) and its twin
+`clock-plot-one-date.nex` (Time | Div, no clock plot).
+
 
 ## BEAST and BEAST X output
 
@@ -988,7 +1025,8 @@ version). Open the `.json` with **File → Read Tree from File…**, or try **Fi
 - **`div`** (cumulative divergence) drives the
   [**Time | Div**](#time--div-the-time-or-the-divergence-layout) toggle: the **time**
   layout (`num_date`, with the calendar axis) or the **divergence** layout (`div`, in
-  substitutions/site).
+  substitutions/site) — and with it the [**Clock plot**](#clock-plot) of date against
+  divergence.
 - each **discrete trait** — `country`, `region`, `clade_membership`, `host`, … — becomes a
   **`nextstrain:<trait>`** metadata field to color by, tabulate or search, and each trait's
   per-node **confidence** drives the **Ancestral-State Pies**.
