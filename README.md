@@ -1078,11 +1078,75 @@ The legend has a titled block per rank; clicking a row recolours that taxon at i
 In the three **rectangular** orientations and in **circular** (as rings); **not in
 unrooted**, whose tips sit at different radii and a clade need not occupy one sector.
 Boxes stay **single-level**: nested translucent washes would multiply into a colour no
-legend row claims. It works **offline** when the tree carries the ranks (as the demos do);
-otherwise it offers to resolve tips online through NCBI and UniProt. *Also write the
-clade taxa into the tree* makes the annotation real, saveable internal-node taxonomies
-(undoable). Demos: **Animal Tree of Life (Nested Clade Levels)** and **Bat Phylogeny
-(Taxonomy by Rank)**.
+legend row claims. *Also write the clade taxa into the tree* makes the annotation real,
+saveable internal-node taxonomies (undoable). Demos: **Animal Tree of Life (Nested Clade
+Levels)** and **Bat Phylogeny (Taxonomy by Rank)**.
+
+### Where the taxa come from
+
+The dialog asks **Taxa from:** before anything is drawn, and so does **Tools → Colorize
+Subtrees via Taxonomic Rank**:
+
+| Source | What places a tip |
+| --- | --- |
+| **The tree's own annotations** (offline) | its `<taxonomy>` at the rank, else a per-rank metadata field (`ncbi:family`, `gtdb:family`), else the nearest ancestor annotated at the rank; nothing is looked up |
+| **NCBI and UniProt for every tip** (online) | its own annotation or field first; else its NCBI id, its name, or its label looked up; a tip's own identity overrides an ancestor's annotation, which only fills what the databases cannot |
+| **The tree first, the databases for its gaps** (online) | the tree's annotations; only the tips they leave unplaced are looked up |
+
+The rank chooser states, per rank, how many nodes are annotated at it, what share of the
+tips the **chosen** source places right now and, for an online source, how many names it
+would still look up; switching the source rebuilds the list. A tree that carries its ranks
+opens on its own annotations; a bare tree opens on the databases. The source is kept per
+tab, so an edit, an undo or a navigation redraws the same figure.
+
+A name is **never guessed**: a lookup sends the quoted name as a scientific name, then as
+any name, then unrestricted, and the first stage with a hit decides — one hit places the
+tip, several (*Bacillus* the bacterium or the stick insect, *Proteus*, *Drosophila*) leave
+it unplaced and named in the result, with the candidates and how to settle it (give the
+tip its NCBI id). A tip with an NCBI id is looked up by that id; a UniProt FASTA header's
+`OX=` id is used as is.
+
+### The report
+
+**Report only** in the dialog, or **Show Report…** on the result dialog, opens a table with
+one row per tip: its taxon at the rank, the **source** that placed it (own annotation, own
+field, ancestor's annotation, database by id / name / label) or why it stayed unplaced
+(nothing in the tree, not looked up yet, unknown, ambiguous, no such rank in its lineage),
+and a note — the ancestor consulted, the query sent, the tree annotation the database
+**overrode**. Internal annotations the grouping had to **ignore** because tips under them
+are placed elsewhere get a row of their own, and each rank a summary line. **Export TSV…**
+saves the table. Demo: **Colorize by Rank** (its deliberate `Rodentia` mis-annotation shows
+up as ignored).
+
+### Keeping what was looked up
+
+**Also write each looked-up lineage into the tree as metadata fields** (on by default for
+an online source; undoable, with a provenance sentence) stores what the databases said as
+`ncbi:phylum` … `ncbi:species` on each tip — the same shape the [GTDB
+import](#gtdb-taxonomy) writes. From then on the fields are the tip's own identity: the
+next annotation, **Color by**, search and the metadata table work offline and survive a
+save. Demo: **Lineage as Metadata Fields**.
+
+## Checking internal taxa
+
+**Analysis → Check Internal Taxa against Tips & NCBI…** audits every internal node's
+`<taxonomy>` against two references and proposes a correction for each finding:
+
+- **the lineages of the tips below it** (from the cache, else from the tips' `ncbi:` /
+  `gtdb:` fields, else their own taxonomies): a taxon **no** tip below belongs to is a
+  *wrong taxon* (a "Bacteria" node an old lookup had resolved to the stick-insect genus
+  *Bacteria* Latreille is exactly that) and the deepest taxon all those tips share is
+  proposed; a taxon only **some** belong to *sits too deep*, with the same proposal; and
+  the tips also tell the taxon's **rank** (`genus Felidae` over two cats → *family*);
+- **NCBI Taxonomy by the node's id**, when cached or looked up: its name and rank.
+
+The dialog offers to look up online what neither the tree nor the cache holds. The findings
+open as a report (consistent, wrong taxon, not shared by all tips, wrong rank, name differs
+from NCBI's, unknown to the database, not checked); **Apply corrections** writes the
+proposals — a wrong rank or name is corrected in place, a wrong or too-deep taxon replaced
+(name + rank + NCBI id) — undoably, with a provenance sentence. Demo: **Check Internal Taxa**
+(three annotations wrong in three different ways, found offline).
+
 
 ## GTDB taxonomy
 
