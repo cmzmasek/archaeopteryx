@@ -1439,7 +1439,10 @@ bar (click to open the log, or dismiss it); there is no pop-up, since a failure 
 drawing repeats on every redraw. **If you hit a bug, attach that file to your report** —
 its stack trace is what makes the problem findable. A repeating failure is written once
 and counted ("… the same failure repeated 412 more times"), and the file restarts past a
-couple of megabytes.
+couple of megabytes. An out-of-memory entry also records how full the heap was and what
+every open tab held at that moment (its tree, its undo history, the drawing's own tables),
+because the trace of an `OutOfMemoryError` names whatever allocated last, which is rarely
+what filled the memory.
 
 ## This repository
 
