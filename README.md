@@ -263,8 +263,9 @@ already drawn is really in its way: a tip or clade label over another label (tip
 first, then clade names, larger clades first; a search hit's label always drawn); a
 **support or branch-length number** over another number, a label, or — in circular and
 unrooted — another branch; **support symbols** once rows are closer than the symbols.
-So nothing is dropped that could have been read, and a lone zero-length branch keeps
-its support value. Zoom in and marks come back; untick it to draw everything. **Expand**
+A **Color by** / **Size by** tip dot is never hidden, in any layout. So nothing is
+dropped that could have been read, and a lone zero-length branch keeps its support
+value. Zoom in and marks come back; untick it to draw everything. **Expand**
 is the alternative — worth doing before an export, since a figure exported while marks
 are hidden lacks them (the export report says so).
 
