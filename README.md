@@ -193,7 +193,9 @@ the alignment, metadata columns and the legend column all compete for the width.
 The tree takes its share **first** and the tracks divide the rest, so a heavily
 annotated tree stays a tree. The **Tree share** slider (under *Node size*) sets it from
 25% to 80% (40% by default, remembered). In rectangular layouts it divides the depth
-**width**, in circular the tip-ring **radius**, in unrooted the **fan spread**.
+**width**, in circular the tip-ring **radius**, in unrooted the **fan spread** — and in
+those two it is also where a tip label too long for its share is cut with an ellipsis:
+lower the share, zoom in or widen the window and the label comes back whole.
 
 - The alignment gives way first — it scrolls, so a narrower window shows fewer columns.
   The domain zoom (**d-** / **d+**) trades against it. Clade bands and the legend column
@@ -297,7 +299,10 @@ Influenza A virus (A/mallard/Sweden/1/2010)   ->   mallard/../1/2010)
 
 Both ends stay because neighbouring strains usually differ at both. It is display
 only: search, export and accession parsing see the full name. Archaeopteryx.js shortens
-the same way.
+the same way. It acts on **node names only**: a long scientific name is shortened by
+**Abbreviate Scientific Taxonomic Names** (the genus to its initial), and a label the
+circular or unrooted layout cuts with an ellipsis is a matter of **Tree share**, zoom or
+window size, not of this checkbox.
 
 ---
 
