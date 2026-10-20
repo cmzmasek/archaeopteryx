@@ -1095,15 +1095,44 @@ Subtrees via Taxonomic Rank**:
 
 | Source | What places a tip |
 | --- | --- |
-| **The tree's own annotations** (offline) | its `<taxonomy>` at the rank, else a per-rank metadata field (`ncbi:family`, `gtdb:family`), else the nearest ancestor annotated at the rank; nothing is looked up |
+| **The tree's own annotations** (offline) | its `<taxonomy>` at the rank, else a field named for the rank **in any namespace** (`vipr:Genus`, `BVBRC:species`, `repseq:family`, `ncbi:family`, `gtdb:family` — the name after the colon decides), else the nearest ancestor naming one by its taxonomy or its field; nothing is looked up |
 | **NCBI and UniProt for every tip** (online) | its own annotation or field first; else its NCBI id, its name, or its label looked up; a tip's own identity overrides an ancestor's annotation, which only fills what the databases cannot |
 | **The tree first, the databases for its gaps** (online) | the tree's annotations; only the tips they leave unplaced are looked up |
 
-The rank chooser states, per rank, how many nodes are annotated at it, what share of the
-tips the **chosen** source places right now and, for an online source, how many names it
-would still look up; switching the source rebuilds the list. A tree that carries its ranks
-opens on its own annotations; a bare tree opens on the databases. The source is kept per
-tab, so an edit, an undo or a navigation redraws the same figure.
+The rank chooser lists the ranks the tree names anywhere — in a `<taxonomy>` or as a
+field's name — whose taxa **repeat** (at most three taxa per five placed tips; a strain
+field, or the species of a tree sampled once per species, would give one-tip clades and is
+left out) and, for an online source, the major ranks it could still look up. Each entry
+states how many nodes are annotated at the rank, what share of the tips the **chosen**
+source places right now and, online, how many names it would still look up; switching the
+source rebuilds the list. The chooser opens on the finest rank naming two to twenty taxa.
+A tree that carries its ranks opens on its own annotations; a bare tree opens on the
+databases. The source is kept per tab, so an edit, an undo or a navigation redraws the
+same figure.
+
+### Which tips vote
+
+A clade is a **maximal subtree whose placed tips all name one taxon**; a taxon scattered
+over the tree is several clades, each marked and coloured alike. A tip the tree places at
+no taxon **does not vote**: it is swept into the clade around it, its own branch stays grey
+under *Colorize* and the legend counts it as **no value**. One placed tip is enough to make
+a subtree pure, so a sparsely annotated tree can be one clade. An internal node's own
+annotation reaches only the tips below it that name nothing themselves; a tip that names
+another taxon keeps it, and the node is **reported** (see the report), never corrected.
+Archaeopteryx.js places the same. Demo: **Clades by Rank, the Joint Rules**.
+
+### The ranks
+
+The Linnaean ranks down to species, then the terms viruses and microbes are grouped by:
+subspecies, variety, subvariety, form, subform, forma specialis, cultivar, biovar, serovar,
+pathovar, morphovar, serogroup, serotype, genogroup, genotype, subgenotype, type, subtype,
+clade, subclade, lineage, sublineage, variant — and any **clade or lineage scheme of the
+file's own**, a field whose name ends in *clade* or *lineage* (`ird:H5Clade`,
+`vipr:PANGO_Lineage_L1`, `clade_membership`), offered under the file's spelling when a tip
+carries it. Spellings fold: case, spaces, hyphens, underscores and dots are ignored, so
+`Sub-Species`, `sub_species` and `ssp.` are one rank. **Strain, substrain and isolate are
+not ranks** (a strain is one tip), nor are phyloXML's `other` and `unknown`; a field named
+anything else (host, country, genome type) is for **Color by**, not a rank.
 
 A name is **never guessed**: a lookup sends the quoted name as a scientific name, then as
 any name, then unrestricted, and the first stage with a hit decides — one hit places the
@@ -1119,8 +1148,8 @@ one row per tip: its taxon at the rank, the **source** that placed it (own annot
 field, ancestor's annotation, database by id / name / label) or why it stayed unplaced
 (nothing in the tree, not looked up yet, unknown, ambiguous, no such rank in its lineage),
 and a note — the ancestor consulted, the query sent, the tree annotation the database
-**overrode**. Internal annotations the grouping had to **ignore** because tips under them
-are placed elsewhere get a row of their own, and each rank a summary line. **Export TSV…**
+**overrode**. Internal nodes whose own annotation or field is **contradicted** by tips under
+them placed elsewhere get a row of their own, and each rank a summary line. **Export TSV…**
 saves the table. Demo: **Colorize by Rank** (its deliberate `Rodentia` mis-annotation shows
 up as ignored).
 
@@ -1139,7 +1168,8 @@ save. Demo: **Lineage as Metadata Fields**.
 `<taxonomy>` against two references and proposes a correction for each finding:
 
 - **the lineages of the tips below it** (from the cache, else from the tips' `ncbi:` /
-  `gtdb:` fields, else their own taxonomies): a taxon **no** tip below belongs to is a
+  `gtdb:` fields, else their rank fields in any other namespace, else their own
+  taxonomies): a taxon **no** tip below belongs to is a
   *wrong taxon* (a "Bacteria" node an old lookup had resolved to the stick-insect genus
   *Bacteria* Latreille is exactly that) and the deepest taxon all those tips share is
   proposed; a taxon only **some** belong to *sits too deep*, with the same proposal; and
