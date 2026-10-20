@@ -362,7 +362,10 @@ group, wider and more even coverage first. **Never offered:** a single-valued fi
 text field with a different value on every tip (an identifier); a field some tip
 carries twice; and fields about the *record* rather than the organism — ids,
 accessions, taxon ids, authors, sets, data-use terms, embargo (*restricted until*)
-dates.
+dates. A **date as text** is never offered: a field whose name has the word *date*
+(Collection Date, Date Added, Nextstrain's `date`) is offered only when every value is a
+number — a year, or Nextstrain's `num_date` decimal year — and then as a numeric field.
+It stays a label field and a search field.
 
 **A tree opens already colored** by the first offered field that is not a very wide
 category. A figure saved with the tree keeps its coloring, and a field you chose is
