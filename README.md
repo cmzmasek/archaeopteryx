@@ -1105,7 +1105,9 @@ field, or the species of a tree sampled once per species, would give one-tip cla
 left out) and, for an online source, the major ranks it could still look up. Each entry
 states how many nodes are annotated at the rank, what share of the tips the **chosen**
 source places right now and, online, how many names it would still look up; switching the
-source rebuilds the list. The chooser opens on the finest rank naming two to twenty taxa.
+source rebuilds the list. The chooser opens on the rank naming the **most taxa within two
+to twenty** — the finest cut that still fits a legend — a tie going to a listed rank over a
+scheme of the file's own, and to the finer of two listed ranks.
 A tree that carries its ranks opens on its own annotations; a bare tree opens on the
 databases. The source is kept per tab, so an edit, an undo or a navigation redraws the
 same figure.
