@@ -746,10 +746,14 @@ However the dates arrive — **BEAST / BEAST X** output, an **Auspice / Nextstra
 **extracted from the tip labels**, or a phyloXML `<date>` — they land in one date model
 that every time-tree feature reads, so the toolkit works the same on any dated tree:
 
-- A dated tree is **auto-detected**, marked with a **"Time tree"** badge, and given the
-  **right axis per tree from its own dates' unit**: **Geologic (ICS)** for millions of
-  years, **Calendar-year** for a tip-dated epidemiology tree. A dinosaur tree and a
-  SARS-CoV-2 tree in two tabs each show their own axis; there is no global switch.
+- A **time tree** — most internal nodes dated — is **auto-detected**, marked with a
+  **"Time tree"** badge, and given the **right axis per tree from its own dates' unit**:
+  **Geologic (ICS)** for millions of years, **Calendar-year** for an epidemiology tree. A
+  dinosaur tree and a SARS-CoV-2 tree in two tabs each show their own axis; there is no
+  global switch. Tip dates alone do neither: a divergence tree whose tips carry their
+  sampling dates opens on its distance scale and without the badge, because nothing says
+  its branch lengths are years — **Settings → Overlays → Time Axis → Calendar** is yours
+  to choose when they are.
 - **Node-age (HPD) bars / spindles** draw divergence-time uncertainty, **fossil-range
   (FAD/LAD) bars** a fossil tip's stratigraphic duration, and **Color by → date** shades
   tips by sampling date — each turning on by itself when the data is there.
@@ -922,8 +926,10 @@ BEAST heights count, a height of 0 included); **Tools → Extract Dates from Lab
 it any time. It reads ISO (`2021-03-15`), numeric (`15/03/2021`), month-name
 (`01-Dec-2015`), decimal-year (`2021.37`) and bare-year (`…/2012`) dates, shows a
 **preview** of every tip before writing, and on Apply sets each tip's `<date>` and a
-numeric `data:date`: the tree moves onto the **Calendar axis** and gains a **Color by →
-data:date** gradient. An incomplete date maps to the middle of its interval (`2021` →
+numeric `data:date`, and the tree gains a **Color by → data:date** gradient. It gets no
+time axis from this — tip dates alone do not say the branch lengths are years (the
+[Newick time trees](#newick-time-trees-no-dates-in-the-file) below are dated on every
+node as they open, and those do). An incomplete date maps to the middle of its interval (`2021` →
 mid-2021); an ambiguous one (`05/03`) is read **day-first** by default, switchable in the
 preview. Undoable.
 
@@ -1012,7 +1018,8 @@ never do.
 
 ## Calendar (absolute-date) axis
 
-For a **tip-dated** tree (e.g. a SARS-CoV-2 phylodynamic tree), **Settings → Overlays →
+For a tree dated in calendar years (e.g. a SARS-CoV-2 phylodynamic tree; automatic on a
+time tree, a choice on one whose tips alone are dated), **Settings → Overlays →
 Time Axis → Calendar (dates)** draws a labelled year / decade ruler: along the bottom
 (root left), down the side (root top / bottom), or as labelled **year rings** in
 circular. It is anchored at the **most recent tip** — the largest tip `<date>`, or **"Set
