@@ -271,19 +271,27 @@ value. Zoom in and marks come back; untick it to draw everything. **Expand**
 is the alternative — worth doing before an export, since a figure exported while marks
 are hidden lacks them (the export report says so).
 
-**Which node am I on?** Pointing at a node gives it a soft **glow** — in every **Click
-on Node to:** mode, collapsed wedges included — and pausing brings up the
-[node card](#viewing-and-editing-node-data). The glow's colour says what a click will do:
+**The node menu.** A click on a node — left, right or ctrl-click alike — opens a menu
+for that node, titled with its name: show or edit its data and style; switch to its
+subtree; collapse, swap or ladderize; colorize; re-root; select; open its sequence or
+taxonomy entry; cut, copy, paste, add, delete. Each entry acts once; nothing is
+remembered. An entry that does not apply here is greyed, never hidden — **Root/Reroot**
+with the reason as its tooltip. A **shift-click** on a node, a branch or a collapsed
+wedge selects or deselects it instead (a branch or a wedge: the tips of its clade).
+
+**Which node am I on?** Pointing at a node gives it a soft **glow** — collapsed wedges
+included — and pausing brings up the [node card](#viewing-and-editing-node-data). The
+glow's colour says what a click will do:
 
 | glow | meaning |
 | --- | --- |
-| the node's own colour, else a neutral accent | you are on this node (any non-selection mode) |
-| the found colour | in **Select Node(s)**, a click will **add** this node |
-| muted grey | in **Select Node(s)**, a click will **remove** it |
+| the node's own colour, else a neutral accent | you are on this node; a click opens its menu |
+| the found colour | with **Shift** held, a shift-click will **add** this node |
+| muted grey | with **Shift** held, a shift-click will **remove** it |
 
 "The node's own colour" is whatever it is drawn in — Color by, a node style, an event
-colour, a colorized clade. In Select Node(s), pointing at a *branch* glows its clade
-root and marks the tips a click would take; over a collapsed wedge the glow stands for
+colour, a colorized clade. With Shift held, pointing at a *branch* glows its clade root
+and marks the tips a shift-click would take; over a collapsed wedge the glow stands for
 the whole clade. The glow never appears in an exported figure.
 
 ### Long tip labels ("Shorten Labels")
@@ -568,10 +576,10 @@ else: layout and labels stay.
 
 ## Viewing and editing node data
 
-Two **Click on Node to:** modes open a node's data — taxonomy, sequences, support, a
-date, a distribution, a reference, metadata — in a window of its own: **Display Node
-Data** (read-only) and **Edit Node Data**. The page is one scrolling list of foldable
-sections — **Basic**, **Taxonomy**, **Sequences**, **Events** (internal nodes),
+Two entries of the node menu (click the node) open its data — taxonomy, sequences,
+support, a date, a distribution, a reference, metadata — in a window of its own:
+**Display Node Data** (read-only) and **Edit Node Data**. The page is one scrolling list of
+foldable sections — **Basic**, **Taxonomy**, **Sequences**, **Events** (internal nodes),
 **Date**, **Distribution**, **Reference**, **Metadata** — with data-bearing sections
 open. The header says what the node is: external or internal, children and tips, depth,
 distance from the root.
@@ -651,7 +659,7 @@ clicking answer nothing rather than answering about the page.
 
 ## Re-rooting
 
-Re-root by clicking a node with **Click on Node to: Root/Reroot**, or with **Tools →
+Re-root with **Root/Reroot** in a node's menu (click the node), or with **Tools →
 Midpoint-Root** or **Tools → MAD-Root** (**Analysis → GSDIR** chooses a root too). Each is
 undoable and adds a sentence to the description.
 
@@ -822,7 +830,7 @@ The window stays open while you work in the tree, and the two are linked:
 - pointing at a point lights its node in the tree (or the collapsed clade holding it);
   pointing at a tip in the tree rings its point;
 - **clicking** a point selects or deselects its node and **dragging** a box selects the
-  tips in it: the tree's own selection, whatever **Click to** is set to. **Deselect all**
+  tips in it: the tree's own selection, the one a **shift-click** makes. **Deselect all**
   clears it;
 - tips with one date and one divergence (identical samples from one day) are **one dot**
   that names, lights and selects all of them;
