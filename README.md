@@ -272,10 +272,10 @@ is the alternative — worth doing before an export, since a figure exported whi
 are hidden lacks them (the export report says so).
 
 **The node menu.** A click on a node — left, right or ctrl-click alike — opens a menu
-for that node, titled with its name: show or edit its data and style; switch to its
-subtree; collapse, swap or ladderize; colorize; re-root; select; open its sequence or
-taxonomy entry; cut, copy, paste, add, delete. Each entry acts once; nothing is
-remembered. An entry that does not apply here is greyed, never hidden — **Root/Reroot**
+for that node, titled with its name: show its data; switch to its subtree; collapse,
+swap or ladderize; colorize; re-root; select; open its sequence or taxonomy entry; and,
+below a separator, everything that changes the tree: edit its data or style; cut, copy,
+paste, add; delete. Each entry acts once; nothing is remembered. An entry that does not apply here is greyed, never hidden — **Root/Reroot**
 with the reason as its tooltip. A **shift-click** on a node, a branch or a collapsed
 wedge selects or deselects it instead (a branch or a wedge: the tips of its clade).
 
