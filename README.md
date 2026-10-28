@@ -363,10 +363,19 @@ name, common name), sequence (name, symbol, gene name), or any metadata field (`
 or a gradient. [Archaeopteryx.js](https://github.com/cmzmasek/archaeopteryx-js) uses the
 same rules, ids and labels, so a tree colors identically in both.
 
-**Which fields are offered**, best first: clean categories; numeric fields; very wide
-categories (more than 20 values); *In-Group* / *Out-Group* fields; sparse fields (on
-fewer than two thirds of the tips); categories whose values barely repeat. Within each
-group, wider and more even coverage first. **Never offered:** a single-valued field; a
+**A taxonomic rank comes first.** A field named for a rank above species — genus,
+subgenus, subfamily, family, order, … in any namespace (`vipr:Genus`, `BVBRC:family`,
+`ncbi:order`) — is offered ahead of every other field, provided its values are names
+(a column of taxon ids is a number field), it covers at least two thirds of the tips
+and its values repeat; a sparse or near-unique rank field takes its usual place below.
+Species and everything below it, clade and lineage schemes, and the taxonomy slots
+(scientific name, code, common name) are ordinary fields; so are the botanical
+*division* and *section* ranks, because a Nextstrain `division` is a state or province.
+
+**Within each of the two groups**, best first: clean categories; numeric fields; very
+wide categories (more than 20 values); *In-Group* / *Out-Group* fields; sparse fields
+(on fewer than two thirds of the tips); categories whose values barely repeat. Within
+each tier, wider and more even coverage first. **Never offered:** a single-valued field; a
 text field with a different value on every tip (an identifier); a field some tip
 carries twice; and fields about the *record* rather than the organism — ids,
 accessions, taxon ids, authors, sets, data-use terms, embargo (*restricted until*)
@@ -376,8 +385,9 @@ when every value is a number — a year, a month 1–12, or Nextstrain's `num_da
 year — and then as a numeric field. It stays a label field and a search field.
 
 **A tree opens already colored** by the first offered field that is not a very wide
-category. A figure saved with the tree keeps its coloring, and a field you chose is
-never overridden. **Settings → Labels & Colors → Auto-color a newly opened tree** turns
+category — so by its genus or family when a field names one and covers the tips; a rank
+field with more than 20 values leads the list but does not open the tree. A figure
+saved with the tree keeps its coloring, and a field you chose is never overridden. **Settings → Labels & Colors → Auto-color a newly opened tree** turns
 this off.
 
 **The legend** is a draggable card (double-click sends it home). Each row shows a color
