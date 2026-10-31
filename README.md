@@ -604,6 +604,17 @@ distance from the root.
   the editor does not show (sequence annotations, lineages, polygons) survives.
 - **Several sequences per node** (a protein and its mRNA): one card each, **+ Add
   sequence** / **×**. The sequence box counts residues and cleans pasted text on write.
+- **Links in Display Node Data.** A value that names a database record opens it in
+  your browser: a taxonomy identifier in the database its provider names (NCBI Taxonomy
+  for `ncbi`, UniProt Taxonomy for `uniprot`), the scientific name the same page (NCBI by
+  name when there is no id), the taxonomy code UniProt's mnemonic search; an accession
+  and each cross-reference the database its source names (UniProt; NCBI Protein or
+  Nucleotide, chosen by the accession's format; NCBI Gene; InterPro; Pfam; Ensembl; ENA;
+  Pathoplexus); a domain its Pfam entry (without one, an InterPro search for its name); a
+  DOI doi.org; a URI or metadata value that is a web address, itself. A common name, or a
+  source or provider Archaeopteryx does not know, stays plain text. The node menu opens
+  the same pages: **Open Taxonomy DB** the identifier's (else the scientific name's, else
+  the code's), **Open Sequence DB** the accession's.
 - **Metadata is a table** — reference, value, unit, datatype, applies-to — with
   **+ / − metadata field**. References and units need a namespace prefix (`data:depth`,
   `METRIC:m`); an `xsd:decimal` value must be a number. *Color by*, *Size by* and the
@@ -655,7 +666,7 @@ for a heat map the scale the colour came from. A never-filled cell reads *not as
 not 0; a stacked-bar or pie cell lists every series. Rectangular layouts and the
 circular rings.
 
-**Hovering a protein domain** names it, with its E-value, the residues it covers
+**Hovering a protein domain** names it, with its E-value if it has one, the residues it covers
 (`185–445 (261 aa)`), the protein length, the tip and the accession if present. A
 **left click** opens it at InterPro — the **Pfam entry** when it has a Pfam accession
 (`PF00069`), else a **search for its name**, labelled as such. It is only a link; nothing
