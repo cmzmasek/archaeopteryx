@@ -275,12 +275,15 @@ are hidden lacks them (the export report says so).
 for that node, titled with its name: show its data; switch to its subtree; collapse,
 swap or ladderize; colorize; re-root; select; open its sequence or taxonomy entry; and,
 below a separator, everything that changes the tree: edit its data or style; cut, copy,
-paste, add; delete. Each entry acts once; nothing is remembered. An entry that does not apply here is greyed, never hidden — **Root/Reroot**
-with the reason as its tooltip. A **shift-click** on a node, a branch or a collapsed
+paste, add; delete. Each entry acts once; nothing is remembered. An entry that does not apply here is greyed,
+never hidden, with the reason as its tooltip where there is one (**Root/Reroot**, **Open Taxonomy DB**, the entries
+the unrooted layout cannot offer). A **shift-click** on a node, a branch or a collapsed
 wedge selects or deselects it instead (a branch or a wedge: the tips of its clade).
 
 **Which node am I on?** Pointing at a node gives it a soft **glow** — collapsed wedges
-included — and pausing brings up the [node card](#viewing-and-editing-node-data). The
+included — and pausing brings up the [node card](#viewing-and-editing-node-data). A node
+answers within its mark plus 2 px, and never within less than a 9 × 9 px square (also at
+node size 0); where two nodes' squares overlap, the pointer belongs to the nearer node. The
 glow's colour says what a click will do:
 
 | glow | meaning |
@@ -306,8 +309,9 @@ Influenza A virus (A/mallard/Sweden/1/2010)   ->   mallard/../1/2010)
 ```
 
 Both ends stay because neighbouring strains usually differ at both. It is display
-only: search, export and accession parsing see the full name. Archaeopteryx.js shortens
-the same way. It acts on **node names only**: a long scientific name is shortened by
+only: search, export and accession parsing see the full name. It acts in **every layout**,
+circular and unrooted included, and Archaeopteryx.js shortens the same way. It acts on
+**node names only**: a long scientific name is shortened by
 **Abbreviate Scientific Taxonomic Names** (the genus to its initial), and a label the
 circular or unrooted layout cuts with an ellipsis is a matter of **Tree share**, zoom or
 window size, not of this checkbox.
@@ -387,7 +391,7 @@ year — and then as a numeric field. It stays a label field and a search field.
 **A tree opens already colored** by the first offered field that is not a very wide
 category — so by its genus or family when a field names one and covers the tips; a rank
 field with more than 20 values leads the list but does not open the tree. A figure
-saved with the tree keeps its coloring, and a field you chose is never overridden. **Settings → Labels & Colors → Auto-color a newly opened tree** turns
+saved with the tree keeps its coloring, or its lack of one, and a field you chose is never overridden. **Settings → Labels & Colors → Auto-color a newly opened tree** turns
 this off.
 
 **The legend** is a draggable card (double-click sends it home). Each row shows a color
@@ -1090,7 +1094,7 @@ inside order — from the tree's own taxonomy:
 
 | Mode | What you get |
 | --- | --- |
-| **Shaded boxes** | a translucent wash behind each clade, in the clade's colour |
+| **Shaded boxes** | a translucent wash behind each clade, in the clade's colour, *named in the legend* or *named beside each box* |
 | **Bars + labels** | a solid colour bar per clade past the tip labels, with the taxon name |
 | **Brackets `]` + labels** | the same, as a black-and-white bracket (no colour key) |
 
@@ -1116,16 +1120,33 @@ parent.
 - **Skip single-member clades** (on by default) drops bars for one-tip taxa; turn it off
   for a deep backbone like the animal demo, where one representative per class is normal.
 
-The legend has a titled block per rank; clicking a row recolours that taxon at its rank.
+The legend has a titled block per rank; clicking a row recolours that taxon at its rank. It
+sits beside the **Color by** and **Size by** legends; each is dragged, clicked and reset on
+its own. The legend belongs to whichever of the clade marks and **Colorize Subtrees via
+Taxonomic Rank** you applied last. Both have colours of their own, apart from Color by's. A
+clade mark whose name Color by also shows (Color by **Genus** with genus boxes) wears its
+Color-by colour, so a name has one colour in both legends. Colorized subtrees keep the branch
+colours they were given: Color by never repaints the branches.
+
+**Named beside each box** draws each clade's name past its box instead of a legend. The
+rectangular layout names a box only where it is a line tall (as wide as its name, with the
+root at top or bottom), so no two names meet; circular and unrooted place the names
+largest clade first, past every tip label, unrooted moving a name outward along its spoke
+where it would touch another name or a label (and leaving it out when six lines out are not
+clear either), circular leaving it out. A saved figure keeps the choice.
 
 ### Where it works
 
-In the three **rectangular** orientations and in **circular** (as rings); **not in
-unrooted**, whose tips sit at different radii and a clade need not occupy one sector.
+In the three **rectangular** orientations and in **circular** (as rings). In **unrooted**,
+a shaded box is a sector of the clade's own wedge (its tips' share of the full turn, about
+its root), out past its tips' labels and domains; a bar or bracket is a small square at the
+wedge's mouth (in the clade's colour, or outlined for a bracket) with the name past it,
+placed like the box names, each broader rank a level further out.
 Boxes stay **single-level**: nested translucent washes would multiply into a colour no
 legend row claims. *Also write the clade taxa into the tree* makes the annotation real,
 saveable internal-node taxonomies (undoable). Demos: **Animal Tree of Life (Nested Clade
-Levels)** and **Bat Phylogeny (Taxonomy by Rank)**.
+Levels)**, **Bat Phylogeny (Taxonomy by Rank)**, and `clade-boxes.xml` with its crowded
+twin.
 
 ### Where the taxa come from
 
