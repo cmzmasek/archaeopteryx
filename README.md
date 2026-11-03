@@ -574,6 +574,11 @@ Save a tree as **phyloXML** and its figure is stored with it and restored on reo
 Each tab keeps its own figure. The **×** on a tab asks before discarding unsaved
 changes, like **File → Close Tab**.
 
+- **What the figure says wins** over what Archaeopteryx switches on for the data when a
+  tree opens: confidence values, node events, branch colours and widths, domain
+  architectures and the alignment come back on or off as saved, and so does the choice of
+  phylogram, aligned phylogram or cladogram. A tree without branch lengths still opens as
+  a cladogram.
 - **Only phyloXML carries it** — Newick and Nexus have nowhere to put it.
 - **The theme is not part of it** — fonts, colours and light/dark stay the reader's own.
 - **A figure from a newer version still opens**; anything an older Archaeopteryx cannot
@@ -1318,7 +1323,7 @@ amino acids), nor do `B`, `X` and `Z`. Kyte & Doolittle (1982) is cited under **
 References**.
 
 The **Sequence Alignment** checkbox (*Display Data*; shown only for a tree with aligned
-sequences, ticked on opening) is **per tab**; **Settings → Overlays** has it too, with the
+sequences, ticked on opening unless the tree's saved figure has it off) is **per tab**; **Settings → Overlays** has it too, with the
 **Alignment column width** (remembered). Loading is undoable, and the track renders in
 every export. It is drawn in the rectangular **root-left** layout. Demo: **Alignment next
 to Tree**.
