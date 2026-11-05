@@ -260,6 +260,15 @@ colour and adds `[found/total]`; all tips hit fills it and bolds the label. A cl
 holding a hit stays bright under **Dim Non-Matches**. Archaeopteryx.js draws collapsed
 clades the same way.
 
+**Support dots** (*Settings → Fonts, Nodes and Branches → Show support as*) put one
+filled dot, in the branch's colour, on the middle of every branch whose support is at or
+above the **Support threshold** — 0.95 of the tree's own scale by default, so ≥ 95%
+bootstrap or ≥ 0.95 posterior probability. **Support dot size** sets the dot's diameter
+in pixels (5 by default; **Reset to Defaults** restores it). The same control offers
+**size-scaled dots** (a dot whose diameter is the support value itself; the size setting
+does not apply) and **branch color** (weak support fades toward the background).
+Archaeopteryx.js's **Support Dots** are the same mark, sized from the branch width there.
+
 **Auto-hide Labels** (*Display Data*, on by default) hides a mark only where something
 already drawn is really in its way: a tip or clade label over another label (tip names
 first, then clade names, larger clades first; a search hit's label always drawn); a
