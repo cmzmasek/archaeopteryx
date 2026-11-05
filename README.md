@@ -1095,13 +1095,19 @@ The map, entropy and frequencies panels are not imported.
 ## Annotating clades by rank
 
 **Tools → Annotate Clades by Rank…** draws nested rank brackets — genus inside family
-inside order — from the tree's own taxonomy:
+inside order — from the tree's own taxonomy, or a shaded clade with the bracket that
+groups it:
 
 | Mode | What you get |
 | --- | --- |
 | **Shaded boxes** | a translucent wash behind each clade, in the clade's colour, *named in the legend* or *named beside each box* |
 | **Bars + labels** | a solid colour bar per clade past the tip labels, with the taxon name |
 | **Brackets `]` + labels** | the same, as a black-and-white bracket (no colour key) |
+
+The mode is the main rank's. Up to two more ranks go under **Additional nested levels** as
+bar or bracket columns: with Bars or Brackets they follow the main rank's style; with
+Shaded boxes you choose *drawn as bars* or *drawn as brackets*, and the columns sit past
+the boxes (see below).
 
 To **remove the marks**, pick *(none) — stop drawing the clade marks* at the top of the
 rank list (offered only when there are marks, and never preselected, so OK cannot wipe
@@ -1110,22 +1116,33 @@ them by accident). It removes the drawing only: clade taxa you wrote into the tr
 
 ### More than one rank at once
 
-**Bars** and **Brackets** show **up to three ranks** as nested columns (the main rank plus
-two under *Additional nested levels*, in any order): the finest is always drawn nearest
-the tips, the broadest outermost. Colours are **hue-banded** — each broadest-rank clade
-owns a slice of the colour wheel and the clades inside are shades of it (in the animal
-demo *Mammalia*, *Aves* and *Amphibia* are greens inside *Chordata*). A single rank gets
-the plain distinct palette. Containment is read from the **tree**, not the names; a clade
-whose broader rank could not be resolved is drawn **desaturated** rather than implying a
-parent.
+Up to **three ranks** draw at once (the main rank plus two under *Additional nested
+levels*, in any order): **Bars** and **Brackets** as nested columns, the finest always
+nearest the tips, the broadest outermost. Colours are **hue-banded** — each broadest-rank
+clade owns a slice of the colour wheel and the clades inside are shades of it (in the
+animal demo *Mammalia*, *Aves* and *Amphibia* are greens inside *Chordata*). A single rank
+gets the plain distinct palette. Containment is read from the **tree**, not the names; a
+clade whose broader rank could not be resolved is drawn **desaturated** rather than
+implying a parent.
+
+**Shaded boxes** take columns too: genus boxes with family brackets past the tip labels,
+or with up to two bar or bracket columns. The boxes are one level (nested translucent
+washes would multiply into a colour no legend row claims) and are not a column: they sit
+behind the tree whatever their rank, and when named beside each box the names take their
+own room before the first column. Pick the **same rank** for a column and the boxes (genus
+boxes with genus brackets) and the bracket **names each box**: the *named beside each box*
+choice is greyed, the rank is drawn once, and a bar at that rank wears its box's colour,
+one legend row per taxon. Demo: `clade-boxes-with-brackets.xml`.
 
 - **Label angle is per level** (*Vertical / Diagonal / Horizontal*). Vertical is compact
   for a few large clades; use **Horizontal** for many one- or two-tip clades, whose
   vertical labels would overprint.
-- **Skip single-member clades** (on by default) drops bars for one-tip taxa; turn it off
-  for a deep backbone like the animal demo, where one representative per class is normal.
+- **Skip single-member clades** (on by default) drops bars and brackets for one-tip taxa; turn
+  it off for a deep backbone like the animal demo, where one representative per class is
+  normal. A shaded box is never skipped: a one-tip clade keeps its wash.
 
-The legend has a titled block per rank; clicking a row recolours that taxon at its rank. It
+The legend has a titled block per rank that needs a key — bars, and shaded boxes named in
+the legend; brackets carry no colour — and clicking a row recolours that taxon at its rank. It
 sits beside the **Color by** and **Size by** legends; each is dragged, clicked and reset on
 its own. The legend belongs to whichever of the clade marks and **Colorize Subtrees via
 Taxonomic Rank** you applied last. Both have colours of their own, apart from Color by's. A
@@ -1146,12 +1163,11 @@ In the three **rectangular** orientations and in **circular** (as rings). In **u
 a shaded box is a sector of the clade's own wedge (its tips' share of the full turn, about
 its root), out past its tips' labels and domains; a bar or bracket is a small square at the
 wedge's mouth (in the clade's colour, or outlined for a bracket) with the name past it,
-placed like the box names, each broader rank a level further out.
-Boxes stay **single-level**: nested translucent washes would multiply into a colour no
-legend row claims. *Also write the clade taxa into the tree* makes the annotation real,
-saveable internal-node taxonomies (undoable). Demos: **Animal Tree of Life (Nested Clade
-Levels)**, **Bat Phylogeny (Taxonomy by Rank)**, and `clade-boxes.xml` with its crowded
-twin.
+placed like the box names, each broader rank a level further out, the shaded boxes' names
+(when drawn beside them) before the first of them. *Also write the clade taxa into the
+tree* makes the annotation real, saveable internal-node taxonomies (undoable). Demos:
+**Animal Tree of Life (Nested Clade Levels)**, **Bat Phylogeny (Taxonomy by Rank)**,
+`clade-boxes.xml` with its crowded twin, and `clade-boxes-with-brackets.xml`.
 
 ### Where the taxa come from
 
