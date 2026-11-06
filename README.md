@@ -282,10 +282,10 @@ are hidden lacks them (the export report says so).
 
 **The node menu.** A click on a node — left, right or ctrl-click alike — opens a menu
 for that node, titled with its name: show its data; switch to its subtree; collapse,
-swap or ladderize; colorize; re-root; select; open its sequence or taxonomy entry; and,
+swap or ladderize; colorize; re-root; select; open its sequence, PDB or taxonomy entry; and,
 below a separator, everything that changes the tree: edit its data or style; cut, copy,
 paste, add; delete. Each entry acts once; nothing is remembered. An entry that does not apply here is greyed,
-never hidden, with the reason as its tooltip where there is one (**Root/Reroot**, **Open Taxonomy DB**, the entries
+never hidden, with the reason as its tooltip where there is one (**Root/Reroot**, **Open PDB**, **Open Taxonomy DB**, the entries
 the unrooted layout cannot offer). A **shift-click** on a node, a branch or a collapsed
 wedge selects or deselects it instead (a branch or a wedge: the tips of its clade).
 
@@ -628,11 +628,20 @@ distance from the root.
   name when there is no id), the taxonomy code UniProt's mnemonic search; an accession
   and each cross-reference the database its source names (UniProt; NCBI Protein or
   Nucleotide, chosen by the accession's format; NCBI Gene; InterPro; Pfam; Ensembl; ENA;
-  Pathoplexus); a domain its Pfam entry (without one, an InterPro search for its name); a
-  DOI doi.org; a URI or metadata value that is a web address, itself. A common name, or a
-  source or provider Archaeopteryx does not know, stays plain text. The node menu opens
-  the same pages: **Open Taxonomy DB** the identifier's (else the scientific name's, else
-  the code's), **Open Sequence DB** the accession's.
+  Pathoplexus; PDB, at RCSB); a domain its Pfam entry (without one, an InterPro search for
+  its name); a DOI doi.org; a URI or metadata value that is a web address, itself. A
+  metadata field named for PDB identifiers (`pdb_ids`, `pdb_id`, `pdb`, `pdb_entry`,
+  `pdb_code`, `pdb_accession`, `pdb_structure`, singular or plural, with or without
+  separators, in any namespace) lists them: each identifier in it (`4KQZ`, or `4KQZ_A`
+  with its chain) is a link to its RCSB PDB entry, and a listed token that is no
+  identifier stays text. A common name, a source or
+  provider Archaeopteryx does not know, or an identifier-shaped value under another
+  field name, stays plain text. The node menu opens the same pages: **Open Taxonomy DB**
+  the identifier's (else the scientific name's, else the code's), **Open Sequence DB** the
+  accession's, **Open PDB** the node's PDB entries — one entry is named by its identifier
+  in the menu, several open as a submenu with one item each (more than twenty, in pages
+  of twenty, each named by its first and last identifier); with none, the entry is greyed
+  and says so.
 - **Metadata is a table** — reference, value, unit, datatype, applies-to — with
   **+ / − metadata field**. References and units need a namespace prefix (`data:depth`,
   `METRIC:m`); an `xsd:decimal` value must be a number. *Color by*, *Size by* and the
