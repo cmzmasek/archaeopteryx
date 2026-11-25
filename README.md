@@ -1567,6 +1567,48 @@ script, say so on the [issue tracker](https://github.com/cmzmasek/forester/issue
 
 ---
 
+## Embedding the viewer in another Java program
+
+A Swing program can show Archaeopteryx inside one of its own windows (since 0.11.203;
+contributed by Koen van der Heide). Put `forester.jar` on the class path (Java 21 or
+newer) and ask for a viewer:
+
+```java
+MainFrameApplication viewer =
+    MainFrameApplication.createEmbeddedInstance(phylogenies, new Configuration(), "My trees");
+frame.setJMenuBar(viewer.getJMenuBar());   // the viewer's menus, in your window
+frame.getContentPane().add(viewer);        // the viewer is a JPanel
+...
+viewer.end();                              // when you close it
+```
+
+`phylogenies` is an array of `org.forester.phylogeny.Phylogeny`, one tab each (it may be
+empty); the last argument names a tab whose tree has neither a name nor an identifier.
+The call may come from any thread; the viewer is built on the event thread. The trees are
+fitted once your window has laid the panel out.
+
+What an embedded viewer leaves to its host:
+
+- **The look and feel.** It installs none and changes no `UIManager` default; the tree
+  canvas takes the light theme, and the theme toggle is not there.
+- **The JVM.** The File menu has no **Exit**, and a fatal error never ends the JVM.
+- **Saved state.** It neither reads nor writes the standalone application's saved display
+  settings, last-used directories, recent files or theme; there is no **Open Recent**.
+
+`end()` closes the viewer at once, without asking about unsaved edits — ask first if you
+want a confirmation — together with the windows it opened (Settings, a report, the clock
+plot); work that finishes afterwards changes nothing. A modal dialog that your window
+owns stays until the user dismisses it. After `end()`, remove the panel and the menu bar,
+or dispose their window. `isClosed()` tells whether a viewer has ended.
+
+**If your program already called `Archaeopteryx.createApplication(...)`:** it still opens
+a standalone window, but since 0.11.203 what it returns is the viewer panel inside that
+window, not the window. `dispose()` on it still closes the window; for anything else of
+the window (title, size, position), take it with
+`SwingUtilities.getWindowAncestor(viewer)`.
+
+---
+
 ## When something goes wrong
 
 An installed Archaeopteryx has no console, so unexpected errors are written to
